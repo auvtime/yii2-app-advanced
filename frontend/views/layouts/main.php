@@ -65,7 +65,7 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-        	<p class="pull-left">&copy; auvtime <?= date('Y') ?></p>
+        	<p class="pull-left auvtime-footer">&copy; auvtime <?= date('Y') ?></p>
         </div>
     </footer>
 
