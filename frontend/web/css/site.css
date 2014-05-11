@@ -7,7 +7,9 @@ html,body {
 	float: left;
 	padding-top: 100px;
 }
-
+.logo{
+	background: url(images/auvtime.png);
+}
 .wrap {
 	min-height: 100%;
 	height: auto;

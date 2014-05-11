@@ -13,6 +13,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $birthday;
 
     /**
      * @inheritdoc
@@ -22,16 +23,17 @@ class SignupForm extends Model
         return [
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => \Yii::t('auvtime', 'This username has already been taken.')],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => \Yii::t('auvtime', 'This email address has already been taken.')],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+            ['birthday','required'],
         ];
     }
 
@@ -48,10 +50,51 @@ class SignupForm extends Model
             $user->email = $this->email;
             $user->setPassword($this->password);
             $user->generateAuthKey();
+            $user->birthday = $this->birthday;
+            Yii::info("@@@@@@@birthday:".$this->birthday,'auvtime');
+            Yii::info($this->array_to_json_string($user),'auvtime');
             $user->save();
             return $user;
         }
 
         return null;
+    }
+    
+    public function array_to_json_string($arraydata) {
+    	$output = "";
+    	$output .= "{";
+    	foreach($arraydata as $key=>$val){
+    		if (is_array($val)) {
+    			$output .= "\"".$key."\" : [{";
+    			foreach($val as $subkey=>$subval){
+    				$output .= "\"".$subkey."\" : \"".$subval."\",";
+    			}
+    			$output .= "}],";
+    		} else {
+    			$output .= "\"".$key."\" : \"".$val."\",";
+    		}
+    	}
+    	$output .= "}";
+    	return $output;
+    }
+    
+    /**
+     * (non-PHPdoc)
+     * @see \yii\base\Model::attributeLabels()
+     * @return multitype:
+     * @author WangXianfeng 2014-5-11 上午9:50:31
+     */
+    public function attributeLabels()
+    {
+    	$username = \Yii::t('auvtime', 'username');
+    	$email = \Yii::t('auvtime', 'email');
+    	$password = \Yii::t('auvtime', 'password');
+    	$birthday = \Yii::t('auvtime', 'birthday');
+    	return [
+			'username'=>$username,
+			'email'=>$email,
+			'password'=>$password,
+			'birthday'=>$birthday,
+    	];
     }
 }

@@ -11,15 +11,23 @@ use yii\web\IdentityInterface;
  *
  * @property integer $id
  * @property string $username
+ * @property string $nickname
+ * @property string $birthday
+ * @property string $public_flag
+ * @property string $leave_age
+ * @property string $time_unit
+ * @property string $mobile
+ * @property string $face
+ * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
- * @property string $auth_key
  * @property integer $role
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
- * @property string $password write-only password
+ * @property string $create_time
+ * @property string $update_time
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -55,6 +63,17 @@ class User extends ActiveRecord implements IdentityInterface
 
              ['role', 'default', 'value' => self::ROLE_USER],
              ['role', 'in', 'range' => [self::ROLE_USER]],
+             
+             [['username', 'auth_key', 'password_hash', 'email'], 'required'],
+             [['leave_age', 'role', 'status', 'created_at', 'updated_at'], 'integer'],
+             [['create_time', 'update_time'], 'safe'],
+             [['username', 'nickname', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+             [['public_flag'], 'string', 'max' => 10],
+             [['time_unit'], 'string', 'max' => 20],
+             [['mobile'], 'string', 'max' => 120],
+             [['face'], 'string', 'max' => 1000],
+             [['auth_key'], 'string', 'max' => 32],
+             [['username'], 'unique'],
          ];
      }
 
