@@ -71,4 +71,21 @@ class LoginForm extends Model
 
         return $this->_user;
     }
+	/**
+	 * (non-PHPdoc)
+	 * 
+	 * @see \yii\base\Model::attributeLabels()
+	 * @return multitype:string Ambigous <string, string, boolean>
+	 * @author WangXianfeng 2014-5-12 下午9:46:41
+	 */
+	public function attributeLabels() {
+		$username = \Yii::t ( 'auvtime', 'Username' );
+		$password = \Yii::t ( 'auvtime', 'Password' );
+		$rememberme = \Yii::t('auvtime', 'Remember Me');
+		return [ 
+				'username' => $username,
+				'password' => $password,
+				'rememberMe' => $rememberme,
+		];
+	}
 }

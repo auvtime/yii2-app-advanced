@@ -54,4 +54,17 @@ class PasswordResetRequestForm extends Model
 
         return false;
     }
+	/**
+	 * (non-PHPdoc)
+	 * 
+	 * @see \yii\base\Model::attributeLabels()
+	 * @return multitype:string Ambigous <string, string, boolean>
+	 * @author WangXianfeng 2014-5-12 下午10:10:32
+	 */
+	public function attributeLabels() {
+		$email = \Yii::t ( 'auvtime', 'email' );
+		return [ 
+				'email' => $email,
+    	];
+    }
 }

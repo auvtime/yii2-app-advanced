@@ -4,7 +4,6 @@ namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
-
 /**
  * ContactForm is the model behind the contact form.
  */
@@ -27,7 +26,7 @@ class ContactForm extends Model
             // email has to be a valid email address
             ['email', 'email'],
             // verifyCode needs to be entered correctly
-            ['verifyCode', 'captcha'],
+            
         ];
     }
 
@@ -36,8 +35,17 @@ class ContactForm extends Model
      */
     public function attributeLabels()
     {
+    	$nameLabel = \Yii::t('contact', 'name');
+    	$emailLabel = \Yii::t('contact', 'email');
+    	$subjectLabel = \Yii::t('contact', 'subject');
+    	$bodyLabel = \Yii::t('contact', 'body');
+    	$verifyCodeLabel = \Yii::t('contact', 'Verification Code');
         return [
-            'verifyCode' => 'Verification Code',
+        	'name' => $nameLabel,
+        	'email' => $emailLabel,
+        	'subject' => $subjectLabel,
+        	'body' => $bodyLabel,
+            'verifyCode' => $verifyCodeLabel,
         ];
     }
 

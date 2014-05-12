@@ -9,11 +9,11 @@ ClockAsset::register($this);
 <div class="site-index">
 	<div class="jumbotron">
 		<h1>AUVTime</h1>
-		<p class="lead">It's all about time!</p>
+		<p class="lead"><?php echo \Yii::t('auvtime', 'It\'s all about time!')?></p>
 	</div>
 	<div class="body-content">
 		<div class="time-maxim">
-           <span>The time never stops it's step,so let's value our time!</span>
+           <span><?php echo \Yii::t('auvtime', 'The time never stops it\'s step,so let\'s value our time!')?></span>
         </div>
 	</div>
 </div>

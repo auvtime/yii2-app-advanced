@@ -30,6 +30,14 @@ return [
 										'fileMap' => [ 
 												'auvtime' => 'auvtime.php' 
 										] 
+								],
+								'contact' => [ 
+										'class' => 'yii\i18n\PhpMessageSource',
+										'sourceLanguage' => 'en',
+										'basePath' => '@app/messages',
+										'fileMap' => [ 
+												'contact' => 'contact.php' 
+										] 
 								] 
 						] 
 				] 

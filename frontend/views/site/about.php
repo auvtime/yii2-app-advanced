@@ -4,13 +4,13 @@ use yii\helpers\Html;
 /**
  * @var yii\web\View $this
  */
-$this->title = '关于我';
+$aboutme = \Yii::t('auvtime', 'aboutme');
+$this->title = $aboutme;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>This is the About page. You may modify the following file to customize its content:</p>
+    <h2><?php echo \Yii::t('auvtime', 'Everything is about time here!')?></h2>
 
-    <code><?= __FILE__ ?></code>
 </div>
