@@ -70,34 +70,37 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "d5de1206f7df24f4942d624beec8af2f840d9e40"
+                "reference": "e451b70d71755e9f38f1887280e0bd05ef04fff0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/d5de1206f7df24f4942d624beec8af2f840d9e40",
-                "reference": "d5de1206f7df24f4942d624beec8af2f840d9e40",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/e451b70d71755e9f38f1887280e0bd05ef04fff0",
+                "reference": "e451b70d71755e9f38f1887280e0bd05ef04fff0",
                 "shasum": ""
             },
             "require": {
-                "fabpot/goutte": "*",
                 "facebook/webdriver": "~0.4",
+                "guzzlehttp/guzzle": "4.*",
                 "php": ">=5.4.0",
                 "phpunit/phpunit": "~4.0",
+                "symfony/browser-kit": "~2.3",
                 "symfony/console": "~2.3",
+                "symfony/css-selector": "~2.3",
+                "symfony/dom-crawler": "~2.3",
                 "symfony/event-dispatcher": "~2.3",
                 "symfony/finder": "~2.3",
                 "symfony/yaml": "~2.3"
             },
             "require-dev": {
-                "codeception/robo-paracept": "@dev",
-                "codeception/specify": "*",
                 "facebook/php-sdk": "3.*",
                 "monolog/monolog": "*",
                 "videlalvaro/php-amqplib": "*"
             },
             "suggest": {
                 "codeception/phpbuiltinserver": "Extension to start and stop PHP built-in web server for your tests",
-                "codeception/verify": "BDD-style assertions"
+                "codeception/specify": "BDD-style code blocks",
+                "codeception/verify": "BDD-style assertions",
+                "monolog/monolog": "Log test steps"
             },
             "bin": [
                 "codecept"
@@ -128,7 +131,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2014-05-05 20:19:27"
+            "time": "2014-05-13 19:55:57"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -176,57 +179,6 @@
             "time": "2013-11-30 08:25:19"
         },
         {
-            "name": "fabpot/goutte",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fabpot/Goutte.git",
-                "reference": "ca8daadca6d188383b2a6c5a88c88090aa3ae401"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Goutte/zipball/ca8daadca6d188383b2a6c5a88c88090aa3ae401",
-                "reference": "ca8daadca6d188383b2a6c5a88c88090aa3ae401",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "4.*",
-                "php": ">=5.4.0",
-                "symfony/browser-kit": "~2.1",
-                "symfony/css-selector": "~2.1",
-                "symfony/dom-crawler": "~2.1"
-            },
-            "type": "application",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Goutte": "."
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                }
-            ],
-            "description": "A simple PHP Web Scraper",
-            "homepage": "https://github.com/fabpot/Goutte",
-            "keywords": [
-                "scraper"
-            ],
-            "time": "2014-05-08 11:28:18"
-        },
-        {
             "name": "facebook/webdriver",
             "version": "v0.4",
             "source": {
@@ -272,12 +224,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "b2edcf2dc1b37623f648f181d729ecac0ce0c930"
+                "reference": "4c6962b8cf2e201a4dd27d4686f1cfc5f760ddd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b2edcf2dc1b37623f648f181d729ecac0ce0c930",
-                "reference": "b2edcf2dc1b37623f648f181d729ecac0ce0c930",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/4c6962b8cf2e201a4dd27d4686f1cfc5f760ddd6",
+                "reference": "4c6962b8cf2e201a4dd27d4686f1cfc5f760ddd6",
                 "shasum": ""
             },
             "require": {
@@ -329,7 +281,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-05-04 22:41:11"
+            "time": "2014-05-13 19:56:27"
         },
         {
             "name": "guzzlehttp/streams",
@@ -588,12 +540,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32"
+                "reference": "955c24b708f8bfd6a05f303217a8dac3a443d531"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/ad4e1e23ae01b483c16f600ff1bebec184588e32",
-                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/955c24b708f8bfd6a05f303217a8dac3a443d531",
+                "reference": "955c24b708f8bfd6a05f303217a8dac3a443d531",
                 "shasum": ""
             },
             "require": {
@@ -630,7 +582,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2014-03-03 05:10:30"
+            "time": "2014-05-12 05:34:42"
         },
         {
             "name": "phpunit/phpunit",
@@ -638,12 +590,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "f284576f0345dffe3c25330be481c6240f5aa641"
+                "reference": "270cdf04ea2965711205e8c64bf1d56d058cc76e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f284576f0345dffe3c25330be481c6240f5aa641",
-                "reference": "f284576f0345dffe3c25330be481c6240f5aa641",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/270cdf04ea2965711205e8c64bf1d56d058cc76e",
+                "reference": "270cdf04ea2965711205e8c64bf1d56d058cc76e",
                 "shasum": ""
             },
             "require": {
@@ -704,7 +656,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-05-05 06:17:41"
+            "time": "2014-05-13 14:02:36"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -834,12 +786,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "684fe22b1549ad103a0ad8934defefda63527d0d"
+                "reference": "ac84cfdec593945f36f24074d6ea17d296e86f76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/684fe22b1549ad103a0ad8934defefda63527d0d",
-                "reference": "684fe22b1549ad103a0ad8934defefda63527d0d",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/ac84cfdec593945f36f24074d6ea17d296e86f76",
+                "reference": "ac84cfdec593945f36f24074d6ea17d296e86f76",
                 "shasum": ""
             },
             "require": {
@@ -876,7 +828,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2014-05-11 05:24:06"
+            "time": "2014-05-12 05:21:40"
         },
         {
             "name": "sebastian/environment",
@@ -1148,12 +1100,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "ea1e32f8f3c78ca1a31f5a730229b028f1e76431"
+                "reference": "55ba7eb2543f95cc93f26b1a4c2fc618d2a01cc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/ea1e32f8f3c78ca1a31f5a730229b028f1e76431",
-                "reference": "ea1e32f8f3c78ca1a31f5a730229b028f1e76431",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/55ba7eb2543f95cc93f26b1a4c2fc618d2a01cc3",
+                "reference": "55ba7eb2543f95cc93f26b1a4c2fc618d2a01cc3",
                 "shasum": ""
             },
             "require": {
@@ -1196,7 +1148,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-09 08:15:02"
+            "time": "2014-05-12 09:28:39"
         },
         {
             "name": "symfony/css-selector",
@@ -1372,12 +1324,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "51e3af2081d8497f6552cb3338e8a40541646773"
+                "reference": "1343b576d1401f4a5117cab4e250201ae348143a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/51e3af2081d8497f6552cb3338e8a40541646773",
-                "reference": "51e3af2081d8497f6552cb3338e8a40541646773",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/1343b576d1401f4a5117cab4e250201ae348143a",
+                "reference": "1343b576d1401f4a5117cab4e250201ae348143a",
                 "shasum": ""
             },
             "require": {
@@ -1412,7 +1364,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-28 05:15:04"
+            "time": "2014-05-12 09:28:39"
         },
         {
             "name": "symfony/yaml",
@@ -1469,12 +1421,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "696844fe08f26a72725c984f160bba11cfbebc5d"
+                "reference": "828a5baa00093b5fd9ddcb83251775d2b4f40092"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/696844fe08f26a72725c984f160bba11cfbebc5d",
-                "reference": "696844fe08f26a72725c984f160bba11cfbebc5d",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/828a5baa00093b5fd9ddcb83251775d2b4f40092",
+                "reference": "828a5baa00093b5fd9ddcb83251775d2b4f40092",
                 "shasum": ""
             },
             "type": "library",
@@ -1509,7 +1461,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2014-05-10 19:41:01"
+            "time": "2014-05-13 09:08:25"
         },
         {
             "name": "yiisoft/jquery",
@@ -1566,12 +1518,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "195ddb68ee4741fde8e353ffd09d37a9011bb28c"
+                "reference": "4a7c9a00b61e1f4f9c55b2df0d0b5792d9576028"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/195ddb68ee4741fde8e353ffd09d37a9011bb28c",
-                "reference": "195ddb68ee4741fde8e353ffd09d37a9011bb28c",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/4a7c9a00b61e1f4f9c55b2df0d0b5792d9576028",
+                "reference": "4a7c9a00b61e1f4f9c55b2df0d0b5792d9576028",
                 "shasum": ""
             },
             "require": {
@@ -1636,7 +1588,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-05-09 14:28:11"
+            "time": "2014-05-14 02:02:49"
         },
         {
             "name": "yiisoft/yii2-bootstrap",

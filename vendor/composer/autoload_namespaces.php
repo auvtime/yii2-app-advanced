@@ -14,7 +14,6 @@ return array(
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'Symfony\\Component\\BrowserKit\\' => array($vendorDir . '/symfony/browser-kit'),
     'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
-    'Goutte' => array($vendorDir . '/fabpot/goutte'),
     'Diff' => array($vendorDir . '/phpspec/php-diff/lib'),
     'Codeception' => array($vendorDir . '/codeception/codeception/src'),
 );

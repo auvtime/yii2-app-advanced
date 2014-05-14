@@ -5,8 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\validators;
-
+namespace auvtime\contact\validators;
 use Yii;
 
 /**
