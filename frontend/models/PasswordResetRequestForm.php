@@ -23,7 +23,7 @@ class PasswordResetRequestForm extends Model
             ['email', 'exist',
                 'targetClass' => '\common\models\User',
                 'filter' => ['status' => User::STATUS_ACTIVE],
-                'message' => 'There is no user with such email.'
+                'message' =>  \Yii::t ( 'auvtime','There is no user with such email.'),
             ],
         ];
     }
@@ -45,9 +45,9 @@ class PasswordResetRequestForm extends Model
             $user->generatePasswordResetToken();
             if ($user->save()) {
                 return \Yii::$app->mail->compose('passwordResetToken', ['user' => $user])
-                    ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
+                    ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . \Yii::t('auvtime', ' admin')])
                     ->setTo($this->email)
-                    ->setSubject('Password reset for ' . \Yii::$app->name)
+                    ->setSubject(\Yii::t('auvtime', 'Password reset for ') . \Yii::$app->name)
                     ->send();
             }
         }

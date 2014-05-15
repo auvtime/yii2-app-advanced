@@ -1,5 +1,7 @@
 <?php
 return [ 
+		'name' => 'AUVTime',
+		'charset' => 'utf-8',
 		'vendorPath' => dirname ( dirname ( __DIR__ ) ) . '/vendor',
 		'extensions' => require (__DIR__ . '/../../vendor/yiisoft/extensions.php'),
 		'language' => 'zh_CN',
