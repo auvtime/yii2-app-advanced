@@ -18,7 +18,7 @@ use yii\web\AssetBundle;
  * @since 1.0
  */
 class ClockAsset extends AssetBundle {
-	public $sourcePath = '@vendor/auvtime/clock';
+	public $sourcePath = '@app/auvtime/clock';
 	public $js = [ 
 			'clock.js' 
 	];

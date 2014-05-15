@@ -18,7 +18,7 @@ use yii\web\AssetBundle;
  * @since 1.0
  */
 class My97DatePickerAsset extends AssetBundle {
-	public $sourcePath = '@vendor/auvtime/My97DatePicker';
+	public $sourcePath = '@app/auvtime/My97DatePicker';
 	public $js = [ 
 			'WdatePicker.js' 
 	];

@@ -18,7 +18,7 @@ use yii\web\AssetBundle;
  * @since 1.0
  */
 class SignUpBirthdayAsset extends AssetBundle {
-	public $sourcePath = '@vendor/auvtime/signup';
+	public $sourcePath = '@app/auvtime/signup';
 	public $js = [ 
 			'signup.js' 
 	];
