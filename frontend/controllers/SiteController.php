@@ -27,7 +27,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'signup','lifeTime'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -35,7 +35,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout','lifeTime'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -176,6 +176,7 @@ class SiteController extends Controller
 		if (\Yii::$app->user->isGuest) {
 			return $this->actionLogin ();
 		}
+		// 如果用户已经登录，则获取用户信息
 		$model = Yii::$app->user;
 		return $this->render ( 'lifeTime', [ 
 				'model' => $model 

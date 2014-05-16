@@ -34,10 +34,12 @@ AppAsset::register($this);
             ]);
             $menuItems = [
                 ['label' => \Yii::t('auvtime','Home'), 'url' => ['/site/index']],
-                ['label' => \Yii::t('auvtime','Life Time'), 'url' => ['/site/lifeTime']],
-                ['label' => \Yii::t('auvtime','About Us'), 'url' => ['/site/about']],
-                ['label' => \Yii::t('auvtime','Contact Us'), 'url' => ['/site/contact']],
             ];
+            if (!Yii::$app->user->isGuest) {
+            	$menuItems[] = ['label' => \Yii::t('auvtime','Life Time'), 'url' => ['/site/life-time']];
+            }
+            $menuItems[] = ['label' => \Yii::t('auvtime','About Us'), 'url' => ['/site/about']];
+            $menuItems[] = ['label' => \Yii::t('auvtime','Contact Us'), 'url' => ['/site/contact']];
             if (Yii::$app->user->isGuest) {
                 $menuItems[] = ['label' => \Yii::t('auvtime','Sign Up'), 'url' => ['/site/signup']];
                 $menuItems[] = ['label' => \Yii::t('auvtime','Log In'), 'url' => ['/site/login']];
@@ -66,7 +68,7 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-        	<p class="pull-left auvtime-footer">&copy; auvtime <?= date('Y') ?></p>
+        	<p class="pull-left auvtime-footer">&copy; auvtime <?= date('Y') ?>. All Rights Reserved.</p>
         </div>
     </footer>
 

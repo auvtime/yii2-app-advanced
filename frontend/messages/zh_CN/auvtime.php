@@ -25,7 +25,7 @@ return array (
 		'birthday'=>'生日',
 		//关于我
 		'aboutme' => '关于我',
-		'Everything is about time here!' => '这里的一切都是关于时间的！',
+		'Everything is about time here!' => '一切与时间有关！',
 		//登录
 		'Login' => '登录',
 		'Please fill out the following fields to login:' => '请输入用户名和密码进行登录:',

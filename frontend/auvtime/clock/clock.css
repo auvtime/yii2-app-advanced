@@ -5,24 +5,24 @@
 	padding: 0;
 }
 .clock{
-	width:50%;
+	width:100%;
 	float:left;
 }
 #clock {
 	position: relative;
-	width: 600px;
-	height: 580px;
-	margin: -52px auto -30px auto;
-	background: url(images/clockface.jpg);
+	width: 400px;
+	height: 404px;
+	margin: 0 auto 0 auto;
+	background: url(images/clockface.png);
 	list-style: none;
 }
 
 #sec,#min,#hour {
 	position: absolute;
-	width: 30px;
-	height: 600px;
+	width: 20px;
+	height: 400px;
 	top: 0px;
-	left: 285px;
+	left: 190px;
 }
 
 #sec {
