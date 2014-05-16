@@ -33,16 +33,17 @@ AppAsset::register($this);
                 ],
             ]);
             $menuItems = [
-                ['label' => '首页', 'url' => ['/site/index']],
-                ['label' => '关于我', 'url' => ['/site/about']],
-                ['label' => '联系我', 'url' => ['/site/contact']],
+                ['label' => \Yii::t('auvtime','Home'), 'url' => ['/site/index']],
+                ['label' => \Yii::t('auvtime','Life Time'), 'url' => ['/site/lifeTime']],
+                ['label' => \Yii::t('auvtime','About Us'), 'url' => ['/site/about']],
+                ['label' => \Yii::t('auvtime','Contact Us'), 'url' => ['/site/contact']],
             ];
             if (Yii::$app->user->isGuest) {
-                $menuItems[] = ['label' => '注册', 'url' => ['/site/signup']];
-                $menuItems[] = ['label' => '登录', 'url' => ['/site/login']];
+                $menuItems[] = ['label' => \Yii::t('auvtime','Sign Up'), 'url' => ['/site/signup']];
+                $menuItems[] = ['label' => \Yii::t('auvtime','Log In'), 'url' => ['/site/login']];
             } else {
                 $menuItems[] = [
-                    'label' => '登出 (' . Yii::$app->user->identity->username . ')',
+                    'label' => \Yii::t('auvtime','Log Out') .'('. Yii::$app->user->identity->username . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ];

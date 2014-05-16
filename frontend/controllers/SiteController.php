@@ -165,4 +165,20 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    
+    /**
+     * 查看生命长度
+     * 
+     * @author WangXianfeng 2014-5-16 上午9:47:45
+     */
+    public function actionLifeTime() {
+		// 如果用户未登录，则进入到登录界面
+		if (\Yii::$app->user->isGuest) {
+			return $this->actionLogin ();
+		}
+		$model = Yii::$app->user;
+		return $this->render ( 'lifeTime', [ 
+				'model' => $model 
+		] );
+	}
 }

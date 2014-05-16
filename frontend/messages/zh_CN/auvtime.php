@@ -1,5 +1,13 @@
 <?php
 return array (
+		//模板菜单
+		'Home' => '首页',
+		'Life Time' => '生命长度',
+		'About Us' => '关于我们',
+		'Contact Us' => '联系我们',
+		'Sign Up' => '注册',
+		'Log In' => '登录',
+		'Log Out' => '登出',
 		//首页
 		'It\'s all about time!' => '一切与时间有关！',
 		'The time never stops it\'s step,so let\'s value our time!' => '时间永远都不会停止它的步伐，所以让我们珍惜我们的时间吧！',
