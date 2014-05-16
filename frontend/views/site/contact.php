@@ -20,18 +20,18 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-8">
             <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
-                <div class="col-lg-4"><?= $form->field($model, 'name') ?></div>
-                <div class="col-lg-4"><?= $form->field($model, 'email') ?></div>
-                <div class="col-lg-8"><?= $form->field($model, 'subject') ?></div>
-                <div class="col-lg-8"><?= $form->field($model, 'body')->textArea(['rows' => 4]) ?></div>
-               	<div class="col-lg-8">
+                <div class="col-lg-6"><?= $form->field($model, 'name') ?></div>
+                <div class="col-lg-6"><?= $form->field($model, 'email') ?></div>
+                <div class="col-lg-12"><?= $form->field($model, 'subject') ?></div>
+                <div class="col-lg-12"><?= $form->field($model, 'body')->textArea(['rows' => 4]) ?></div>
+               	<div class="col-lg-12">
                 <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
                     'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
                 ]) ?>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-12">
 	                <div class="form-group">
 	                    <?= Html::submitButton(\Yii::t('contact', 'Submit'), ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
 	                </div>

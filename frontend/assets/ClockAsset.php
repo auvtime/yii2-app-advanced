@@ -26,6 +26,6 @@ class ClockAsset extends AssetBundle {
 			'clock.css' 
 	];
 	public $depends = [ 
-			'yii\web\JqueryAsset',
+			'frontend\assets\AppAsset'
 	];
 }
