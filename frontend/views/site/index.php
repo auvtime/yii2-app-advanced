@@ -1,6 +1,5 @@
 <?php
 use frontend\assets\ClockAsset;
-use frontend\assets\HomePageAsset;
 /**
  * @var yii\web\View $this
  */
