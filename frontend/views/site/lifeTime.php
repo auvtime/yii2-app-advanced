@@ -48,7 +48,7 @@ LifeTimeAsset::register ( $this );
 							</div>
 							<div class="panel-body">
 								<div class="life-time-container">
-									<div class="life-time"><?php echo $model->getLifeTimeDisplay()?></div>
+									<div class="life-time" id="lifeTime"><?php echo $model->getLifeTimeDisplay()?></div>
 								</div>
 							</div>
 						</div>
