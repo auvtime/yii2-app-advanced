@@ -213,7 +213,8 @@ class User extends ActiveRecord implements IdentityInterface
 	    	}
 	    	$birthday = $this->getUserBirdyDay();
 	    	$lifeTime = $this->getLifeTime($this->time_unit,$this->birthday);
-	    	$lifeTimeDisplay = $lifeTime;
+	    	$lifeTimeInDays = $this->getLifeTimeInDays($this->time_unit,$this->birthday);
+	    	$lifeTimeDisplay = $lifeTime.','.$lifeTimeInDays.'.';
     	}catch(Exception $e){
     		Yii::error('@@@error occurs when get life time display,error code is '.$e->getName(),'auvtime');
     		throw new HttpException('500', 'error occurs when get life time display');
@@ -268,10 +269,10 @@ class User extends ActiveRecord implements IdentityInterface
 		if (! ($end instanceof DateTime)) {
 			$end = new DateTime ( $end );
 		}
-		Yii::info('@@@When get user\'s life time,the system time is:'.$end->format('Y-m-d H:i:s'));
+		Yii::info('@@@When get user\'s life time,the system time is:'.$end->format('Y-m-d H:i:s'),'auvtime');
 		$interval = $end->diff ( $birthday );
 		$doPlural = function ($nb, $str) {
-			return $nb > 1 ? $str . 's' : $str;
+			return $nb > 1 ? $str . 's ' : $str.' ';
 		}; // adds plurals
 		
 		$format = array ();
@@ -292,26 +293,18 @@ class User extends ActiveRecord implements IdentityInterface
 		}
 		if ($interval->s !== 0) {
 			if (! count ( $format )) {
-				return "less than a minute ago";
+				return \Yii::t('auvtim-lifetime', 'less than a minute ago.');
 			} else {
 				$format [] = "%s" . \Yii::t('auvtime-lifetime', $doPlural ( $interval->s, " second" ));
 			}
 		}
-		
-		// We use the two biggest parts
-		/**if (count ( $format ) > 1) {
-			$format = array_shift ( $format ) . " " . array_shift ( $format );
-		} else {
-			$format = array_pop ( $format );
-		}**/
 		//根据生命单位返回生命长度
 		$jsonFormat = AuvArrayUtil::array_to_json_string($format);
-		Yii::info('@@@user life time json format:'.$jsonFormat);
-		Yii::info('@@@user time unit:'.$timeUnit);
-		Yii::info('@@@user stripos:'.stripos($jsonFormat,'%y'));
+		Yii::info('@@@user life time json format:'.$jsonFormat,'auvtime');
+		Yii::info('@@@user time unit:'.$timeUnit,'auvtime');
 		//根据用户生命单位和格式化字符串获取最终的格式化字符串
 		$format = $this->getUserLifeTimeFormat($timeUnit,$format,$jsonFormat);
-		
+		Yii::info('@@@user life time final format:'.$format,'auvtime');
 		// Prepend 'since ' or whatever you like
 		return $interval->format ( $format );
 	}
@@ -332,67 +325,98 @@ class User extends ActiveRecord implements IdentityInterface
 				$lifeTimeFormat = array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%m' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 		} elseif ($timeUnit === 'DAY') {
 			if (stripos ( $jsonFormat, '%y' ) > 0) {
 				$lifeTimeFormat = array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%m' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%d' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 		} elseif ($timeUnit === 'HOUR') {
 			if (stripos ( $jsonFormat, '%y' ) > 0) {
 				$lifeTimeFormat = array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%m' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%d' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%h' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 		} elseif ($timeUnit === 'MINUTE') {
 			if (stripos ( $jsonFormat, '%y' ) > 0) {
 				$lifeTimeFormat = array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%m' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%d' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%h' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%m' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 		} elseif ($timeUnit === 'SECOND') {
 			if (stripos ( $jsonFormat, '%y' ) > 0) {
 				$lifeTimeFormat = array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%m' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%d' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%h' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%m' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat .' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%s' ) > 0) {
-				$lifeTimeFormat = $lifeTimeFormat .' ' . array_shift ( $format );
+				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 		}
 		return $lifeTimeFormat;
+	}
+	
+	/**
+	 * 以总天数表示年龄
+	 * 
+	 * @param string $timeUnit
+	 * @param DateTime $birthday
+	 * @param DateTime $end
+	 * @return string
+	 * @author WangXianfeng 2014-5-18 上午11:56:23
+	 */
+	public function getLifeTimeInDays($timeUnit,$birthday, $end = null){
+		if (! ($birthday instanceof DateTime)) {
+			$birthday = new DateTime ( $birthday );
+		}
+		
+		if ($end === null) {
+			$end = new DateTime ();
+		}
+		if (! ($end instanceof DateTime)) {
+			$end = new DateTime ( $end );
+		}
+		$doPlural = function ($nb, $str) {
+			return $nb > 1 ? $str . 's' : $str;
+		}; // adds plurals
+		Yii::info('@@@When get user\'s life time in days,the system time is:'.$end->format('Y-m-d H:i:s'),'auvtime');
+		$interval = $end->diff ( $birthday );
+		$lifeTimeInDays = $interval->days;
+		$lifeTimeInDays = $lifeTimeInDays.\Yii::t('auvtime-lifetime', $doPlural ( $lifeTimeInDays," day" ));
+		Yii::info('@@@When get user\'s life time in days,the $passTime  is:'.$lifeTimeInDays,'auvtime');
+		return $lifeTimeInDays;
 	}
 }
