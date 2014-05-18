@@ -41,22 +41,29 @@ $(document).ready(function(){
 			minute += 1;
 			second = 0;
 		}else{
+			minuteFlag = false;
 			second += 1;
 		}
 		if((minute+1)>=60&&minuteFlag){
 			hourFlag = true;
 			hour += 1;
 			minute = 0;
+		}else{
+			hourFlag = false;
 		}
 		if((hour+1)>=24&&hourFlag){
 			dayFlag = true;
 			day += 1;
 			hour = 0;
+		}else{
+			dayFlag = false;
 		}
 		if((day+1)>=getDays&&dayFlag){
 			monthFlag = true;
 			mouth += 1;
 			day = 0;
+		}else{
+			monthFlag = false;
 		}
 		if((month+1)>=12&&monthFlag){
 			year += 1;
