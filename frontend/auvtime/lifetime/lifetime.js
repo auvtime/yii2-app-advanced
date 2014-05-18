@@ -80,96 +80,92 @@ $(document).ready(function(){
  * 根据生命单位获取时间
  * @param timeUnit
  */
-function getDisplay(timeUnit,year,month,day,hour,minute,second,days){
+function getDisplay(timeUnit, year, month, day, hour, minute, second, days) {
 	var display = '';
-	if('SECOND' == timeUnit){
-		if(year != 0){
+	if ('SECOND' == timeUnit) {
+		if (year != 0) {
 			display = year + '岁';
 		}
-		if(month != 0){
+		if (month != 0) {
 			display += month + '个月';
 		}
-		if(day != 0){
+		if (day != 0) {
 			display += day + '天';
 		}
-		if(hour != 0){
-			display += hour + '小时';
-		}
-		if(minute != 0){
-			display += minute + '分钟';
-		}
-		if(second != 0){
-			display += second + '秒';
-		}
-		if(days != 0){
+		display += hour + '小时';
+
+		display += minute + '分钟';
+
+		display += second + '秒';
+
+		if (days != 0) {
 			display += ',' + days + '天.';
 		}
-	}else if('MINUTE' == timeUnit){
-		if(year != 0){
+	} else if ('MINUTE' == timeUnit) {
+		if (year != 0) {
 			display = year + '岁';
 		}
-		if(month != 0){
+		if (month != 0) {
 			display += month + '个月';
 		}
-		if(day != 0){
+		if (day != 0) {
 			display += day + '天';
 		}
-		if(hour != 0){
-			display += hour + '小时';
-		}
-		if(minute != 0){
-			display += minute + '分钟';
-		}
-		if(days != 0){
+
+		display += hour + '小时';
+
+		display += minute + '分钟';
+
+		if (days != 0) {
 			display += ',' + days + '天.';
 		}
-	}else if('HOUR' == timeUnit){
-		if(year != 0){
+	} else if ('HOUR' == timeUnit) {
+		if (year != 0) {
 			display = year + '岁';
 		}
-		if(month != 0){
+		if (month != 0) {
 			display += month + '个月';
 		}
-		if(day != 0){
+		if (day != 0) {
 			display += day + '天';
 		}
-		if(hour != 0){
-			display += hour + '小时';
-		}
-		if(days != 0){
+
+		display += hour + '小时';
+
+		if (days != 0) {
 			display += ',' + days + '天.';
 		}
-	}else if('DAY' == timeUnit){
-		if(year != 0){
+	} else if ('DAY' == timeUnit) {
+		if (year != 0) {
 			display = year + '岁';
 		}
-		if(month != 0){
+		if (month != 0) {
 			display += month + '个月';
 		}
-		if(day != 0){
+		if (day != 0) {
 			display += day + '天';
 		}
-		if(days != 0){
+		if (days != 0) {
 			display += ',' + days + '天.';
 		}
-	}else if('MONTH' == timeUnit){
-		if(year != 0){
+	} else if ('MONTH' == timeUnit) {
+		if (year != 0) {
 			display = year + '岁';
 		}
-		if(month != 0){
+		if (month != 0) {
 			display += month + '个月';
 		}
-		if(days != 0){
+		if (days != 0) {
 			display += ',' + days + '天.';
 		}
-	}else if('YEAR' == timeUnit){
-		if(year != 0){
+	} else if ('YEAR' == timeUnit) {
+		if (year != 0) {
 			display = year + '岁';
 		}
-		if(month != 0){
+		if (month != 0) {
 			display += month + '个月';
 		}
-		if(days != 0){
+		if (days != 0) {
 			display += ',' + days + '天.';
 		}
 	}
