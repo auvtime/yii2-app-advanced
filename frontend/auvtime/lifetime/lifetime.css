@@ -11,8 +11,12 @@
     width: 100%;
 }
 .life-time {
-    width:80%;
-    margin:0 auto;
+    color: #079D59;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    margin: 0 auto;
     position: relative;
     top: 40%;
+    width: 86%;
 }
