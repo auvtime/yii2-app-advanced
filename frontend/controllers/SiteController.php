@@ -80,7 +80,10 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+        	$model = Yii::$app->user->identity;
+            return $this->render('lifeTime', [
+                'model' => $model,
+            ]);
         } else {
             return $this->render('login', [
                 'model' => $model,
@@ -177,7 +180,7 @@ class SiteController extends Controller
 			return $this->actionLogin ();
 		}
 		// 如果用户已经登录，则获取用户信息
-		$model = Yii::$app->user;
+		$model = Yii::$app->user->identity;
 		return $this->render ( 'lifeTime', [ 
 				'model' => $model 
 		] );

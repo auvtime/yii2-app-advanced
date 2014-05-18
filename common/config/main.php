@@ -2,6 +2,7 @@
 return [ 
 		'name' => 'AUVTime',
 		'charset' => 'utf-8',
+		'timezone'=>'Asia/Shanghai',
 		'vendorPath' => dirname ( dirname ( __DIR__ ) ) . '/vendor',
 		'extensions' => require (__DIR__ . '/../../vendor/yiisoft/extensions.php'),
 		'language' => 'zh_CN',
@@ -32,9 +33,8 @@ return [
 						'enablePrettyUrl' => true,
 						'showScriptName' => false,
 						'rules' => [ 
-								'home' => 'website/index',
-								'<alias:about>' => 'website/page',
-								'page/<alias>' => 'website/page' 
+								'home' => 'site/index',
+								'home/<alias>' => 'site/<alias>' 
 						] 
 				],
 				'i18n' => [ 
@@ -58,6 +58,14 @@ return [
 										'basePath' => '@app/messages',
 										'fileMap' => [ 
 												'contact' => 'contact.php' 
+										] 
+								],
+								'auvtime-lifetime' => [ 
+										'class' => 'yii\i18n\PhpMessageSource',
+										'sourceLanguage' => 'en',
+										'basePath' => '@app/messages',
+										'fileMap' => [ 
+												'auvtime-lifetime' => 'auvtime-lifetime.php' 
 										] 
 								] 
 						] 

@@ -5,7 +5,12 @@ use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\helpers\Security;
 use yii\web\IdentityInterface;
-
+use yii\base\Formatter;
+use yii;
+use yii\base\Exception;
+use yii\web\HttpException;
+use Datetime;
+use auvtime\util\AuvArrayUtil;
 /**
  * User model
  *
@@ -194,4 +199,200 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+    /**
+     * 获取生命长度显示
+     * 
+     * @author WangXianfeng 2014-5-16 下午4:32:26
+     */
+    public function getLifeTimeDisplay(){
+    	$lifeTimeDisplay = '';
+    	try{
+	    	$userName = $this->username;
+	    	if($this->nickname){
+	    		$userName = $this->nickname;
+	    	}
+	    	$birthday = $this->getUserBirdyDay();
+	    	$lifeTime = $this->getLifeTime($this->time_unit,$this->birthday);
+	    	$lifeTimeDisplay = $lifeTime;
+    	}catch(Exception $e){
+    		Yii::error('@@@error occurs when get life time display,error code is '.$e->getName(),'auvtime');
+    		throw new HttpException('500', 'error occurs when get life time display');
+    	}
+    	return $lifeTimeDisplay;
+    }
+    /**
+     * 根据用户生命单位，获取用户生日字符串
+     * 
+     * @author WangXianfeng 2014-5-16 下午4:36:53
+     */
+    public function getUserBirdyDay(){
+    	$format = new Formatter();
+    	$userBirthDay = $this->birthday;
+    	Yii::info('@@@user\'s birthday is '.$userBirthDay,'auvtime');
+    	$userBirthDayFormat = $format->format($userBirthDay, ['date','Y-m-d']);
+    	$userTimeUnit = $this->time_unit;
+    	if($userTimeUnit === 'YEAR'){
+    		$userBirthDayFormat = $format->format($userBirthDay, ['date','Y']);
+    	}elseif ($userTimeUnit === 'MONTH'){
+    		$userBirthDayFormat = $format->format($userBirthDay, ['date','Y-m']);
+    	}elseif ($userTimeUnit === 'DAY'){
+    		$userBirthDayFormat = $format->format($userBirthDay, ['date','Y-m-d']);
+    	}elseif ($userTimeUnit === 'HOUR'){
+    		$userBirthDayFormat = $format->format($userBirthDay, ['date','Y-m-d H']);
+    	}elseif ($userTimeUnit === 'MINUTE'){
+    		$userBirthDayFormat = $format->format($userBirthDay, ['date','Y-m-d H:i']);
+    	}elseif ($userTimeUnit === 'SECOND'){
+    		$userBirthDayFormat = $format->format($userBirthDay, ['date','Y-m-d H:i:s']);
+    	}
+    	Yii::info('@@@user\'s birthday format is '.$userBirthDayFormat,'auvtime');
+    	return $userBirthDayFormat;
+    }
+    
+    /**
+     * 根据用户生命单位返回用户年龄字符串
+     * 
+     * @param string $timeUnit
+     * @param string $birthday
+     * @param string $end
+     * @return string
+     * @author WangXianfeng 2014-5-17 下午1:07:19
+     */
+    public function getLifeTime($timeUnit,$birthday, $end = null) {
+		if (! ($birthday instanceof DateTime)) {
+			$birthday = new DateTime ( $birthday );
+		}
+		
+		if ($end === null) {
+			$end = new DateTime ();
+		}
+		if (! ($end instanceof DateTime)) {
+			$end = new DateTime ( $end );
+		}
+		Yii::info('@@@When get user\'s life time,the system time is:'.$end->format('Y-m-d H:i:s'));
+		$interval = $end->diff ( $birthday );
+		$doPlural = function ($nb, $str) {
+			return $nb > 1 ? $str . 's' : $str;
+		}; // adds plurals
+		
+		$format = array ();
+		if ($interval->y !== 0) {
+			$format [] = "%y" . \Yii::t('auvtime-lifetime', $doPlural ( $interval->y, " year" ));
+		}
+		if ($interval->m !== 0) {
+			$format [] = "%m" . \Yii::t('auvtime-lifetime', $doPlural ( $interval->m, " month" ));
+		}
+		if ($interval->d !== 0) {
+			$format [] = "%d" . \Yii::t('auvtime-lifetime', $doPlural ( $interval->d, " day" ));
+		}
+		if ($interval->h !== 0) {
+			$format [] = "%h" . \Yii::t('auvtime-lifetime', $doPlural ( $interval->h, " hour" ));
+		}
+		if ($interval->i !== 0) {
+			$format [] = "%i" . \Yii::t('auvtime-lifetime', $doPlural ( $interval->i, " minute" ));
+		}
+		if ($interval->s !== 0) {
+			if (! count ( $format )) {
+				return "less than a minute ago";
+			} else {
+				$format [] = "%s" . \Yii::t('auvtime-lifetime', $doPlural ( $interval->s, " second" ));
+			}
+		}
+		
+		// We use the two biggest parts
+		/**if (count ( $format ) > 1) {
+			$format = array_shift ( $format ) . " " . array_shift ( $format );
+		} else {
+			$format = array_pop ( $format );
+		}**/
+		//根据生命单位返回生命长度
+		$jsonFormat = AuvArrayUtil::array_to_json_string($format);
+		Yii::info('@@@user life time json format:'.$jsonFormat);
+		Yii::info('@@@user time unit:'.$timeUnit);
+		Yii::info('@@@user stripos:'.stripos($jsonFormat,'%y'));
+		//根据用户生命单位和格式化字符串获取最终的格式化字符串
+		$format = $this->getUserLifeTimeFormat($timeUnit,$format,$jsonFormat);
+		
+		// Prepend 'since ' or whatever you like
+		return $interval->format ( $format );
+	}
+	/**
+	 * 根据用户生命单位和格式化字符串获取最终的格式化字符串
+	 *
+	 * @param string $timeUnit        	
+	 * @param array $format        	
+	 * @param string $jsonFormat        	
+	 * @author WangXianfeng 2014-5-18 上午8:05:21
+	 */
+	private function getUserLifeTimeFormat($timeUnit, $format, $jsonFormat) {
+		$lifeTimeFormat = '';
+		if ($timeUnit === 'YEAR' && stripos ( $jsonFormat, '%y' ) > 0) {
+			$lifeTimeFormat = array_shift ( $format );
+		} elseif ($timeUnit === 'MONTH') {
+			if (stripos ( $jsonFormat, '%y' ) > 0) {
+				$lifeTimeFormat = array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%m' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+			}
+		} elseif ($timeUnit === 'DAY') {
+			if (stripos ( $jsonFormat, '%y' ) > 0) {
+				$lifeTimeFormat = array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%m' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%d' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+			}
+		} elseif ($timeUnit === 'HOUR') {
+			if (stripos ( $jsonFormat, '%y' ) > 0) {
+				$lifeTimeFormat = array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%m' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%d' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%h' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+			}
+		} elseif ($timeUnit === 'MINUTE') {
+			if (stripos ( $jsonFormat, '%y' ) > 0) {
+				$lifeTimeFormat = array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%m' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%d' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%h' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%m' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+			}
+		} elseif ($timeUnit === 'SECOND') {
+			if (stripos ( $jsonFormat, '%y' ) > 0) {
+				$lifeTimeFormat = array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%m' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%d' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%h' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat . ' ' . array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%m' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat .' ' . array_shift ( $format );
+			}
+			if (stripos ( $jsonFormat, '%s' ) > 0) {
+				$lifeTimeFormat = $lifeTimeFormat .' ' . array_shift ( $format );
+			}
+		}
+		return $lifeTimeFormat;
+	}
 }

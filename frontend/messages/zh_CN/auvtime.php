@@ -12,7 +12,7 @@ return array (
 		'It\'s all about time!' => '一切与时间有关！',
 		'The time never stops it\'s step,so let\'s value our time!' => '时间永远都不会停止它的步伐，所以让我们珍惜我们的时间吧！',
 		//注册信息
-		'Pay will harvest,you git me a little,I will give you more back' => '付出就有收获，给我一点点，我会给你更多',
+		'Pay will harvest,you git us a little,we will give you more back' => '付出就有收获，给我一点点，我会给你更多',
 		'Hello' => '你好',
 		'signup' => '注册',
 		'signup now' => '走起',

@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+.life-time-container {
+    border: 1px solid #DDDDDD;
+    border-collapse: collapse;
+    border-spacing: 0;
+    box-sizing: border-box;
+    height: 110px;
+    margin-bottom: 20px;
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+}
+.life-time {
+    position: relative;
+    top: 40%;
+}

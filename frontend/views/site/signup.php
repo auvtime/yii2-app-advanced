@@ -19,7 +19,7 @@ $signupButtonText = \Yii::t('auvtime','signup now');
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p><?php echo \Yii::t('auvtime', 'Pay will harvest,you git me a little,I will give you more back');?>:</p>
+    <p><?php echo \Yii::t('auvtime', 'Pay will harvest,you git us a little,we will give you more back');?>:</p>
 
     <div class="row">
         <div class="col-lg-5">

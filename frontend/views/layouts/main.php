@@ -68,7 +68,7 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-        	<p class="pull-left auvtime-footer">&copy; auvtime <?= date('Y') ?>. All Rights Reserved.</p>
+        	<p class="pull-left auvtime-footer">Copyright &copy; AUVTime <?= date('Y') ?>. All Rights Reserved.</p>
         </div>
     </footer>
 
