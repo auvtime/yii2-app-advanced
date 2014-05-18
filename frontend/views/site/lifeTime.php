@@ -1,5 +1,6 @@
 <?php
 use frontend\assets\LifeTimeAsset;
+use auvtime\widget\LifeTimeWidget;
 /**
  *
  * @var yii\web\View $this
@@ -47,11 +48,7 @@ LifeTimeAsset::register ( $this );
 								<h3 class="panel-title"><?php echo \Yii::t('auvtime-lifetime', 'Your\'s life time we give you now.')?></h3>
 							</div>
 							<div class="panel-body">
-								<div class="life-time-container">
-									<input type="hidden" value="<?php echo $model->time_unit;?>" id="timeUnit">
-									<input type="hidden" value="<?php echo $model->getLifeTimeDisplayFull();?>" id="lifeTimeFull">
-									<div class="life-time" id="lifeTime"><?php echo $model->getLifeTimeDisplay()?></div>
-								</div>
+								<?php echo LifeTimeWidget::widget();?>
 							</div>
 						</div>
 					</div>
