@@ -20,7 +20,7 @@ use yii\web\AssetBundle;
 class LifeTimeAsset extends AssetBundle {
 	public $sourcePath = '@app/auvtime/lifetime';
 	public $js = [ 
-			'lifetime.js' 
+			'lifetime.js',
 	];
 	public $css = [ 
 			'lifetime.css' 

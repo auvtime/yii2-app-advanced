@@ -48,7 +48,9 @@ LifeTimeAsset::register ( $this );
 							</div>
 							<div class="panel-body">
 								<div class="life-time-container">
-									<div class="life-time"><?php echo $model->getLifeTimeDisplay()?></div>
+									<input type="hidden" value="<?php echo $model->time_unit;?>" id="timeUnit">
+									<input type="hidden" value="<?php echo $model->getLifeTimeDisplayFull();?>" id="lifeTimeFull">
+									<div class="life-time" id="lifeTime"><?php echo $model->getLifeTimeDisplay()?></div>
 								</div>
 							</div>
 						</div>

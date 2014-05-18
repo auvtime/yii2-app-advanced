@@ -221,6 +221,8 @@ class User extends ActiveRecord implements IdentityInterface
     	}
     	return $lifeTimeDisplay;
     }
+    
+    
     /**
      * 根据用户生命单位，获取用户生日字符串
      * 
@@ -363,7 +365,7 @@ class User extends ActiveRecord implements IdentityInterface
 			if (stripos ( $jsonFormat, '%h' ) > 0) {
 				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
-			if (stripos ( $jsonFormat, '%m' ) > 0) {
+			if (stripos ( $jsonFormat, '%i' ) > 0) {
 				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 		} elseif ($timeUnit === 'SECOND') {
@@ -379,7 +381,7 @@ class User extends ActiveRecord implements IdentityInterface
 			if (stripos ( $jsonFormat, '%h' ) > 0) {
 				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
-			if (stripos ( $jsonFormat, '%m' ) > 0) {
+			if (stripos ( $jsonFormat, '%i' ) > 0) {
 				$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 			}
 			if (stripos ( $jsonFormat, '%s' ) > 0) {
@@ -418,5 +420,96 @@ class User extends ActiveRecord implements IdentityInterface
 		$lifeTimeInDays = $lifeTimeInDays.\Yii::t('auvtime-lifetime', $doPlural ( $lifeTimeInDays," day" ));
 		Yii::info('@@@When get user\'s life time in days,the $passTime  is:'.$lifeTimeInDays,'auvtime');
 		return $lifeTimeInDays;
+	}
+	
+	/**
+	 * 获取用户生命长度信息全部显示
+	 *
+	 * @throws HttpException
+	 * @return string
+	 * @author WangXianfeng 2014-5-18 下午4:28:01
+	 */
+	public function getLifeTimeDisplayFull(){
+		$lifeTimeDisplay = '';
+		try{
+			$userName = $this->username;
+			if($this->nickname){
+				$userName = $this->nickname;
+			}
+			$birthday = $this->getUserBirdyDay();
+			$lifeTime = $this->getLifeTimeFull($this->time_unit,$this->birthday);
+			$lifeTimeInDays = $this->getLifeTimeInDays($this->time_unit,$this->birthday);
+			$lifeTimeDisplay = $lifeTime.','.$lifeTimeInDays.'.';
+		}catch(Exception $e){
+			Yii::error('@@@error occurs when get life time display,error code is '.$e->getName(),'auvtime');
+			throw new HttpException('500', 'error occurs when get life time display');
+		}
+		return $lifeTimeDisplay;
+	}
+	
+	/**
+	 * 获取所有年月日时分秒
+	 * 
+	 * @param string $timeUnit
+	 * @param DataTime $birthday
+	 * @param DataTime $end
+	 * @return string
+	 * @author WangXianfeng 2014-5-18 下午4:29:18
+	 */
+	public function getLifeTimeFull($timeUnit, $birthday, $end = null) {
+		if (! ($birthday instanceof DateTime)) {
+			$birthday = new DateTime ( $birthday );
+		}
+		
+		if ($end === null) {
+			$end = new DateTime ();
+		}
+		if (! ($end instanceof DateTime)) {
+			$end = new DateTime ( $end );
+		}
+		Yii::info ( '@@@When get user\'s life time,the system time is:' . $end->format ( 'Y-m-d H:i:s' ), 'auvtime' );
+		$interval = $end->diff ( $birthday );
+		$doPlural = function ($nb, $str) {
+			return $nb > 1 ? $str . 's ' : $str . ' ';
+		}; // adds plurals
+		
+		$format = array ();
+		$format [] = "%y" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->y, " year" ) );
+		
+		$format [] = "%m" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->m, " month" ) );
+		
+		$format [] = "%d" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->d, " day" ) );
+		
+		$format [] = "%h" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->h, " hour" ) );
+		
+		$format [] = "%i" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->i, " minute" ) );
+		
+		$format [] = "%s" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->s, " second" ) );
+		
+		// 根据生命单位返回生命长度
+		$jsonFormat = AuvArrayUtil::array_to_json_string ( $format );
+		Yii::info ( '@@@user life time json format:' . $jsonFormat, 'auvtime' );
+		Yii::info ( '@@@user time unit:' . $timeUnit, 'auvtime' );
+		// 根据用户生命单位和格式化字符串获取最终的格式化字符串
+		$format = $this->getUserLifeTimeFullFormat ( $timeUnit, $format, $jsonFormat );
+		Yii::info ( '@@@user life time final format:' . $format, 'auvtime' );
+		// Prepend 'since ' or whatever you like
+		return $interval->format ( $format );
+	}
+	/**
+	 * 获取年与日时分秒
+	 * 
+	 * @param string $timeUnit
+	 * @param array $format
+	 * @param string $jsonFormat
+	 * @return string
+	 * @author WangXianfeng 2014-5-18 下午4:32:26
+	 */
+	private function getUserLifeTimeFullFormat($timeUnit, $format, $jsonFormat) {
+		$lifeTimeFormat = '';
+		for($i = 0;$i<6;$i++){
+			$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
+		}
+		return $lifeTimeFormat;
 	}
 }
