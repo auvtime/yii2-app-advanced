@@ -213,6 +213,7 @@ class User extends ActiveRecord implements IdentityInterface
 	    	}
 	    	$birthday = $this->getUserBirdyDay();
 	    	$lifeTime = $this->getLifeTime($this->time_unit,$this->birthday);
+	    	Yii::info($lifeTime,'auvtime');
 	    	$lifeTimeInDays = $this->getLifeTimeInDays($this->time_unit,$this->birthday);
 	    	$lifeTimeDisplay = $lifeTime.','.$lifeTimeInDays.'.';
     	}catch(Exception $e){
@@ -294,6 +295,7 @@ class User extends ActiveRecord implements IdentityInterface
 			$format [] = "%i" . \Yii::t('auvtime-lifetime', $doPlural ( $interval->i, " minute" ));
 		}
 		if ($interval->s !== 0) {
+			$interval->s = $interval->s + 1;
 			if (! count ( $format )) {
 				return \Yii::t('auvtim-lifetime', 'less than a minute ago.');
 			} else {
@@ -472,7 +474,7 @@ class User extends ActiveRecord implements IdentityInterface
 		$doPlural = function ($nb, $str) {
 			return $nb > 1 ? $str . 's ' : $str . ' ';
 		}; // adds plurals
-		
+		$interval->s = $interval->s + 1;
 		$format = array ();
 		$format [] = "%y" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->y, " year" ) );
 		

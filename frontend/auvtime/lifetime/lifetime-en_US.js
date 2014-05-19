@@ -26,7 +26,7 @@ $(document).ready(function(){
 	var monthFlag = false;
 	//设置当前时间
 	setInterval(function() {
-		second = new Date().getSeconds() - 1;
+		second = new Date().getSeconds();
 		if((second+1)>=60){
 			minuteFlag = true;
 			minute += 1;
