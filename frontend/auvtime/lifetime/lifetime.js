@@ -78,7 +78,7 @@ $(document).ready(function(){
 		$('#lifeTime').html(display);
 	}, 1000);
 });
-});
+
 /**
  * 根据生命单位获取时间
  * @param timeUnit
