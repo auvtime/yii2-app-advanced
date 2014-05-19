@@ -44,28 +44,30 @@ $(document).ready(function(){
 			minuteFlag = false;
 			second += 1;
 		}
-		if((minute+1)>=60&&minuteFlag){
+		if(minute>=60&&minuteFlag){
 			hourFlag = true;
 			hour += 1;
 			minute = 0;
 		}else{
 			hourFlag = false;
 		}
-		if((hour+1)>=24&&hourFlag){
+		if(hour>=24&&hourFlag){
 			dayFlag = true;
 			day += 1;
 			hour = 0;
 		}else{
 			dayFlag = false;
 		}
-		if((day+1)>=getDays&&dayFlag){
+		
+		if(day>=getDays()&&dayFlag){
 			monthFlag = true;
-			mouth += 1;
+			month += 1;
 			day = 0;
 		}else{
 			monthFlag = false;
 		}
-		if((month+1)>=12&&monthFlag){
+		
+		if(month>=12&&monthFlag){
 			year += 1;
 			month = 0;
 		}
@@ -75,6 +77,7 @@ $(document).ready(function(){
 		display = getDisplay(timeUnit,year,month,day,hour,minute,second,days);
 		$('#lifeTime').html(display);
 	}, 1000);
+});
 });
 /**
  * 根据生命单位获取时间
