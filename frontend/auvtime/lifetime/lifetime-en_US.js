@@ -8,27 +8,17 @@ $(document).ready(function(){
 	var minute = '';
 	var second = '';
 	var days = '';
-	if(lifeTime.indexOf('岁', 0)>0){
-		year = parseInt(lifeTime.substring(0, lifeTime.indexOf('岁', 0)));
-	}
-	if(lifeTime.indexOf('个月', 0)>0){
-		month = parseInt(lifeTime.substring(lifeTime.indexOf('岁', 0)+1, lifeTime.indexOf('个月', 0)));
-	}
-	if(lifeTime.indexOf('天', 0)>0){
-		day = parseInt(lifeTime.substring(lifeTime.indexOf('个月', 0)+2, lifeTime.indexOf('天', 0)));
-	}
-	if(lifeTime.indexOf('小时', 0)>0){
-		hour = parseInt(lifeTime.substring(lifeTime.indexOf('天', 0)+1, lifeTime.indexOf('小时', 0)));
-	}
-	if(lifeTime.indexOf('分钟', 0)>0){
-		minute = parseInt(lifeTime.substring(lifeTime.indexOf('小时', 0)+2, lifeTime.indexOf('分钟', 0)));
-	}
-	if(lifeTime.indexOf('秒', 0)>0){
-		second = parseInt(lifeTime.substring(lifeTime.indexOf('分钟', 0)+2, lifeTime.indexOf('秒', 0)));
-	}
+	year = parseInt(lifeTime.substring(0, lifeTime.indexOf('year', 0)));
+	month = parseInt(lifeTime.substring(lifeTime.indexOf('year', 0) +5 , lifeTime.indexOf('month', 0)));
+	day = parseInt(lifeTime.substring(lifeTime.indexOf('month', 0)+6, lifeTime.indexOf('day', 0)));
+	hour = parseInt(lifeTime.substring(lifeTime.indexOf('day', 0)+4, lifeTime.indexOf('hour', 0)));
+	minute = parseInt(lifeTime.substring(lifeTime.indexOf('hour', 0)+5, lifeTime.indexOf('minute', 0)));
+	second = parseInt(lifeTime.substring(lifeTime.indexOf('minute', 0)+7, lifeTime.indexOf('second', 0)));
+	
 	if(lifeTime.indexOf(',', 0)>0){
-		days = parseInt(lifeTime.substring(lifeTime.indexOf(',', 0)+1, lifeTime.length - 2));
+		days = parseInt(lifeTime.substring(lifeTime.indexOf(',', 0)+1, lifeTime.length - 5));
 	}
+	
 	var display = '';
 	var minuteFlag = false;
 	var hourFlag = false;
@@ -36,6 +26,7 @@ $(document).ready(function(){
 	var monthFlag = false;
 	//设置当前时间
 	setInterval(function() {
+		second = new Date().getSeconds() - 1;
 		if((second+1)>=60){
 			minuteFlag = true;
 			minute += 1;
@@ -78,7 +69,9 @@ $(document).ready(function(){
 		$('#lifeTime').html(display);
 	}, 1000);
 });
-
+function doPlural(value,str){
+	return value>1?" " + str+"s ":" " + str + " ";
+}
 /**
  * 根据生命单位获取时间
  * @param timeUnit
@@ -87,96 +80,91 @@ function getDisplay(timeUnit, year, month, day, hour, minute, second, days) {
 	var display = '';
 	if ('SECOND' == timeUnit) {
 		if (year != 0) {
-			display = year + '岁';
+			display = year + doPlural(year,'year');
 		}
 		if (month != 0) {
-			display += month + '个月';
+			display += month + doPlural(month,'month');
 		}
 		if (day != 0) {
-			display += day + '天';
+			display += day + doPlural(day,'day');
 		}
-		display += hour + '小时';
+		display += hour + doPlural(hour,'hour');
 
-		display += minute + '分钟';
+		display += minute + doPlural(minute,'minute');
 
-		display += second + '秒';
+		display += second + doPlural(second,'second');
 
 		if (days != 0) {
-			display += ',' + days + '天.';
+			display += ',' + days + ' days.';
 		}
 	} else if ('MINUTE' == timeUnit) {
 		if (year != 0) {
-			display = year + '岁';
+			display = year + doPlural(year,'year');
 		}
 		if (month != 0) {
-			display += month + '个月';
+			display += month + doPlural(month,'month');
 		}
 		if (day != 0) {
-			display += day + '天';
+			display += day + doPlural(day,'day');
 		}
+		display += hour + doPlural(hour,'hour');
 
-		display += hour + '小时';
-
-		display += minute + '分钟';
+		display += minute + doPlural(minute,'minute');
 
 		if (days != 0) {
-			display += ',' + days + '天.';
+			display += ',' + days + ' days.';
 		}
 	} else if ('HOUR' == timeUnit) {
 		if (year != 0) {
-			display = year + '岁';
+			display = year + doPlural(year,'year');
 		}
 		if (month != 0) {
-			display += month + '个月';
+			display += month + doPlural(month,'month');
 		}
 		if (day != 0) {
-			display += day + '天';
+			display += day + doPlural(day,'day');
 		}
-
-		display += hour + '小时';
+		display += hour + doPlural(hour,'hour');
 
 		if (days != 0) {
-			display += ',' + days + '天.';
+			display += ',' + days + ' days.';
 		}
 	} else if ('DAY' == timeUnit) {
 		if (year != 0) {
-			display = year + '岁';
+			display = year + doPlural(year,'year');
 		}
 		if (month != 0) {
-			display += month + '个月';
+			display += month + doPlural(month,'month');
 		}
 		if (day != 0) {
-			display += day + '天';
+			display += day + doPlural(day,'day');
 		}
 		if (days != 0) {
-			display += ',' + days + '天.';
+			display += ',' + days + ' days.';
 		}
 	} else if ('MONTH' == timeUnit) {
 		if (year != 0) {
-			display = year + '岁';
+			display = year + doPlural(year,'year');
 		}
 		if (month != 0) {
-			display += month + '个月';
+			display += month + doPlural(month,'month');
 		}
 		if (days != 0) {
-			display += ',' + days + '天.';
+			display += ',' + days + ' days.';
 		}
 	} else if ('YEAR' == timeUnit) {
 		if (year != 0) {
-			display = year + '岁';
-		}
-		if (month != 0) {
-			display += month + '个月';
+			display = year + doPlural(year,'year');
 		}
 		if (days != 0) {
-			display += ',' + days + '天.';
+			display += ',' + days + ' days.';
 		}
 	}
 	return display;
 }
 
 /**
- * 获取当前时间月份有多少天
+ * 获取当前时间月份有多少 days
  * @returns
  */
 function getDays() {
@@ -203,7 +191,7 @@ function addZero(num) {
 }
 /**
  * 参数：给定的开始时间
- * 计算出该时间和当前时间相隔的年数，月数和天数
+ * 计算出该时间和当前时间相隔的年数，月数和 days数
  */
 function timeElapseYearMonthDay(date){
 	var currentDate = Date();
@@ -214,8 +202,8 @@ function timeElapseYearMonthDay(date){
 }
 /**
  * 参数：给定的时间 
- * 给定一个时间，计算此时间距离当前时间的天数，小时数，分钟数，秒数并返回字符串 
- * 字符串格式为：xx天xx小时xx分钟xx秒
+ * 给定一个时间，计算此时间距离当前时间的 days数， hours数， minutes数， seconds数并返回字符串 
+ * 字符串格式为：xx daysxx hoursxx minutesxx seconds
  */
 function timeElapse(date) {
 	var current = Date();
@@ -230,9 +218,9 @@ function timeElapse(date) {
 	seconds = seconds % 60;
 	seconds = addZero(seconds);
 	var result = "<span class=\"digit\">" + days
-			+ "天</span><span class=\"digit\">" + hours
-			+ "小时</span><span class=\"digit\">" + minutes
-			+ "分钟</span><span class=\"digit\">" + seconds + "秒</span>";
+			+ " days</span><span class=\"digit\">" + hours
+			+ " hours</span><span class=\"digit\">" + minutes
+			+ " minutes</span><span class=\"digit\">" + seconds + " seconds</span>";
 	return result;
 }
 

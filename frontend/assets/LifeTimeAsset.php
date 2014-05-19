@@ -3,8 +3,10 @@
 namespace frontend\assets;
 
 use yii\web\AssetBundle;
+use Yii;
 
 /**
+ *
  *
  *
  * <p><b>标题：</b>frontend\assets$LifeTimeAsset.</p>
@@ -18,14 +20,18 @@ use yii\web\AssetBundle;
  * @since 1.0
  */
 class LifeTimeAsset extends AssetBundle {
+	public $language;
 	public $sourcePath = '@app/auvtime/lifetime';
-	public $js = [ 
-			'lifetime.js',
-	];
+	public $js = [ ];
 	public $css = [ 
 			'lifetime.css' 
 	];
 	public $depends = [ 
 			'frontend\assets\AppAsset' 
 	];
+	public function registerAssetFiles($view) {
+		$language = $this->language ? $this->language : Yii::$app->language;
+		$this->js [] = 'lifetime-' . $language . '.js';
+		parent::registerAssetFiles ( $view );
+	}
 }

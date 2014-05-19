@@ -5,7 +5,7 @@ return [
 		'timezone'=>'Asia/Shanghai',
 		'vendorPath' => dirname ( dirname ( __DIR__ ) ) . '/vendor',
 		'extensions' => require (__DIR__ . '/../../vendor/yiisoft/extensions.php'),
-		'language' => 'zh_CN',
+		'language' => 'en_US',
 		'components' => [ 
 				'db' => [ 
 						'class' => 'yii\db\Connection',
