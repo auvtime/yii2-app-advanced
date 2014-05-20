@@ -11,6 +11,7 @@ use yii\base\Exception;
 use yii\web\HttpException;
 use Datetime;
 use auvtime\util\AuvArrayUtil;
+use DateInterval;
 /**
  * User model
  *
@@ -211,7 +212,7 @@ class User extends ActiveRecord implements IdentityInterface
 	    	if($this->nickname){
 	    		$userName = $this->nickname;
 	    	}
-	    	$birthday = $this->getUserBirdyDay();
+	    	$birthday = $this->getUserBirthDay();
 	    	$lifeTime = $this->getLifeTime($this->time_unit,$this->birthday);
 	    	Yii::info($lifeTime,'auvtime');
 	    	$lifeTimeInDays = $this->getLifeTimeInDays($this->time_unit,$this->birthday);
@@ -229,7 +230,7 @@ class User extends ActiveRecord implements IdentityInterface
      * 
      * @author WangXianfeng 2014-5-16 下午4:36:53
      */
-    public function getUserBirdyDay(){
+    public function getUserBirthDay(){
     	$format = new Formatter();
     	$userBirthDay = $this->birthday;
     	Yii::info('@@@user\'s birthday is '.$userBirthDay,'auvtime');
@@ -438,7 +439,7 @@ class User extends ActiveRecord implements IdentityInterface
 			if($this->nickname){
 				$userName = $this->nickname;
 			}
-			$birthday = $this->getUserBirdyDay();
+			$birthday = $this->getUserBirthDay();
 			$lifeTime = $this->getLifeTimeFull($this->time_unit,$this->birthday);
 			$lifeTimeInDays = $this->getLifeTimeInDays($this->time_unit,$this->birthday);
 			$lifeTimeDisplay = $lifeTime.','.$lifeTimeInDays.'.';
@@ -513,5 +514,188 @@ class User extends ActiveRecord implements IdentityInterface
 			$lifeTimeFormat = $lifeTimeFormat . array_shift ( $format );
 		}
 		return $lifeTimeFormat;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @throws HttpException
+	 * @return string
+	 * @author WangXianfeng 2014-5-19 下午9:45:21
+	 */
+	public function getLeaveTimeDisplayFull(){
+		$leaveTimeDisplay = '';
+		try{
+			$userName = $this->username;
+			if($this->nickname){
+				$userName = $this->nickname;
+			}
+			$birthday = $this->getUserBirthDay();
+			$leaveTime = $this->getLeaveTimeFull($this->time_unit,$this->birthday);
+			Yii::info('The leave time for user is :'.$leaveTime,'auvtime');
+			$leaveTimeInDays = $this->getLeaveTimeInDays($this->time_unit,$this->birthday);
+			$leaveTimeDisplay = $leaveTime.','.$leaveTimeInDays.'.';
+		}catch(Exception $e){
+			Yii::error('@@@error occurs when get leave time display','auvtime');
+			throw new HttpException('500', 'error occurs when get leave time display');
+		}
+		return $leaveTimeDisplay;
+	}
+	/**
+	 * 
+	 * 
+	 * @param sting $timeUnit
+	 * @param DateTime $birthday
+	 * @param DateTime $end
+	 * @return string
+	 * @author WangXianfeng 2014-5-19 下午10:18:13
+	 */
+	public function getLeaveTimeFull($timeUnit, $birthday, $end = null) {
+		$nowTime = new DateTime();
+		if (! ($birthday instanceof DateTime)) {
+			$birthday = new DateTime ( $birthday );
+		}
+		$userLeaveAge = new DateInterval('P'.$this->leave_age.'Y');
+		
+		if ($end === null) {
+			$end = $birthday->add($userLeaveAge);
+		}
+		if(!$end instanceof DateTime){
+			$end = new DateTime($end);
+		}
+		Yii::info ( '@@@When get user\'s leave time,the system time is:' . $nowTime->format ( 'Y-m-d H:i:s' ), 'auvtime' );
+		Yii::info ( '@@@When get user\'s leave time,the final time is:' . $end->format ( 'Y-m-d H:i:s' ), 'auvtime' );
+		$interval = $end->diff ( $nowTime );
+		$doPlural = function ($nb, $str) {
+			return $nb > 1 ? $str . 's ' : $str . ' ';
+		}; // adds plurals
+		$interval->s = $interval->s + 1;
+		$format = array ();
+		$format [] = "%y" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->y, " year" ) );
+	
+		$format [] = "%m" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->m, " month" ) );
+	
+		$format [] = "%d" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->d, " day" ) );
+	
+		$format [] = "%h" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->h, " hour" ) );
+	
+		$format [] = "%i" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->i, " minute" ) );
+	
+		$format [] = "%s" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->s, " second" ) );
+	
+		// 根据用户生命单位和格式化字符串获取最终的格式化字符串
+		$format = $this->getUserLifeTimeFullFormat ( $timeUnit, $format, null );
+		Yii::info ( '@@@user leave time final format:' . $format, 'auvtime' );
+		// Prepend 'since ' or whatever you like
+		return $interval->format ( $format );
+	}
+	
+	public function getLeaveTimeInDays($timeUnit,$birthday, $end = null){
+		$nowTime = new DateTime();
+		if (! ($birthday instanceof DateTime)) {
+			$birthday = new DateTime ( $birthday );
+		}
+		$userLeaveAge = new DateInterval('P'.$this->leave_age.'Y');
+		
+		if ($end === null) {
+			$end = $birthday->add($userLeaveAge);
+		}
+		if(!$end instanceof DateTime){
+			$end = new DateTime($end);
+		}
+		$interval = $end->diff ( $nowTime );
+		$doPlural = function ($nb, $str) {
+			return $nb > 1 ? $str . 's' : $str;
+		}; // adds plurals
+		$leaveTimeInDays = $interval->days;
+		$leaveTimeInDays = $leaveTimeInDays.\Yii::t('auvtime-lifetime', $doPlural ( $leaveTimeInDays," day" ));
+		Yii::info('@@@When get user\'s leave time in days,the $passTime  is:'.$leaveTimeInDays,'auvtime');
+		return $leaveTimeInDays;
+	}
+	/**
+	 * 获取离开时间前台展示字符串
+	 * 
+	 * @throws HttpException
+	 * @return string
+	 * @author WangXianfeng 2014-5-20 上午11:23:45
+	 */
+	public function getLeaveTimeDisplay(){
+		$leaveTimeDisplay = '';
+		try{
+			$userName = $this->username;
+			if($this->nickname){
+				$userName = $this->nickname;
+			}
+			$birthday = $this->getUserBirthDay();
+			$leaveTime = $this->getLeaveTime($this->time_unit,$this->birthday);
+			Yii::info($leaveTime,'auvtime');
+			$leaveTimeInDays = $this->getLeaveTimeInDays($this->time_unit,$this->birthday);
+			$leaveTimeDisplay = $leaveTime.','.$leaveTimeInDays.'.';
+		}catch(Exception $e){
+			Yii::error('@@@error occurs when get life time display,error code is '.$e->getName(),'auvtime');
+			throw new HttpException('500', 'error occurs when get life time display');
+		}
+		return $leaveTimeDisplay;
+	}
+	/**
+	 * 获取离开时间
+	 * 
+	 * @param string $timeUnit
+	 * @param DateTime $birthday
+	 * @param DateTime $end
+	 * @return string|Ambigous <string, string, boolean, unknown>
+	 * @author WangXianfeng 2014-5-20 上午11:25:18
+	 */
+	public function getLeaveTime($timeUnit,$birthday, $end = null) {
+		$nowTime = new DateTime();
+		if (! ($birthday instanceof DateTime)) {
+			$birthday = new DateTime ( $birthday );
+		}
+		$userLeaveAge = new DateInterval('P'.$this->leave_age.'Y');
+		
+		if ($end === null) {
+			$end = $birthday->add($userLeaveAge);
+		}
+		if(!$end instanceof DateTime){
+			$end = new DateTime($end);
+		}
+		$interval = $end->diff ( $nowTime );
+		$doPlural = function ($nb, $str) {
+			return $nb > 1 ? $str . 's ' : $str.' ';
+		}; // adds plurals
+	
+		$format = array ();
+		if ($interval->y !== 0) {
+			$format [] = "%y" . \Yii::t('auvtime-leavetime', $doPlural ( $interval->y, " year" ));
+		}
+		if ($interval->m !== 0) {
+			$format [] = "%m" . \Yii::t('auvtime-lifetime', $doPlural ( $interval->m, " month" ));
+		}
+		if ($interval->d !== 0) {
+			$format [] = "%d" . \Yii::t('auvtime-lifetime', $doPlural ( $interval->d, " day" ));
+		}
+		if ($interval->h !== 0) {
+			$format [] = "%h" . \Yii::t('auvtime-lifetime', $doPlural ( $interval->h, " hour" ));
+		}
+		if ($interval->i !== 0) {
+			$format [] = "%i" . \Yii::t('auvtime-lifetime', $doPlural ( $interval->i, " minute" ));
+		}
+		if ($interval->s !== 0) {
+			$interval->s = $interval->s + 1;
+			if (! count ( $format )) {
+				return \Yii::t('auvtim-lifetime', 'less than a minute ago.');
+			} else {
+				$format [] = "%s" . \Yii::t('auvtime-lifetime', $doPlural ( $interval->s, " second" ));
+			}
+		}
+		//根据生命单位返回生命长度
+		$jsonFormat = AuvArrayUtil::array_to_json_string($format);
+		Yii::info('@@@user leave time json format:'.$jsonFormat,'auvtime');
+		Yii::info('@@@user leave unit:'.$timeUnit,'auvtime');
+		//根据用户生命单位和格式化字符串获取最终的格式化字符串
+		$format = $this->getUserLifeTimeFormat($timeUnit,$format,$jsonFormat);
+		Yii::info('@@@user leave time final format:'.$format,'auvtime');
+		// Prepend 'since ' or whatever you like
+		return $interval->format ( $format );
 	}
 }

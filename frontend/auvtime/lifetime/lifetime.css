@@ -20,3 +20,24 @@
     top: 30%;
     width: 85%;
 }
+
+.leave-time-container {
+    border: 1px solid #DDDDDD;
+    border-collapse: collapse;
+    border-spacing: 0;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+}
+.leave-time {
+    color: #079D59;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 0 auto;
+    position: relative;
+    top: 30%;
+    width: 85%;
+}

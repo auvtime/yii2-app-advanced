@@ -2,7 +2,7 @@
 return [ 
 		'name' => 'AUVTime',
 		'charset' => 'utf-8',
-		'timezone'=>'Asia/Shanghai',
+		'timezone' => 'Asia/Shanghai',
 		'vendorPath' => dirname ( dirname ( __DIR__ ) ) . '/vendor',
 		'extensions' => require (__DIR__ . '/../../vendor/yiisoft/extensions.php'),
 		'language' => 'zh_CN',
@@ -66,6 +66,14 @@ return [
 										'basePath' => '@app/messages',
 										'fileMap' => [ 
 												'auvtime-lifetime' => 'auvtime-lifetime.php' 
+										] 
+								],
+								'auvtime-leavetime' => [ 
+										'class' => 'yii\i18n\PhpMessageSource',
+										'sourceLanguage' => 'en',
+										'basePath' => '@app/messages',
+										'fileMap' => [ 
+												'auvtime-leavetime' => 'auvtime-leavetime.php' 
 										] 
 								] 
 						] 

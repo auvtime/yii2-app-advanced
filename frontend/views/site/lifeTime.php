@@ -1,6 +1,7 @@
 <?php
 use frontend\assets\LifeTimeAsset;
 use auvtime\widget\LifeTimeWidget;
+use auvtime\widget\LeaveTimeWidget;
 /**
  *
  * @var yii\web\View $this
@@ -36,7 +37,7 @@ LifeTimeAsset::register ( $this );
 									</tr>
 									<tr>
 										<td><?php echo \Yii::t('auvtime', 'birthday');?>:</td>
-										<td><?= $model->getUserBirdyDay()?></td>
+										<td><?= $model->getUserBirthDay()?></td>
 									</tr>
 								</table>
 							</div>
@@ -53,6 +54,14 @@ LifeTimeAsset::register ( $this );
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title"><?php echo \Yii::t('auvtime-lifetime', 'If you can live {0} years old,you have the following infomartion.',$model->leave_age);?></h3>
+			</div>
+			<div class="panel-body">
+				<?php echo LeaveTimeWidget::widget();?>
 			</div>
 		</div>
 	</div>

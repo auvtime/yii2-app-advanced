@@ -20,4 +20,6 @@ return array (
 		//used in common\models\User.php getLifeTimeInDays
 		' day'=>'天',
 		' days'=>'天',
+		//leave
+		'If you can live {0} years old,you have the following infomartion.' => '如果你可以活{0}岁，你有如下信息.',
 );
