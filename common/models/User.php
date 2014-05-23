@@ -571,7 +571,7 @@ class User extends ActiveRecord implements IdentityInterface
 		}; // adds plurals
 		$interval->s = $interval->s + 1;
 		$format = array ();
-		$format [] = "%y" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->y, " year" ) );
+		$format [] = "%y" . \Yii::t ( 'auvtime-leavetime', $doPlural ( $interval->y, " year" ) );
 	
 		$format [] = "%m" . \Yii::t ( 'auvtime-lifetime', $doPlural ( $interval->m, " month" ) );
 	

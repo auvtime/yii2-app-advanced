@@ -33,6 +33,8 @@ class LeaveTimeWidget extends Widget {
 		echo Html::beginTag('div',['class'=>'leave-time','id'=>'leaveTime']);
 		echo Html::encode($this->user->getLeaveTimeDisplay());
 		echo Html::endTag ( 'div' ) . "\n";
+		echo Html::beginTag('div',['class'=>'countdown','id'=>'countdown']);
+		echo Html::endTag('div')."\n";
 		echo Html::endTag ( 'div' ) . "\n";
 	}
 }

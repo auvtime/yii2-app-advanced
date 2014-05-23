@@ -185,4 +185,21 @@ class SiteController extends Controller
 				'model' => $model 
 		] );
 	}
+	/**
+	 * 查看生命倒计时
+	 * 
+	 * @return Ambigous <string, \yii\web\Response, \yii\web\static, \yii\web\Response>|string
+	 * @author WangXianfeng 2014-5-22 下午11:27:05
+	 */
+	public function actionLeaveTime() {
+		// 如果用户未登录，则进入到登录界面
+		if (\Yii::$app->user->isGuest) {
+			return $this->actionLogin ();
+		}
+		// 如果用户已经登录，则获取用户信息
+		$model = Yii::$app->user->identity;
+		return $this->render ( 'leaveTime', [ 
+				'model' => $model 
+		] );
+	}
 }
