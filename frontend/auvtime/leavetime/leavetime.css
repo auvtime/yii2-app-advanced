@@ -1,5 +1,5 @@
 .cntSeparator {
-    font-size: 50px;
+    font-size: 58px;
     font-weight: bold;
     line-height: 90px;
     margin: 0 10px;
@@ -20,6 +20,6 @@
     margin: 50px 0;
 }
 .countdown{
-    width: 800px;
+    width: 80%;
     margin:50px auto;
 }
