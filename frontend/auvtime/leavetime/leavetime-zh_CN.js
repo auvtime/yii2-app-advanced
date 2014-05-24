@@ -14,10 +14,10 @@ $(document).ready(function(){
 	minute = addZero(parseInt(leaveTime.substring(leaveTime.indexOf('小时', 0)+2, leaveTime.indexOf('分钟', 0))));
 	second = addZero(parseInt(leaveTime.substring(leaveTime.indexOf('分钟', 0)+2, leaveTime.indexOf('秒', 0))));
 	days = parseInt(leaveTime.substring(leaveTime.indexOf(',', 0)+1, leaveTime.length - 2));
-	var startTime = year + '年' + month + '月' + day + '天' + hour + '小时' + minute + '分钟' + second + '秒';
+	var startTime = year + '年' + month + '个月' + day + '天' + hour + '小时' + minute + '分钟' + second + '秒';
 	var options = {
 		image : "/images/countdown/digits.png",
-	    format:'yy年MM月dd天hh小时mi分钟ss秒',
+	    format:'yy年MM个月dd天hh小时mi分钟ss秒',
 	    startTime:startTime,
 	    digitImages:6
 	};

@@ -589,7 +589,24 @@ class User extends ActiveRecord implements IdentityInterface
 		// Prepend 'since ' or whatever you like
 		return $interval->format ( $format );
 	}
-	
+	/**
+	 * 获取离开天数
+	 * 
+	 * @return string
+	 * @author WangXianfeng 2014-5-24 下午9:31:57
+	 */
+	public function getLeaveTimeDays(){
+		return $this->getLeaveTimeInDays($this->time_unit,$this->birthday);
+	}
+	/**
+	 * 获取离开天数
+	 * 
+	 * @param string $timeUnit
+	 * @param DateTime $birthday
+	 * @param DateTime $end
+	 * @return string
+	 * @author WangXianfeng 2014-5-24 下午9:32:02
+	 */
 	public function getLeaveTimeInDays($timeUnit,$birthday, $end = null){
 		$nowTime = new DateTime();
 		if (! ($birthday instanceof DateTime)) {

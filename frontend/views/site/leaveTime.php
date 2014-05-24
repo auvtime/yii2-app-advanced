@@ -14,7 +14,7 @@ LeaveTimeAsset::register ( $this );
 	<div class="col-lg-12">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title"><?php echo \Yii::t('auvtime-leavetime', 'If you can live {0} years old,you can live for the following time.',$model->leave_age);?></h3>
+				<h3 class="panel-title"><?php echo \Yii::t('auvtime-leavetime', 'If you can live {0} years old,you can live for {1}.',[$model->leave_age,$model->getLeaveTimeDays()]);?></h3>
 			</div>
 			<div class="panel-body">
 				<?php echo LeaveTimeWidget::widget();?>

@@ -51,6 +51,7 @@ class SignupForm extends Model
             $user->setPassword($this->password);
             $user->generateAuthKey();
             $user->birthday = $this->birthday;
+            
             Yii::info("@@@@@@@birthday:".$this->birthday,'auvtime');
             Yii::info($this->array_to_json_string($user),'auvtime');
             $user->save();
