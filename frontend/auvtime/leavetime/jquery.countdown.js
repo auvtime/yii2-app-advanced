@@ -16,18 +16,23 @@ var createDigits = function(where, options) {
 	// reset digits and intervals array.
 	digits = [];
 	intervals = [];
-
+	var monthDay = getDays() + '';
+	var digitNumber = 0;
 	for ( var i = 0; i < options.startTime.length; i++) {
+		
 		if (parseInt(options.startTime[i]) >= 0) {
+			if(++digitNumber == 7){
+				var seporatorRow = $('<div class="seporator row"></div>');
+				seporatorRow.insertAfter(elem);
+				digitNumber = 0;
+			}
 			elem = $('<div id="cnt_' + counter + '" class="cntDigit" />').css({
 				height : options.digitHeight,
 				float : 'left',
 				background : 'url(\'' + options.image + '\')',
 				width : options.digitWidth
 			});
-
 			elem.current = parseInt(options.startTime[i]);
-			
 			digits.push(elem);
 
 			margin(counter, -elem.current * options.digitHeight
@@ -53,8 +58,12 @@ var createDigits = function(where, options) {
 					};
 					break;
 				case 'd':
-					digits[counter]._max = function() {
-						return 9;
+					digits[counter]._max = function(pos) {
+						if(pos % 2 == 0){
+							return monthDay[0];
+						}else{
+							return monthDay[1];
+						}
 					};
 					break;
 				case 'm':
@@ -72,6 +81,17 @@ var createDigits = function(where, options) {
 						}
 						return pos == sFirstPos ? 9 : 5;
 					};
+					break;
+				case 'y':
+					digits[counter]._max = function() {
+						return 9;
+					};
+					break;
+				case 'M':
+					digits[counter]._max = function() {
+						return 1;
+					};
+					break;
 				}
 			}
 
@@ -118,6 +138,7 @@ var margin = function(elem, val) {
 			'backgroundPosition' : '0 ' + val + 'px'
 		});
 	}
+
 	return digits[elem].margin || 0;
 };
 
@@ -190,10 +211,9 @@ var formatCompute = function(d, options) {
 		m : d.getUTCMinutes(),
 		s : d.getUTCSeconds()
 	};
-	format = format.replace(/(dd|hh|mm|ss)/g, function($0, form) {
+	return format.replace(/(dd|hh|mm|ss)/g, function($0, form) {
 		return pad(parse[form[0]]);
 	});
-	return format;
 };
 
 // add leading zeros
@@ -240,3 +260,21 @@ jQuery.fn.countdown = function(userOptions) {
 		}, 1000);
 	}
 };
+
+/**
+ * 获取当前时间月份有多少 days
+ * @returns
+ */
+function getDays() {
+	var date = new Date();
+	var y = date.getFullYear();
+	var m = date.getMonth() + 1;
+	if (m == 2) {
+		return y % 4 == 0 ? 29 : 28;
+	} else if (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10
+			|| m == 12) {
+		return 31;
+	} else {
+		return 30;
+	}
+}

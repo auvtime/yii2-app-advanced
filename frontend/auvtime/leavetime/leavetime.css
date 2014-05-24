@@ -1,6 +1,9 @@
 .cntSeparator {
-    display: none;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 90px;
     margin: 0 10px;
+    color: #00db9f;
 }
 
 .cntDigit {
@@ -12,4 +15,11 @@
 }
 .cntDigit#cnt_2 {
     margin-left: 7px;
+}
+.seporator{
+    margin: 50px 0;
+}
+.countdown{
+    width: 800px;
+    margin:50px auto;
 }

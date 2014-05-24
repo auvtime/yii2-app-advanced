@@ -30,10 +30,9 @@ class LeaveTimeWidget extends Widget {
 	public function run() {
 		echo Html::input('hidden','timeUnit',$this->user->time_unit,['id'=>'timeUnit']);
 		echo Html::input('hidden','leaveTimeFull',$this->user->getLeaveTimeDisplayFull(),['id'=>'leaveTimeFull']);
-		echo Html::beginTag('div',['class'=>'leave-time','id'=>'leaveTime']);
-		echo Html::encode($this->user->getLeaveTimeDisplay());
+		echo Html::beginTag('div',['class'=>'leave-time row','id'=>'leaveTime']);
 		echo Html::endTag ( 'div' ) . "\n";
-		echo Html::beginTag('div',['class'=>'countdown','id'=>'countdown']);
+		echo Html::beginTag('div',['class'=>'countdown row','id'=>'countdown']);
 		echo Html::endTag('div')."\n";
 		echo Html::endTag ( 'div' ) . "\n";
 	}
