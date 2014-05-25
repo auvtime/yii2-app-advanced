@@ -45,10 +45,20 @@ AppAsset::register($this);
                 $menuItems[] = ['label' => \Yii::t('auvtime','Sign Up'), 'url' => ['/site/signup']];
                 $menuItems[] = ['label' => \Yii::t('auvtime','Log In'), 'url' => ['/site/login']];
             } else {
+            	$user = Yii::$app->user->identity;
                 $menuItems[] = [
-                    'label' => \Yii::t('auvtime','Log Out') .'('. Yii::$app->user->identity->username . ')',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
+                    'label' => \Yii::t('auvtime','My profile') .'('. Yii::$app->user->identity->username . ')',
+					'items' => [
+						['label' => \Yii::t('auvtime','View profile'),
+							'url' => ['/my/view','id'=>$user->id],
+							'linkOptions' => ['data-method' => 'post'],],
+						['label' => \Yii::t('auvtime','Edit profile'),
+							'url' => ['/my/edit','id'=>$user->id],
+							'linkOptions' => ['data-method' => 'post'],],
+						['label' => \Yii::t('auvtime','Log Out'),
+							'url' => ['/site/logout'],
+							'linkOptions' => ['data-method' => 'post'],],
+					],
                 ];
             }
             echo Nav::widget([

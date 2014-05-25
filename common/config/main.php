@@ -75,6 +75,14 @@ return [
 										'fileMap' => [ 
 												'auvtime-leavetime' => 'auvtime-leavetime.php' 
 										] 
+								],
+								'auvtime-myprofile' => [ 
+										'class' => 'yii\i18n\PhpMessageSource',
+										'sourceLanguage' => 'en',
+										'basePath' => '@app/messages',
+										'fileMap' => [ 
+												'auvtime-myprofile' => 'auvtime-myprofile.php' 
+										] 
 								] 
 						] 
 				] 

@@ -712,7 +712,52 @@ class User extends ActiveRecord implements IdentityInterface
 		//根据用户生命单位和格式化字符串获取最终的格式化字符串
 		$format = $this->getUserLifeTimeFormat($timeUnit,$format,$jsonFormat);
 		Yii::info('@@@user leave time final format:'.$format,'auvtime');
-		// Prepend 'since ' or whatever you like
+			// Prepend 'since ' or whatever you like
 		return $interval->format ( $format );
+	}
+	
+	/**
+	 * 设置中文标签
+	 * 
+	 * @see \yii\base\Model::attributeLabels()
+	 * @return multitype:string Ambigous <string, string, boolean, unknown>
+	 * @author WangXianfeng 2014-5-25 下午8:11:09
+	 */
+	public function attributeLabels() {
+		$usernameLabel = \Yii::t ( 'auvtime-myprofile', 'Username' );
+		$nicknameLabel = \Yii::t ( 'auvtime-myprofile', 'Nickname' );
+		$birthdayLabel = \Yii::t ( 'auvtime-myprofile', 'Birthday' );
+		$publicFlagLabel = \Yii::t ( 'auvtime-myprofile', 'Public Flag' );
+		$leaveAgeLabel = \Yii::t ( 'auvtime-myprofile', 'Leave Age' );
+		$timeUnitLabel = \Yii::t ( 'auvtime-myprofile', 'Time Unit' );
+		$mobileLabel = \Yii::t ( 'auvtime-myprofile', 'Mobile' );
+		$faceLabel = \Yii::t ( 'auvtime-myprofile', 'Face' );
+		$emailLabel = \Yii::t ( 'auvtime-myprofile', 'Email' );
+		$createTimeLabel = \Yii::t ( 'auvtime-myprofile', 'Create Time' );
+		$updateTimeLabel = \Yii::t ( 'auvtime-myprofile', 'Update Time' );
+		return [ 
+				'username' => $usernameLabel,
+				'nickname' => $nicknameLabel,
+				'birthday' => $birthdayLabel,
+				'public_flag' => $publicFlagLabel,
+				'leave_age' => $leaveAgeLabel, 
+				'time_unit' => $timeUnitLabel,
+				'mobile' => $mobileLabel,
+				'face' => $faceLabel,
+				'email' => $emailLabel,
+				'create_time' => $createTimeLabel,
+				'update_time' => $updateTimeLabel
+		];
+	}
+	/**
+	 * 是否公开标识
+	 * 
+	 * @author WangXianfeng 2014-5-25 下午8:53:03
+	 */
+	public function getPublicFlagOptions(){
+		return [
+			'0' => '不公开',
+			'1' => '公开',
+		];
 	}
 }
