@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
+use yii\helpers\Html;
 /**
  * ContactForm is the model behind the contact form.
  */
@@ -26,7 +27,7 @@ class ContactForm extends Model
             // email has to be a valid email address
             ['email', 'email'],
             // verifyCode needs to be entered correctly
-            
+        	['verifyCode', 'captcha'],
         ];
     }
 
@@ -48,20 +49,20 @@ class ContactForm extends Model
             'verifyCode' => $verifyCodeLabel,
         ];
     }
-
-    /**
-     * Sends an email to the specified email address using the information collected by this model.
-     *
-     * @param  string  $email the target email address
-     * @return boolean whether the email was sent
-     */
-    public function sendEmail($email)
-    {
-        return Yii::$app->mail->compose()
-            ->setTo($email)
-            ->setFrom([$this->email => $this->name])
-            ->setSubject($this->subject)
-            ->setTextBody($this->body)
-            ->send();
-    }
+	
+	/**
+	 * Sends an email to the specified email address using the information collected by this model.
+	 *
+	 * @param string $email
+	 *        	the target email address
+	 * @return boolean whether the email was sent
+	 */
+	public function sendEmail($email) {
+		$mailSubject = $this->name . '[' . $this->email . ']' . $this->subject;
+		return Yii::$app->mail->compose ( 'contactUs', [ 
+				'mailbody' => Html::encode ( $this->body ),
+				'userName' => $this->name,
+				'userMail' => $this->email 
+		] )->setTo ( $email )->setFrom ( $email )->setSubject ( $mailSubject )->send ();
+	}
 }
