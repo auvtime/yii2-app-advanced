@@ -4,11 +4,10 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\User;
-use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\filters\AccessControl;
 /**
  * 
  * <p><b>标题：</b>frontend\controllers$MyController.</p>
@@ -23,71 +22,60 @@ use yii\filters\VerbFilter;
  */
 class MyController extends Controller
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * Lists all User models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => User::find(),
-        ]);
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+	/**
+	 * 只有登录用户才能查看或者编辑信息
+	 * @see \yii\base\Component::behaviors()
+	 * @return multitype:multitype:multitype:string  multitype:multitype:boolean multitype:string    string  multitype:multitype:multitype:string   string  
+	 * @author WangXianfeng 2014-5-26 下午8:37:06
+	 */
+	public function behaviors() {
+		return [ 
+				'access' => [ 
+						'class' => AccessControl::className (),
+						'only' => [ 
+								'view',
+								'edit' 
+						],
+						'rules' => [ 
+								[ 
+										'allow' => true,
+										'roles' => [ 
+												'@' 
+										] 
+								] 
+						] 
+				],
+				'verbs' => [ 
+						'class' => VerbFilter::className (),
+						'actions' => [ 
+								'delete' => [ 
+										'post' 
+								] 
+						] 
+				] 
+		];
+	}
 
     /**
      * Displays a single User model.
-     * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView()
     {
+    	$userId = Yii::$app->user->id;
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($userId),
         ]);
-    }
-
-    /**
-     * Creates a new User model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new User;
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
     }
 
     /**
      * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
      * @return mixed
      */
-    public function actionEdit($id)
+    public function actionEdit()
     {
+    	$id = Yii::$app->user->id;
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -97,19 +85,6 @@ class MyController extends Controller
                 'model' => $model,
             ]);
         }
-    }
-
-    /**
-     * Deletes an existing User model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

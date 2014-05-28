@@ -50,10 +50,10 @@ AppAsset::register($this);
                     'label' => \Yii::t('auvtime','My profile') .'('. Yii::$app->user->identity->username . ')',
 					'items' => [
 						['label' => \Yii::t('auvtime','View profile'),
-							'url' => ['/my/view','id'=>$user->id],
+							'url' => ['/my/view'],
 							'linkOptions' => ['data-method' => 'post'],],
 						['label' => \Yii::t('auvtime','Edit profile'),
-							'url' => ['/my/edit','id'=>$user->id],
+							'url' => ['/my/edit'],
 							'linkOptions' => ['data-method' => 'post'],],
 						['label' => \Yii::t('auvtime','Log Out'),
 							'url' => ['/site/logout'],

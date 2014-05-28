@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('auvtime', 'View profile')];
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('auvtime-myprofile', 'Edit'), ['edit', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('auvtime-myprofile', 'Edit'), ['edit'], ['class' => 'btn btn-primary']) ?>
     </p>
 	<div class="row">
 		<div class="col-lg-6">

@@ -16,4 +16,5 @@ return array (
 		'Email'=> '邮箱',
 		'Create Time' => '创建时间',
 		'Update Time' => '更新时间',
+		'Update' => '好了，更新吧',
 );

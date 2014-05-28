@@ -12,6 +12,8 @@ use yii\web\HttpException;
 use Datetime;
 use auvtime\util\AuvArrayUtil;
 use DateInterval;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 /**
  * User model
  *
@@ -55,6 +57,14 @@ class User extends ActiveRecord implements IdentityInterface
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                 ],
             ],
+            'mytimestamp' => [
+            	'class' => TimestampBehavior::className(),
+            	'attributes' => [
+           			ActiveRecord::EVENT_BEFORE_INSERT => 'create_time',
+            		ActiveRecord::EVENT_BEFORE_UPDATE => 'update_time',
+           		 ],
+            	'value' => new Expression('NOW()'),
+            ],
         ];
     }
 
@@ -80,6 +90,8 @@ class User extends ActiveRecord implements IdentityInterface
              [['face'], 'string', 'max' => 1000],
              [['auth_key'], 'string', 'max' => 32],
              [['username'], 'unique'],
+             [['email'],'email'],
+             [['mobile'],'validateMobile'],
          ];
      }
 
@@ -759,5 +771,35 @@ class User extends ActiveRecord implements IdentityInterface
 			'0' => '不公开',
 			'1' => '公开',
 		];
+	}
+	/**
+	 * 获取时间单位选项
+	 * 
+	 * @author WangXianfeng 2014-5-26 下午9:23:05
+	 */
+	public function getTimeUnitOptions(){
+		return [
+			'SECOND' => '秒',
+			'MINUTE' => '分钟',
+			'HOUR' => '小时',
+			'DAY' => '天',
+			'MONTH' => '月',
+			'YEAR' => '年',
+		];
+	}
+	
+	/**
+	 * 验证手机号码是否合法
+	 * 
+	 * @param string $attribute 属性
+	 * @author WangXianfeng 2014-5-26 下午9:49:04
+	 */
+	public function validateMobile($attribute,$params) {
+		$value = $this->$attribute;
+		Yii::info('The user\'s mobile is '.$value);
+		$exp = "/^13[0-9]{1}[0-9]{8}$|15[012356789]{1}[0-9]{8}$|18[012356789]{1}[0-9]{8}$|14[57]{1}[0-9]$/";
+		if (!preg_match ( $exp, $value )) {
+			$this->addError($attribute,\Yii::t('auvtime', 'Please input a valid mobile phone number.'));
+		}
 	}
 }

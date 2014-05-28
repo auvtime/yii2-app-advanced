@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\captcha\Captcha;
+use frontend\assets\ContactAsset;
 
 /**
  * @var yii\web\View $this
@@ -11,6 +12,7 @@ use yii\captcha\Captcha;
 $contact = \Yii::t('contact', 'Contact');
 $this->title = $contact;
 $this->params['breadcrumbs'][] = $this->title;
+ContactAsset::register($this);
 ?>
 <div class="site-contact">
     <h1><?= Html::encode($this->title) ?></h1>
