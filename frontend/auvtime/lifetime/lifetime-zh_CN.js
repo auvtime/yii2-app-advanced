@@ -166,9 +166,6 @@ function getDisplay(timeUnit, year, month, day, hour, minute, second, days) {
 		if (year != 0) {
 			display = year + '岁';
 		}
-		if (month != 0) {
-			display += month + '个月';
-		}
 		if (days != 0) {
 			display += ',' + days + '天.';
 		}
