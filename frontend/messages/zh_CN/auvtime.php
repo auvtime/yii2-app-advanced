@@ -60,4 +60,5 @@ return array (
 		'My profile' => '我的信息',
 		'Edit profile' => '修改信息',
 		'View profile' => '查看信息',
+		'Please input a valid mobile phone number.' => '请输入一个有效的手机号码.',
 );

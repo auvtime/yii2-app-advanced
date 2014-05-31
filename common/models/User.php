@@ -73,6 +73,7 @@ class User extends ActiveRecord implements IdentityInterface
       */
      public function rules()
      {
+     	 $mobilePattern = '/^13[0-9]{1}[0-9]{8}$|15[012356789]{1}[0-9]{8}$|18[012356789]{1}[0-9]{8}$|14[57]{1}[0-9]$/';
          return [
              ['status', 'default', 'value' => self::STATUS_ACTIVE],
              ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
@@ -91,7 +92,7 @@ class User extends ActiveRecord implements IdentityInterface
              [['auth_key'], 'string', 'max' => 32],
              [['username'], 'unique'],
              [['email'],'email'],
-             [['mobile'],'validateMobile'],
+             [['mobile'],'match','pattern'=>$mobilePattern,'message'=>Yii::t('auvtime', 'Please input a valid mobile phone number.')],
          ];
      }
 
