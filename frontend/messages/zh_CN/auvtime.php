@@ -57,7 +57,7 @@ return array (
 		'The above error occurred while the Web server was processing your request.'=>'当我们处理你的请求的时候发生了以上错误',
 		'Please contact us if you think this is a server error. Thank you.'=>'如果你认为这是一个服务器的严重错误，请联系我们，谢谢！',
 		//我的资料
-		'My profile' => '我的信息',
+		'My profile' => '帐号设置',
 		'Edit profile' => '修改信息',
 		'View profile' => '查看信息',
 		'Please input a valid mobile phone number.' => '请输入一个有效的手机号码.',
