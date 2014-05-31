@@ -568,7 +568,8 @@ class User extends ActiveRecord implements IdentityInterface
 		if (! ($birthday instanceof DateTime)) {
 			$birthday = new DateTime ( $birthday );
 		}
-		$userLeaveAge = new DateInterval('P'.$this->leave_age.'Y');
+		$leaveAge = empty($this->leave_age)?100:$this->leave_age;
+		$userLeaveAge = new DateInterval('P'.$leaveAge.'Y');
 		
 		if ($end === null) {
 			$end = $birthday->add($userLeaveAge);
@@ -625,7 +626,8 @@ class User extends ActiveRecord implements IdentityInterface
 		if (! ($birthday instanceof DateTime)) {
 			$birthday = new DateTime ( $birthday );
 		}
-		$userLeaveAge = new DateInterval('P'.$this->leave_age.'Y');
+		$leaveAge = empty($this->leave_age)?100:$this->leave_age;
+		$userLeaveAge = new DateInterval('P'.$leaveAge.'Y');
 		
 		if ($end === null) {
 			$end = $birthday->add($userLeaveAge);
