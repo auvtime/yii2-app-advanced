@@ -20,7 +20,7 @@ class CKEditorAsset extends AssetBundle {
 	public $sourcePath = '@app/auvtime/ckeditor';
 	public $js = [ 
 			'ckeditor.js',
-			'adapters\jquery.js'
+			'adapters/jquery.js'
 	];
 	public $depends = [ 
 			'frontend\assets\AppAsset'
