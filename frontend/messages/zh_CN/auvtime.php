@@ -3,6 +3,7 @@ return array (
 		//模板菜单
 		'Home' => '首页',
 		'Life Time' => '生命长度',
+		'My Experiences' => '我的经历',
 		'Leave Time' => '生命倒计时',
 		'About Us' => '关于我们',
 		'Contact Us' => '联系我们',

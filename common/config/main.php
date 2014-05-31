@@ -83,6 +83,14 @@ return [
 										'fileMap' => [ 
 												'auvtime-myprofile' => 'auvtime-myprofile.php' 
 										] 
+								],
+								'experience' => [ 
+										'class' => 'yii\i18n\PhpMessageSource',
+										'sourceLanguage' => 'en',
+										'basePath' => '@app/messages',
+										'fileMap' => [ 
+												'experience' => 'experience.php' 
+										] 
 								] 
 						] 
 				] 

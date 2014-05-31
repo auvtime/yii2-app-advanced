@@ -37,6 +37,7 @@ AppAsset::register($this);
             ];
             if (!Yii::$app->user->isGuest) {
             	$menuItems[] = ['label' => \Yii::t('auvtime','Life Time'), 'url' => ['/site/life-time']];
+            	$menuItems[] = ['label' => \Yii::t('auvtime','My Experiences'), 'url' => ['/experience/index']];
             	$menuItems[] = ['label' => \Yii::t('auvtime','Leave Time'), 'url' => ['/site/leave-time']];
             }
             $menuItems[] = ['label' => \Yii::t('auvtime','About Us'), 'url' => ['/site/about']];
