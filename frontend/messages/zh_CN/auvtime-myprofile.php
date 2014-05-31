@@ -10,6 +10,7 @@ return array (
 		'Birthday'=> '生日',
 		'Public Flag'=> '是否公开',
 		'Leave Age'=> '离世年龄',
+		' yeas' => '岁',
 		'Time Unit'=> '时间单位',
 		'Mobile'=> '手机',
 		'Face'=> '头像',
