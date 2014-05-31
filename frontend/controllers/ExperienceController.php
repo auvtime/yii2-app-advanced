@@ -88,7 +88,13 @@ class ExperienceController extends Controller
         $model = new Experience;
 		$model->user_id = Yii::$app->user->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $searchModel = new ExperienceSearch;
+	        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+	        $dataProvider->pagination->pageSize = 10;
+	        return $this->render('index', [
+	            'dataProvider' => $dataProvider,
+	            'searchModel' => $searchModel,
+	        ]);
         } else {
             return $this->render('create', [
                 'model' => $model,

@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use app\models\Experience;
+use frontend\assets\ExprienceAsset;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
@@ -11,31 +12,24 @@ use yii\grid\GridView;
 
 $this->title = Yii::t('experience', 'My Experiences');
 $this->params['breadcrumbs'][] = $this->title;
+ExprienceAsset::register($this);
+$model = new Experience();
 ?>
 <div class="experience-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('experience', 'Create {modelClass}', [
-			  'modelClass' => Yii::t('experience', 'Experience'),
-			]), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'content',
-            'time_unit',
-            'exp_time',
-            // 'create_time',
-            // 'update_time',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
+	
+    <div class="row">
+    	<div class="create-experience">
+			<?= $this->render('_form', [
+		        'model' => $model,
+		    ]) ?>
+    	</div>
+    </div>
+	<div class="separator"></div>
+	<div class="row">
+		<div class="col-lg-8">
+		    
+		</div>
+	</div>
 </div>

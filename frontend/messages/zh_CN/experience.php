@@ -2,9 +2,9 @@
 return array (
 		// 联系我
 		'Experience' => '经历',
-		'Create {modelClass}' => '创建{modelClass}',
+		'Create {modelClass}' => '添加{modelClass}',
 		'Update {modelClass}' => '更新{modelClass}',
-		'Create' => '新建',
+		'Create' => '添加',
 		'Update' => '更新',
 		'Content' => '',
 		'Time Unit?' => '以什么时间为单位?',
