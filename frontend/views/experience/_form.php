@@ -16,6 +16,7 @@ use common\models\User;
     <?php $form = ActiveForm::begin([
 		'id'=>'craete-experience-form',
     	'action'=>'/experience/create',
+    	'beforeSubmit' => 'submitForm'
     ]); ?>
     <div class="col-lg-8">
 		<div class="row">

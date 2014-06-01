@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 
 /**
  * ExperienceController implements the CRUD actions for Experience model.
@@ -58,11 +59,13 @@ class ExperienceController extends Controller
     public function actionIndex()
     {
         $searchModel = new ExperienceSearch;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-        $dataProvider->pagination->pageSize = 2;
+        $searchModel->user_id=Yii::$app->user->id;
+        $dataProvider = $searchModel->search(null);
+        $explist = $dataProvider->getModels();
+        $json = Json::encode($explist);
+        Yii::info($json,'auvtime');
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
+            'explist' => $explist,
         ]);
     }
 
@@ -88,13 +91,13 @@ class ExperienceController extends Controller
         $model = new Experience;
 		$model->user_id = Yii::$app->user->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $searchModel = new ExperienceSearch;
-	        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-	        $dataProvider->pagination->pageSize = 10;
-	        return $this->render('index', [
-	            'dataProvider' => $dataProvider,
-	            'searchModel' => $searchModel,
-	        ]);
+        	$model->refresh();
+        	Yii::$app->response->format = 'json';
+        	$modelJson = Json::encode($model);
+        	Yii::info($modelJson,'auvtime');
+        	return [
+        		'message' => $modelJson,
+        	];
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -143,10 +146,11 @@ class ExperienceController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Experience::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
+        if (($model = Experience::findOne ( $id )) !== null) {
+			return $model;
+		} else {
+			throw new NotFoundHttpException ( 'The requested page does not exist.' );
+		}
+	}
+	
 }

@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
 use app\models\Experience;
 use frontend\assets\ExprienceAsset;
 /**
@@ -28,8 +27,22 @@ $model = new Experience();
     </div>
 	<div class="separator"></div>
 	<div class="row">
-		<div class="col-lg-8">
-		    
+		<div class="col-lg-12">
+		    <div class="experience-list col-lg-8">
+				<div id="exp-template" class="experience row" style="display: none">
+					<div class="user-face col-lg-2">
+						<div class="face"></div>
+					</div>
+					<div class="exp-detail col-lg-10">
+						<div class="content"></div>
+						<div class="create-time"></div>
+						<div class="exp-time"></div>
+					</div>
+				</div>
+				<?= $this->render('_explist',[
+					'explist' => $explist,
+				])?>
+		    </div>
 		</div>
 	</div>
 </div>

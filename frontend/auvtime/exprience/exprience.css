@@ -1,1 +1,36 @@
 @CHARSET "UTF-8";
+.create-experience{
+    margin-left:20px;
+}
+.experience-list {
+    height: auto;
+    border: #909090 1px solid;
+    color: #333;
+    -moz-box-shadow: 2px 2px 10px #909090;
+    -webkit-box-shadow: 2px 2px 10px #909090;
+    box-shadow: 2px 2px 10px #909090;
+    padding: 10px;
+}
+.experience{
+    margin: 10px;
+    padding:10px;
+    border-bottom:  #909090 1px solid;
+}
+.face{
+    background: url(images/wangxianfeng.jpg) no-repeat;
+    width:110px;
+    height: 110px;
+}
+.content .create-time .exp-time{
+    font-size: 14px;
+}
+.content{
+    height: 90px;
+    overflow: auto;
+}
+.create-time{
+    float: left;
+}
+.exp-time{
+    float: right;
+}

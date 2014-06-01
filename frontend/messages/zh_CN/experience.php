@@ -11,4 +11,5 @@ return array (
 		'When?' => '事情发生在何时呢?',
 		'What happended to you?' => '你经历了什么?',
 		'My Experiences' => '我的经历',
+		'You haven\'t any experience yet now.' => '你还添加任何经历.',
 );
