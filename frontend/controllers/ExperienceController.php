@@ -92,6 +92,8 @@ class ExperienceController extends Controller
 		$model->user_id = Yii::$app->user->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
         	$model->refresh();
+        	$model->create_time = $model->getCreatTimeDisplay();
+        	$model->exp_time = $model->getExpTimeDisplay();
         	Yii::$app->response->format = 'json';
         	$modelJson = Json::encode($model);
         	Yii::info($modelJson,'auvtime');

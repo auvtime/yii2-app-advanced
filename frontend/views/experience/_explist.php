@@ -9,8 +9,8 @@ if(empty($explist)){
 		echo '						</div>				';
 		echo '						<div class="exp-detail col-lg-10">				';
 		echo '							<div class="content">'.$exp->content.'</div>			';
-		echo '							<div class="create-time">'.$exp->create_time.'</div>			';
-		echo '							<div class="exp-time">'.$exp->exp_time.'</div>			';
+		echo '							<div class="create-time">'.Yii::t('experience', 'Created at ').':'.$exp->getCreatTimeDisplay().'</div>			';
+		echo '							<div class="exp-time">'.Yii::t('experience', 'Experienced at ').':'.$exp->getExpTimeDisplay().'</div>			';
 		echo '						</div>				';
 		echo '					</div>					';
 		

@@ -15,4 +15,6 @@ return array (
 		'Tips' => '提示',
 		'Have a rest now and get a cup of tea!' => '休息一下吧，生活何必如此匆忙，坐下来喝杯茶吧!',
 		'Your already have a same experience!' => '你已经有了一个相同的经历了!',
+		'Created at ' => '创建时间',
+		'Experienced at ' => '经历时间',
 );

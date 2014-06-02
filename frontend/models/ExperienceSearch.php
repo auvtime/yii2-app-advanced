@@ -29,7 +29,7 @@ class ExperienceSearch extends Experience
     public function search($params)
     {
         $query = Experience::find();
-
+        $query->orderBy(['create_time'=>SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

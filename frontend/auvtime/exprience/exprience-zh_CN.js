@@ -47,8 +47,8 @@ function submitForm($form) {
 				//动态添加到列表中
 				var exprience = eval('(' + result.message + ')');
 				var content = exprience.content;
-				var createTime = exprience.create_time;
-				var expTime = exprience.exp_time;
+				var createTime = '创建时间:' + exprience.create_time;
+				var expTime = '经历时间：' + exprience.exp_time;
 				var $expTemplate = $('#exp-template');
 				var $expDetail = $expTemplate.find('.exp-detail');
 				$expDetail.find('.content').html(content);
