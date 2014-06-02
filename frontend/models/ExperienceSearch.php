@@ -33,10 +33,12 @@ class ExperienceSearch extends Experience
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        
+		if(null !== $params){
+	        if (!($this->load($params) && $this->validate())) {
+	            return $dataProvider;
+	        }
+		}
 
         $query->andFilterWhere([
             'id' => $this->id,
@@ -51,4 +53,39 @@ class ExperienceSearch extends Experience
 
         return $dataProvider;
     }
+	
+	/**
+	 * 根据时间和内容查询
+	 *
+	 * @param array $params        	
+	 * @return \yii\data\ActiveDataProvider
+	 * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-2 下午4:28:11
+	 */
+	public function searchExpByTimeAndContent($params) {
+		$query = Experience::find ();
+		
+		$dataProvider = new ActiveDataProvider ( [ 
+				'query' => $query 
+		] );
+		
+		if (null !== $params) {
+			if (! ($this->load ( $params ) && $this->validate ())) {
+				return $dataProvider;
+			}
+		}
+		Yii::info('exp_time:'.$this->exp_time,'auvtime');
+		Yii::info('content:'.$this->content,'auvtime');
+		
+		$query->andFilterWhere ( [ 
+				'id' => $this->id,
+				'user_id' => $this->user_id 
+		] );
+		
+		$query->andFilterWhere ( [ 
+				'content' => $this->content,
+				'DATE_FORMAT(exp_time,"%Y-%m-%d %H:%i:%s")' => $this->exp_time 
+		] );
+		
+		return $dataProvider;
+	}
 }

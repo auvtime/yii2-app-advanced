@@ -12,4 +12,7 @@ return array (
 		'What happended to you?' => '你经历了什么?',
 		'My Experiences' => '我的经历',
 		'You haven\'t any experience yet now.' => '你还添加任何经历.',
+		'Tips' => '提示',
+		'Have a rest now and get a cup of tea!' => '休息一下吧，生活何必如此匆忙，坐下来喝杯茶吧!',
+		'Your already have a same experience!' => '你已经有了一个相同的经历了!',
 );

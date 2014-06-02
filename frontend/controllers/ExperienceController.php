@@ -98,11 +98,7 @@ class ExperienceController extends Controller
         	return [
         		'message' => $modelJson,
         	];
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        } 
     }
 
     /**
@@ -152,5 +148,21 @@ class ExperienceController extends Controller
 			throw new NotFoundHttpException ( 'The requested page does not exist.' );
 		}
 	}
-	
+	/**
+	 * 判断是否存在相同内容的经历
+	 * 
+	 * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-2 上午11:25:08
+	 */
+	public function actionContentExists(){
+		$searchModel = new ExperienceSearch;
+		$searchModel->user_id=Yii::$app->user->id;
+		$dataProvider = $searchModel->searchExpByTimeAndContent(Yii::$app->request->post());
+		$explist = $dataProvider->getModels();
+		Yii::$app->response->format = 'json';
+		if(empty($explist)){
+			echo 'notexists';
+		}else{
+			echo 'exists';
+		}
+	}
 }

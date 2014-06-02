@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\User;
+use yii\bootstrap\Modal;
 
 /**
  * @var yii\web\View $this
@@ -37,5 +38,25 @@ use common\models\User;
 		</div>
 	</div>
     <?php ActiveForm::end(); ?>
-
+	<?php
+	    Modal::begin([
+	            'id' => 'restmodal',
+	            'header' => '<h4>'.Yii::t('experience', 'Tips').'</h4>',
+	            'closeButton' => ['label' => '<h4>X</h4>'],
+	        ]);
+	    
+	    echo "<div id='modalContent'><h4>".Yii::t('experience', 'Have a rest now and get a cup of tea!')."</h4></div>";
+	 
+	    Modal::end();
+	    
+	    Modal::begin([
+		    'id' => 'contentmodal',
+		    'header' => '<h4>'.Yii::t('experience', 'Tips').'</h4>',
+		    'closeButton' => ['label' => '<h4>X</h4>'],
+	    ]);
+	     
+	    echo "<div id='modalContent'><h4>".Yii::t('experience', 'Your already have a same experience!')."</h4></div>";
+	    
+	    Modal::end();
+    ?>
 </div>

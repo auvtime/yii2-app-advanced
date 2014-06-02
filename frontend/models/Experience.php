@@ -52,7 +52,7 @@ class Experience extends \yii\db\ActiveRecord
             [['exp_time'], 'safe'],
             [['content'], 'string', 'max' => 500],
             [['time_unit'], 'string', 'max' => 20],
-            [['exp_time'],'required']
+            [['exp_time'],'required'],
         ];
     }
 
