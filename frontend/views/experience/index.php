@@ -29,7 +29,17 @@ $model = new Experience();
 	<div class="row">
 		<div class="col-lg-12">
 		    <div class="experience-list col-lg-8">
-				<div id="exp-template" class="experience row" style="display: none">
+				<div id="exp-template" class="experience row" style="display: ">
+					<div class="exp-menu"  style="position: absolute; z-index: 999;">
+						<div class="dropdown">
+	            	    	<a role="button" data-toggle="dropdown" data-target="#" exp-data="" class="exp-menu-icon-choose exp-menu-button"></a>
+		                	<ul class="dropdown-menu" role="menu">
+			                	<li role="presentation"><a role="menuitem" tabindex="-1" menu-type="delete-exp" href="javascript:;" title="<?php echo Yii::t('experience', 'Delete this experience')?>"><?php echo Yii::t('experience', 'Delete this experience')?></a></li>
+			                    <li role="presentation"><a role="menuitem" tabindex="-1" menu-type="add-to-ach" href="javascript:;" title="<?php echo Yii::t('experience', 'Add to achievement')?>"><?php echo Yii::t('experience', 'Add to achievement')?></a></li>
+		                    </ul>
+			               	
+	            	    </div>
+            	    </div>
 					<div class="user-face col-lg-2">
 						<div class="face"></div>
 					</div>

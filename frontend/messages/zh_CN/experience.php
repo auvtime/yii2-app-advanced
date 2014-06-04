@@ -17,4 +17,8 @@ return array (
 		'Your already have a same experience!' => '你已经有了一个相同的经历了!',
 		'Created at ' => '创建时间',
 		'Experienced at ' => '经历时间',
+		'Delete this experience' => '删除经历',
+		'Add to achievement' => '记入成就',
+		'Please confirm' => '请确认',
+		'Are you sure to delete this experience?' => '你确定要删除此条经历吗?',
 );

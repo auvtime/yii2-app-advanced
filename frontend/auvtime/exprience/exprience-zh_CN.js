@@ -2,6 +2,27 @@ $(document).ready(function(){
 	$('#experience-exp_time').click(function(){
 		WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});
 	});
+	//鼠标移动到显示区域的时候显示下拉菜单
+	$('.experience-list').on('mouseover','.experience',function(){
+		$(this).find('.exp-menu>.dropdown>.exp-menu-icon-choose,.exp-menu>.dropdown>.dropdown-menu').css('visibility','visible');
+	}).mouseout(function(){
+		$(this).find('.exp-menu>.dropdown>.exp-menu-icon-choose,.exp-menu>.dropdown>.dropdown-menu').css('visibility','hidden');
+	});
+	//右上角下拉菜单
+	$('.exp-menu-button').dropdown();
+	$('.dropdown').on('shown.bs.dropdown',function(){
+		$(this).find('.exp-menu-button').removeClass('exp-menu-icon-choose').addClass('exp-menu-icon-choose-up');
+	}).on('hidden.bs.dropdown',function(){
+		$(this).find('.exp-menu-button').removeClass('exp-menu-icon-choose-up').addClass('exp-menu-icon-choose');
+	});
+	//删除经历和记入成就按钮
+	$('.dropdown').on('click','.dropdown-menu>li>a',function(){
+		var eId = $(this).parent().parent().parent().find('a').attr('exp-data');
+		var menuType = $(this).attr('menu-type');
+		if(menuType == 'delete-exp'){
+			//明天继续
+		}
+	});
 });
 //定时器初始化为0
 var timer = 0;
@@ -49,7 +70,9 @@ function submitForm($form) {
 				var content = exprience.content;
 				var createTime = '创建时间:' + exprience.create_time;
 				var expTime = '经历时间：' + exprience.exp_time;
+				var expId = exprience.id;
 				var $expTemplate = $('#exp-template');
+				$expTemplate.find('.exp-menu-button').attr('exp-data',expId);
 				var $expDetail = $expTemplate.find('.exp-detail');
 				$expDetail.find('.content').html(content);
 				$expDetail.find('.create-time').html(createTime);
