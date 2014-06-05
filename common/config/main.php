@@ -91,6 +91,14 @@ return [
 										'fileMap' => [ 
 												'experience' => 'experience.php' 
 										] 
+								],
+								'achievement' => [ 
+										'class' => 'yii\i18n\PhpMessageSource',
+										'sourceLanguage' => 'en',
+										'basePath' => '@app/messages',
+										'fileMap' => [ 
+												'achievement' => 'achievement.php' 
+										] 
 								] 
 						] 
 				] 

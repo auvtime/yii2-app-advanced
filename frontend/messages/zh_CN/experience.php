@@ -1,6 +1,5 @@
 <?php
 return array (
-		// 联系我
 		'Experience' => '经历',
 		'Create {modelClass}' => '添加{modelClass}',
 		'Update {modelClass}' => '更新{modelClass}',
