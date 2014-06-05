@@ -34,9 +34,10 @@ $(document).ready(function(){
 							 $('#dDialog').dialog('close');
 							 //删除页面上的此条经历
 							 var $experience = $dropdownMenu.parent().parent();
-							 $experience.fadeOut('slow').remove();
+							 $experience.slideUp('slow',function(){
+								$(this).remove();
+							 });
 						 });
-						 
 					 },
 					 '取消': function() {
 						 $( this ).dialog( "close" );
@@ -102,8 +103,8 @@ function submitForm($form) {
 				$expDetail.find('.exp-time').html(expTime);
 				var $exp = $expTemplate.clone();
 				$exp.attr('id', Math.random());
-				$exp.css('display', 'block');
-				$exp.insertAfter($expTemplate).fadeIn('slow');
+				$exp.css('display', 'none');
+				$exp.insertAfter($expTemplate).slideDown('slow');
 			}).fail(function() {
 
 			});
