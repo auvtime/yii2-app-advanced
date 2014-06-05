@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
+use yii\db\Exception;
+use yii\web\HttpException;
 
 /**
  * ExperienceController implements the CRUD actions for Experience model.
@@ -128,11 +130,26 @@ class ExperienceController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete()
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+    	if(!Yii::$app->request->isAjax){
+    		throw new HttpException('404');
+    	}
+    	$eid = Yii::$app->request->post('eid');
+    	$delExp = $this->findModel($eid);
+    	$delUserId = $delExp->user_id;
+    	$errMsg = '';
+    	if($delUserId!==Yii::$app->user->id){
+    		echo Yii::t('experience', 'You have not right to delete other\'s experience.');
+    	}else{
+    		try{
+    			$delExp->delete();
+    			$errMsg = 'success';
+    		}catch (Exception $e){
+    			$errMsg = $e->__toString();
+    		}
+    		echo $errMsg;
+    	}
     }
 
     /**

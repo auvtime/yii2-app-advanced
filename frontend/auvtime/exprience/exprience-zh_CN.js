@@ -16,11 +16,33 @@ $(document).ready(function(){
 		$(this).find('.exp-menu-button').removeClass('exp-menu-icon-choose-up').addClass('exp-menu-icon-choose');
 	});
 	//删除经历和记入成就按钮
-	$('.dropdown').on('click','.dropdown-menu>li>a',function(){
-		var eId = $(this).parent().parent().parent().find('a').attr('exp-data');
+	$('.experience-list').on('click','.experience>.exp-menu>.dropdown>.dropdown-menu>li>a',function(){
+		var $dropdownMenu = $(this).parent().parent().parent();
+		var eId = $dropdownMenu.find('a').attr('exp-data');
 		var menuType = $(this).attr('menu-type');
 		if(menuType == 'delete-exp'){
-			//明天继续
+			$('#dDialog').dialog({
+				 resizable: false,
+				 height:160,
+				 modal:true,
+				 open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
+				 buttons: {
+					 "确定": function() {
+						 $.post('/experience/delete',{
+							 'eid':eId
+						 }).success(function(){
+							 $('#dDialog').dialog('close');
+							 //删除页面上的此条经历
+							 var $experience = $dropdownMenu.parent().parent();
+							 $experience.fadeOut('slow').remove();
+						 });
+						 
+					 },
+					 '取消': function() {
+						 $( this ).dialog( "close" );
+					 }
+				 }
+			});
 		}
 	});
 });
@@ -56,7 +78,8 @@ function submitForm($form) {
 			$.post(createUrl, createData).success(function(result) {
 				saveTimer = window.setInterval(function(){
 					timer ++;
-					if(timer == 10){
+					if(timer >= 10){
+						timer = 0;
 						window.clearInterval(saveTimer);
 					}
 				},1000);

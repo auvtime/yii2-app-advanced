@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use app\models\Experience;
 use frontend\assets\ExprienceAsset;
+use yii\jui\DialogAsset;
+use yii\jui\ThemeAsset;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
@@ -13,6 +15,8 @@ $this->title = Yii::t('experience', 'My Experiences');
 $this->params['breadcrumbs'][] = $this->title;
 ExprienceAsset::register($this);
 $model = new Experience();
+ThemeAsset::register($this);
+DialogAsset::register($this);
 ?>
 <div class="experience-index">
 
@@ -29,7 +33,7 @@ $model = new Experience();
 	<div class="row">
 		<div class="col-lg-12">
 		    <div class="experience-list col-lg-8">
-				<div id="exp-template" class="experience row" style="display: ">
+				<div id="exp-template" class="experience row" style="display:none ">
 					<div class="exp-menu"  style="position: absolute; z-index: 999;">
 						<div class="dropdown">
 	            	    	<a role="button" data-toggle="dropdown" data-target="#" exp-data="" class="exp-menu-icon-choose exp-menu-button"></a>
@@ -56,3 +60,9 @@ $model = new Experience();
 		</div>
 	</div>
 </div>
+
+
+<div id="dDialog" title="<?php echo Yii::t('experience', 'Please confirm')?>" style="display: none">
+	<?php echo Yii::t('experience', 'Are you sure to delete this experience?')?>
+</div>
+
