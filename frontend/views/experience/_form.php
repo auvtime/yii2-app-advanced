@@ -7,7 +7,7 @@ use yii\bootstrap\Modal;
 
 /**
  * @var yii\web\View $this
- * @var app\models\Experience $model
+ * @var frontend\models\Experience $model
  * @var yii\widgets\ActiveForm $form
  */
 ?>

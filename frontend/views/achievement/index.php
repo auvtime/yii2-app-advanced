@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var app\models\AchievementSearch $searchModel
+ * @var frontend\models\AchievementSearch $searchModel
  */
 
 $this->title = Yii::t('achievement', 'Achievements');

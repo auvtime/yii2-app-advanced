@@ -2,7 +2,7 @@
 .create-experience {
     margin-left: 20px;
 }
-.experience-list {
+.experience-list,.experience-input{
     height: auto;
     border: #909090 1px solid;
     color: #333;
@@ -91,3 +91,32 @@ a, .S_link1, .S_func1:hover, .SW_fun:hover .S_func1, .SW_fun2:hover .S_func3, .S
 li {
   list-style: none outside none;
 }
+
+
+.ajax_notification {
+  background:#079D59;
+  background-position: 2% center;
+  border: 1px solid #E2B709;
+  display: inline;
+  left: 0;
+  margin: 0 0 0 300px;
+  padding: 5px;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: 0;
+  height:65px;
+  width: 350px;
+  z-index: 1100;
+}
+
+.ajax_notification {
+  background: none repeat scroll 0 0 #079D59;
+  border-radius: 5px;
+  box-shadow: 0 5px 90px #888888;
+  margin-top: 320px;
+}
+
+
+
+

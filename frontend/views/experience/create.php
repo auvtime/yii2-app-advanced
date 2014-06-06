@@ -5,7 +5,7 @@ use frontend\assets\ExprienceAsset;
 
 /**
  * @var yii\web\View $this
- * @var app\models\Experience $model
+ * @var frontend\models\Experience $model
  */
 
 $this->title = Yii::t('experience', 'Create {modelClass}', [

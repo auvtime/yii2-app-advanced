@@ -15,6 +15,12 @@ $(document).ready(function(){
 	}).on('hidden.bs.dropdown',function(){
 		$(this).find('.exp-menu-button').removeClass('exp-menu-icon-choose-up').addClass('exp-menu-icon-choose');
 	});
+	//状态栏
+	function hideStatus(sec){
+		window.setTimeout(function(){
+			$('#statusMsg').hide();
+		},sec);
+	}
 	//删除经历和记入成就按钮
 	$('.experience-list').on('click','.experience>.exp-menu>.dropdown>.dropdown-menu>li>a',function(){
 		var $dropdownMenu = $(this).parent().parent().parent();
@@ -23,20 +29,50 @@ $(document).ready(function(){
 		if(menuType == 'delete-exp'){
 			$('#dDialog').dialog({
 				 resizable: false,
-				 height:160,
+				 height:170,
 				 modal:true,
 				 open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
 				 buttons: {
 					 "确定": function() {
 						 $.post('/experience/delete',{
 							 'eid':eId
-						 }).success(function(){
-							 $('#dDialog').dialog('close');
-							 //删除页面上的此条经历
-							 var $experience = $dropdownMenu.parent().parent();
-							 $experience.slideUp('slow',function(){
-								$(this).remove();
-							 });
+						 }).success(function(message){
+							 if('success' == message){
+								 $('#dDialog').dialog('close');
+								 //删除页面上的此条经历
+								 var $experience = $dropdownMenu.parent().parent();
+								 $experience.slideUp('slow',function(){
+									$(this).remove();
+								 });
+							 }else{
+								 $('#dTip').html(message).addClass('alert alert-danger');
+							 }
+						 });
+					 },
+					 '取消': function() {
+						 $( this ).dialog( "close" );
+					 }
+				 }
+			});
+		}else if(menuType == 'add-to-ach'){
+			$('#aDialog').dialog({
+				 resizable: false,
+				 height:200,
+				 modal:true,
+				 open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
+				 buttons: {
+					 "确定": function() {
+						 $.post('/experience/add-to-ach',{
+							 'eid':eId
+						 }).success(function(result){
+							 var message = eval('(' + result + ')');
+							 if(message.flag == 'success'){
+								 $('#aDialog').dialog( "close" );
+								 $('#statusMsg').html(message.msg).show();
+								 hideStatus(2000);
+							 }else{
+								 $('#aTip').html(message.msg).addClass('alert alert-danger');
+							 }
 						 });
 					 },
 					 '取消': function() {

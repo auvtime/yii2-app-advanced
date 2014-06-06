@@ -20,4 +20,9 @@ return array (
 		'Add to achievement' => '记入成就',
 		'Please confirm' => '请确认',
 		'Are you sure to delete this experience?' => '你确定要删除此条经历吗?',
+		'You have no right to delete other\'s experience.' => '你无权删除别人的经历.',
+		'You have no right to deal other\'s experience.' => '你无权处理别人的经历.',
+		'Are you sure to add this experience to achievement?' => '确定要把此条经历记入成就吗?',
+		'Add this experience to achievement failed!' => '把经历记入成就失败!',
+		'Add experience to achievement success!' => '把经历记入成就成功!',
 );

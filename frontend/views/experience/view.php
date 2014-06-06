@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var app\models\Experience $model
+ * @var frontend\models\Experience $model
  */
 
 $this->title = $model->id;

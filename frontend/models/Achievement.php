@@ -3,6 +3,9 @@
 namespace frontend\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "achievement".
@@ -35,13 +38,31 @@ class Achievement extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'content', 'time_unit', 'user_id'], 'required'],
-            [['id', 'exp_id', 'user_id'], 'integer'],
+            [['content', 'time_unit', 'user_id'], 'required'],
+            [['exp_id', 'user_id'], 'integer'],
             [['achieve_time', 'create_time', 'update_time'], 'safe'],
             [['content'], 'string', 'max' => 500],
             [['time_unit'], 'string', 'max' => 20]
         ];
     }
+    /**
+     * (non-PHPdoc)
+     * @see \yii\base\Component::behaviors()
+     * @return multitype:multitype:multitype:string  \frontend\models\Expression NULL  
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-5 下午9:22:04
+     */
+	public function behaviors() {
+		return [ 
+				'timestamp' => [ 
+						'class' => TimestampBehavior::className (),
+						'attributes' => [ 
+								ActiveRecord::EVENT_BEFORE_INSERT => 'create_time',
+								ActiveRecord::EVENT_BEFORE_UPDATE => 'update_time' 
+						],
+						'value' => new Expression ( 'NOW()' ) 
+				] 
+		];
+	}
 
     /**
      * @inheritdoc

@@ -1,14 +1,14 @@
 <?php
 
 use yii\helpers\Html;
-use app\models\Experience;
+use frontend\models\Experience;
 use frontend\assets\ExprienceAsset;
 use yii\jui\DialogAsset;
 use yii\jui\ThemeAsset;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var app\models\ExperienceSearch $searchModel
+ * @var frontend\models\ExperienceSearch $searchModel
  */
 
 $this->title = Yii::t('experience', 'My Experiences');
@@ -18,6 +18,7 @@ $model = new Experience();
 ThemeAsset::register($this);
 DialogAsset::register($this);
 ?>
+<div id="statusMsg"></div>
 <div class="experience-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -61,8 +62,9 @@ DialogAsset::register($this);
 	</div>
 </div>
 
-
 <div id="dDialog" title="<?php echo Yii::t('experience', 'Please confirm')?>" style="display: none">
-	<?php echo Yii::t('experience', 'Are you sure to delete this experience?')?>
+	<span id="dTip"><?php echo Yii::t('experience', 'Are you sure to delete this experience?')?></span>
 </div>
-
+<div id="aDialog" title="<?php echo Yii::t('experience', 'Please confirm')?>" style="display: none">
+	<div id="aTip"><?php echo Yii::t('experience', 'Are you sure to add this experience to achievement?')?></div>
+</div>

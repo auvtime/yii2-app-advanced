@@ -3,8 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
-use app\models\Experience;
-use app\models\ExperienceSearch;
+use frontend\models\Experience;
+use frontend\models\ExperienceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,6 +12,8 @@ use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\db\Exception;
 use yii\web\HttpException;
+use frontend\models\Achievement;
+use yii\helpers\Html;
 
 /**
  * ExperienceController implements the CRUD actions for Experience model.
@@ -140,7 +142,7 @@ class ExperienceController extends Controller
     	$delUserId = $delExp->user_id;
     	$errMsg = '';
     	if($delUserId!==Yii::$app->user->id){
-    		echo Yii::t('experience', 'You have not right to delete other\'s experience.');
+    		echo Yii::t('experience', 'You have no right to delete other\'s experience.');
     	}else{
     		try{
     			$delExp->delete();
@@ -183,5 +185,63 @@ class ExperienceController extends Controller
 		}else{
 			echo 'exists';
 		}
+	}
+	/**
+	 * 记入成就
+	 * 
+	 * @throws HttpException
+	 * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-5 下午9:24:19
+	 */
+	public function actionAddToAch(){
+		if(!Yii::$app->request->isAjax){
+			throw new HttpException('404');
+		}
+		$eid = Yii::$app->request->post('eid');
+		$addToAchExp = $this->findModel($eid);
+		$addToAchExpUserId = $addToAchExp->user_id;
+		$errMsg = '';
+		if($addToAchExpUserId !== Yii::$app->user->id){
+			echo Yii::t('experience', 'You have no right to deal other\'s experience.');
+		}else{
+			try{
+				$achievement = new Achievement();
+				$achievement->content = $addToAchExp->content;
+				$achievement->exp_id = $addToAchExp->id;
+				$achievement->achieve_time = $addToAchExp->exp_time;
+				$achievement->user_id = $addToAchExp->user_id;
+				$achievement->time_unit = $addToAchExp->time_unit;
+				$achievement->achieve_time = $addToAchExp->exp_time;
+				if($achievement->save()){
+					echo $this->getStatusMsg();
+				}else{
+					$returnMsg = ['flag'=>'fail','msg'=>Yii::t('experience', 'Add this experience to achievement failed!')];
+					$returnMsg = Json::encode($returnMsg);
+					echo $returnMsg;	
+				}
+			}catch (Exception $e){
+				$errMsg = $e->__toString();
+			}
+			echo $errMsg;
+		}
+	}
+	
+	/**
+	 * 获取成功消息
+	 * 
+	 * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-6 下午8:57:59
+	 */
+	public function getStatusMsg(){
+		$statusMsg = Html::beginTag('span',['class'=>'ajax_notification']);
+		$statusMsg = $statusMsg.Html::beginTag('div',['class'=>'alert alert-success']);
+		$statusMsg = $statusMsg.Html::beginTag('img',['class'=>'icon ic_s_success']);
+		$statusMsg = $statusMsg.Html::endTag('img');
+		$msg = Yii::t('experience', 'Add experience to achievement success!');
+		$statusMsg = $statusMsg.$msg;
+		$statusMsg = $statusMsg.Html::endTag('div');
+		$statusMsg = $statusMsg.Html::endTag('span');
+		$returnMsg = ['flag'=>'success','msg'=>$statusMsg];
+		$returnMsg = Json::encode($returnMsg);
+		Yii::info($returnMsg,'auvtime');
+		return $returnMsg;
 	}
 }

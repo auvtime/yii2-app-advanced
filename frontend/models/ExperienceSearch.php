@@ -1,14 +1,14 @@
 <?php
 
-namespace app\models;
+namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Experience;
+use frontend\models\Experience;
 
 /**
- * ExperienceSearch represents the model behind the search form about `app\models\Experience`.
+ * ExperienceSearch represents the model behind the search form about `frontend\models\Experience`.
  */
 class ExperienceSearch extends Experience
 {
