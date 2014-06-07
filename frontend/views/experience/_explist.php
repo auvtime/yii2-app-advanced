@@ -17,7 +17,7 @@ if(empty($explist)){
 		 
 								<div class="user-face col-lg-2">				
 									<div class="face"></div>			
-								</div>				';
+								</div>
 								<div class="exp-detail col-lg-10">				
 		<?php
 		echo '							<div class="content">'.$exp->content.'</div>			';
