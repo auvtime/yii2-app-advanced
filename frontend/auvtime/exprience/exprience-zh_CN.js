@@ -18,7 +18,7 @@ $(document).ready(function(){
 	//状态栏
 	function hideStatus(sec){
 		window.setTimeout(function(){
-			$('#statusMsg').hide();
+			$('#statusMsg').find('span').hide().remove();
 		},sec);
 	}
 	//删除经历和记入成就按钮
@@ -27,6 +27,7 @@ $(document).ready(function(){
 		var eId = $dropdownMenu.find('a').attr('exp-data');
 		var menuType = $(this).attr('menu-type');
 		if(menuType == 'delete-exp'){
+			$('#dTip').html('你确定要删除此条经历吗?').removeClass('alert alert-danger');
 			$('#dDialog').dialog({
 				 resizable: false,
 				 height:170,
@@ -55,9 +56,10 @@ $(document).ready(function(){
 				 }
 			});
 		}else if(menuType == 'add-to-ach'){
+			$('#aTip').html('确定要把此条经历记入成就吗?').removeClass('alert alert-danger');
 			$('#aDialog').dialog({
 				 resizable: false,
-				 height:200,
+				 height:215,
 				 modal:true,
 				 open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
 				 buttons: {

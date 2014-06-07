@@ -25,4 +25,5 @@ return array (
 		'Are you sure to add this experience to achievement?' => '确定要把此条经历记入成就吗?',
 		'Add this experience to achievement failed!' => '把经历记入成就失败!',
 		'Add experience to achievement success!' => '把经历记入成就成功!',
+		'This experience was added to achievement already!' => '这条经历已经添加到成就啦，别再加了!',
 );

@@ -14,6 +14,7 @@ use yii\db\Exception;
 use yii\web\HttpException;
 use frontend\models\Achievement;
 use yii\helpers\Html;
+use frontend\models\AchievementSearch;
 
 /**
  * ExperienceController implements the CRUD actions for Experience model.
@@ -199,29 +200,38 @@ class ExperienceController extends Controller
 		$eid = Yii::$app->request->post('eid');
 		$addToAchExp = $this->findModel($eid);
 		$addToAchExpUserId = $addToAchExp->user_id;
-		$errMsg = '';
+		$returnMsg = '';
 		if($addToAchExpUserId !== Yii::$app->user->id){
-			echo Yii::t('experience', 'You have no right to deal other\'s experience.');
+			$returnMsg = Yii::t('experience', 'You have no right to deal other\'s experience.');
 		}else{
 			try{
-				$achievement = new Achievement();
-				$achievement->content = $addToAchExp->content;
-				$achievement->exp_id = $addToAchExp->id;
-				$achievement->achieve_time = $addToAchExp->exp_time;
-				$achievement->user_id = $addToAchExp->user_id;
-				$achievement->time_unit = $addToAchExp->time_unit;
-				$achievement->achieve_time = $addToAchExp->exp_time;
-				if($achievement->save()){
-					echo $this->getStatusMsg();
-				}else{
-					$returnMsg = ['flag'=>'fail','msg'=>Yii::t('experience', 'Add this experience to achievement failed!')];
+				//判断是否已经添加到成就，如果已经添加则提示，如果没有则新增
+				$achievementSearch = new AchievementSearch();
+				$achievementCount = $achievementSearch->searchCountByExpId($addToAchExp->id);
+				Yii::info($achievementCount,'auvtime');
+				if($achievementCount>0){
+					$returnMsg = ['flag'=>'fail','msg'=>Yii::t('experience', 'This experience was added to achievement already!')];
 					$returnMsg = Json::encode($returnMsg);
-					echo $returnMsg;	
+				}else{
+					$achievement = new Achievement();
+					$achievement->content = $addToAchExp->content;
+					$achievement->exp_id = $addToAchExp->id;
+					$achievement->achieve_time = $addToAchExp->exp_time;
+					$achievement->user_id = $addToAchExp->user_id;
+					$achievement->time_unit = $addToAchExp->time_unit;
+					$achievement->achieve_time = $addToAchExp->exp_time;
+					if($achievement->save()){
+						$returnMsg = $this->getStatusMsg();
+					}else{
+						$returnMsg = ['flag'=>'fail','msg'=>Yii::t('experience', 'Add this experience to achievement failed!')];
+						$returnMsg = Json::encode($returnMsg);	
+					}
 				}
 			}catch (Exception $e){
-				$errMsg = $e->__toString();
+				$returnMsg = ['flag'=>'fail','msg'=>$e->__toString()];
 			}
-			echo $errMsg;
+			Yii::info($returnMsg,'auvtime');
+			echo $returnMsg;
 		}
 	}
 	

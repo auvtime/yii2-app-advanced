@@ -52,4 +52,26 @@ class AchievementSearch extends Achievement
 
         return $dataProvider;
     }
+    
+    /**
+     * 根据经历查询是否已经存在
+     * 
+     * @param number $expId
+     * @return number 数量，为0表示不存在，大于0表示存在
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-7 上午9:29:43
+     */
+    public function searchCountByExpId($expId)
+    {
+    	$query = Achievement::find();
+
+    	$dataProvider = new ActiveDataProvider([
+    			'query' => $query,
+    	]);
+    	
+    	$query->andFilterWhere([
+    			'exp_id' => $expId,
+    	]);
+    
+    	return $dataProvider->getCount();
+    }
 }
