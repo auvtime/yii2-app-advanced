@@ -6,9 +6,9 @@
     height: auto;
     border: #909090 1px solid;
     color: #333;
-    -moz-box-shadow: 2px 2px 10px #909090;
-    -webkit-box-shadow: 2px 2px 10px #909090;
-    box-shadow: 2px 2px 10px #909090;
+    -moz-box-shadow: 2px 2px 10px #0b5d59;
+    -webkit-box-shadow: 2px 2px 10px #0b5d59;
+    box-shadow: 2px 2px 10px #0b5d59;
     padding: 10px;
 }
 .achievement {
@@ -40,7 +40,7 @@
 
 
 .ach-menu{
-  margin: -10px 0 0 690px;
+  margin: -1% 0 0 92%;
   position: absolute;
 }
 .ach-menu .dropdown .ach-menu-icon-choose, .ach-menu .dropdown .dropdown-menu{
