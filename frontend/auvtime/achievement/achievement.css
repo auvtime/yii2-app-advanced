@@ -1,0 +1,122 @@
+@CHARSET "UTF-8";
+.create-achievement {
+    margin-left: 20px;
+}
+.achievement-list,.achievement-input{
+    height: auto;
+    border: #909090 1px solid;
+    color: #333;
+    -moz-box-shadow: 2px 2px 10px #909090;
+    -webkit-box-shadow: 2px 2px 10px #909090;
+    box-shadow: 2px 2px 10px #909090;
+    padding: 10px;
+}
+.achievement {
+    margin: 10px;
+    padding: 10px;
+    border-bottom: #909090 1px solid;
+}
+.face {
+    background: url(images/wangxianfeng.jpg) no-repeat;
+    width: 110px;
+    height: 110px;
+}
+.content .create-time .ach-time {
+    font-size: 14px;
+}
+.content {
+    height: 90px;
+    overflow: auto;
+}
+.create-time {
+    float: left;
+}
+.ach-time {
+    float: right;
+}
+#restmodal,#contentmodal{
+   margin:240px 0 0 -400px
+}
+
+
+.ach-menu{
+  margin: -10px 0 0 680px;
+  position: absolute;
+}
+.ach-menu .dropdown .ach-menu-icon-choose, .ach-menu .dropdown .dropdown-menu{
+  visibility: hidden;
+}
+.ach-menu-icon-choose{
+  background-position: -75px -75px;
+  height: 16px;
+  width: 16px;
+}
+.ach-menu-icon-choose:hover{
+    background-position: -100px -75px;
+    height: 16px;
+    width: 16px;
+}
+.ach-menu-icon-choose-up{
+    background-position: -75px -225px;
+    height: 16px;
+    width: 16px;
+}
+.ach-menu-icon-choose-up:hover{
+    background-position: -100px -225px;
+    height: 16px;
+    width: 16px;
+}
+.ach-menu-button {
+  background-image: url("images/icon.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+}
+a, .S_link1, .S_func1:hover, .SW_fun:hover .S_func1, .SW_fun2:hover .S_func3, .SW_fun2:hover .S_func4 {
+  color: #0A8CD2;
+}
+.exp_menu_list ul {
+  clear: both;
+  margin: 0;
+  padding: 0;
+}
+.exp_menu_list ul li {
+  display: inline;
+  float: none;
+  margin: 0;
+  padding: 0;
+  position: static;
+}
+li {
+  list-style: none outside none;
+}
+
+
+.ajax_notification {
+  background:#079D59;
+  background-position: 2% center;
+  border: 1px solid #E2B709;
+  display: inline;
+  left: 0;
+  margin: 0 0 0 300px;
+  padding: 5px;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: 0;
+  height:65px;
+  width: 350px;
+  z-index: 1100;
+}
+
+.ajax_notification {
+  background: none repeat scroll 0 0 #079D59;
+  border-radius: 5px;
+  box-shadow: 0 5px 90px #888888;
+  margin-top: 320px;
+}
+
+
+
+

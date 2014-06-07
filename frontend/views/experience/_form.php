@@ -15,7 +15,7 @@ use yii\bootstrap\Modal;
 <div class="experience-form row">
 
     <?php $form = ActiveForm::begin([
-		'id'=>'craete-experience-form',
+		'id'=>'create-experience-form',
     	'action'=>'/experience/create',
     	'beforeSubmit' => 'submitForm'
     ]); ?>

@@ -38,7 +38,7 @@ class Achievement extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['content', 'time_unit', 'user_id'], 'required'],
+            [['content', 'time_unit', 'achieve_time'], 'required'],
             [['exp_id', 'user_id'], 'integer'],
             [['achieve_time', 'create_time', 'update_time'], 'safe'],
             [['content'], 'string', 'max' => 500],
@@ -95,5 +95,48 @@ class Achievement extends \yii\db\ActiveRecord
     public function getExp()
     {
         return $this->hasOne(Experience::className(), ['id' => 'exp_id']);
+    }
+    
+    
+    /**
+     * 获取创建时间的页面展示
+     * 
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-7 下午2:09:32
+     */
+    public function getCreatTimeDisplay(){
+    	if($this->time_unit == 'SECOND'){
+    		return substr($this->create_time,0,19);
+    	}else if($this->time_unit == 'MINUTE'){
+    		return substr($this->create_time,0,16);
+    	}else if($this->time_unit == 'HOUR'){
+    		return substr($this->create_time,0,13);
+    	}else if($this->time_unit == 'DAY'){
+    		return substr($this->create_time,0,10);
+    	}else if($this->time_unit == 'MONTH'){
+    		return substr($this->create_time,0,7);
+    	}else if($this->time_unit == 'YEAR'){
+    		return substr($this->create_time,0,4);
+    	}
+    	 
+    }
+    /**
+     * 获取成就时间的的页面展示
+     * 
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-7 下午2:09:48
+     */
+    public function getAchieveTimeDisplay(){
+    	if($this->time_unit == 'SECOND'){
+    		return substr($this->achieve_time,0,19);
+    	}else if($this->time_unit == 'MINUTE'){
+    		return substr($this->achieve_time,0,16);
+    	}else if($this->time_unit == 'HOUR'){
+    		return substr($this->achieve_time,0,13);
+    	}else if($this->time_unit == 'DAY'){
+    		return substr($this->achieve_time,0,10);
+    	}else if($this->time_unit == 'MONTH'){
+    		return substr($this->achieve_time,0,7);
+    	}else if($this->time_unit == 'YEAR'){
+    		return substr($this->achieve_time,0,4);
+    	}
     }
 }

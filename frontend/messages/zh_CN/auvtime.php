@@ -4,6 +4,7 @@ return array (
 		'Home' => '首页',
 		'Life Time' => '生命长度',
 		'My Experiences' => '我的经历',
+		'My Achievements' => '我的成就',
 		'Leave Time' => '生命倒计时',
 		'About Us' => '关于我们',
 		'Contact Us' => '联系我们',

@@ -8,36 +8,75 @@ use frontend\models\AchievementSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\filters\AccessControl;
+use yii\helpers\Json;
+use yii\web\HttpException;
 /**
- * AchievementController implements the CRUD actions for Achievement model.
+ * 
+ * <p><b>标题：</b>frontend\controllers$AchievementController.</p>
+ *
+ * <p><b>描述：我的成就</b></p>
+ *
+ * <p><b>版权：</b>Copyright (c) 2014 AUVTime</p>
+ *
+ * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-7 下午12:27:47
+ *
+ * @since 1.0
  */
 class AchievementController extends Controller
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
-    }
+    public function behaviors() {
+		return [ 
+				'access' => [ 
+						'class' => AccessControl::className (),
+						'only' => [ 
+								'view',
+								'index',
+								'create',
+								'update' 
+						],
+						'rules' => [ 
+								[ 
+										'actions' => [ 
+												'view',
+												'index',
+												'create',
+												'update' 
+										],
+										'allow' => true,
+										'roles' => [ 
+												'@' 
+										] 
+								] 
+						] 
+				],
+				'verbs' => [ 
+						'class' => VerbFilter::className (),
+						'actions' => [ 
+								'delete' => [ 
+										'post' 
+								] 
+						] 
+				] 
+		];
+	}
 
     /**
-     * Lists all Achievement models.
-     * @return mixed
+     * 成就首页
+     * 
+     * @return string
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-7 下午1:39:38
      */
     public function actionIndex()
     {
         $searchModel = new AchievementSearch;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-
+        $searchModel->user_id=Yii::$app->user->id;
+        $dataProvider = $searchModel->search(null);
+        $achlist = $dataProvider->getModels();
+        $json = Json::encode($achlist);
+        Yii::info($json,'auvtime');
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
+            'achlist' => $achlist,
         ]);
     }
 
@@ -54,20 +93,30 @@ class AchievementController extends Controller
     }
 
     /**
-     * Creates a new Achievement model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * ajax添加成就
+     * 
+     * @throws HttpException
+     * @return multitype:string 
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-7 下午2:59:12
      */
     public function actionCreate()
     {
+    	if(!Yii::$app->request->isAjax){
+    		throw new HttpException('404');
+    	}
+    	
         $model = new Achievement;
-
+        $model->user_id = Yii::$app->user->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        	$model->refresh();
+        	$model->create_time = $model->getCreatTimeDisplay();
+        	$model->achieve_time = $model->getAchieveTimeDisplay();
+        	Yii::$app->response->format = 'json';
+        	$modelJson = Json::encode($model);
+        	Yii::info($modelJson,'auvtime');
+        	return [
+        		'message' => $modelJson,
+        	];
         }
     }
 
@@ -117,5 +166,23 @@ class AchievementController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    /**
+     * 判断是否存在相同的成就
+     * 
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-7 下午2:41:18
+     */
+    public function actionContentExists(){
+    	$searchModel = new AchievementSearch();
+    	$searchModel->user_id=Yii::$app->user->id;
+    	$dataProvider = $searchModel->searchAchByTimeAndContent(Yii::$app->request->post());
+    	$explist = $dataProvider->getModels();
+    	Yii::$app->response->format = 'json';
+    	if(empty($explist)){
+    		echo 'notexists';
+    	}else{
+    		echo 'exists';
+    	}
     }
 }

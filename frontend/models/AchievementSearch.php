@@ -34,9 +34,11 @@ class AchievementSearch extends Achievement
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+    	if(null !== $params){
+	        if (!($this->load($params) && $this->validate())) {
+	            return $dataProvider;
+	        }
+		}
 
         $query->andFilterWhere([
             'id' => $this->id,
@@ -73,5 +75,38 @@ class AchievementSearch extends Achievement
     	]);
     
     	return $dataProvider->getCount();
+    }
+	
+	/**
+	 * 根据成就时间和成就内容判断是否存在相同内容
+	 *
+	 * @param array $params        	
+	 * @return \yii\data\ActiveDataProvider
+	 * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-7 下午2:43:21
+	 */
+	public function searchAchByTimeAndContent($params) {
+		$query = Achievement::find ();
+		
+		$dataProvider = new ActiveDataProvider ( [ 
+				'query' => $query 
+		] );
+		
+		if (null !== $params) {
+			if (! ($this->load ( $params ) && $this->validate ())) {
+				return $dataProvider;
+			}
+		}
+		
+		$query->andFilterWhere ( [ 
+				'id' => $this->id,
+				'user_id' => $this->user_id 
+		] );
+		
+		$query->andFilterWhere ( [ 
+				'content' => $this->content,
+				'DATE_FORMAT(achieve_time,"%Y-%m-%d %H:%i:%s")' => $this->achieve_time
+    	] );
+    
+    	return $dataProvider;
     }
 }
