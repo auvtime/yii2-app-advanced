@@ -25,7 +25,7 @@
     font-size: 14px;
 }
 .content {
-    height: 90px;
+    height: 150px;
     overflow: auto;
 }
 .create-time {
@@ -40,7 +40,7 @@
 
 
 .ach-menu{
-  margin: -10px 0 0 680px;
+  margin: -10px 0 0 690px;
   position: absolute;
 }
 .ach-menu .dropdown .ach-menu-icon-choose, .ach-menu .dropdown .dropdown-menu{
