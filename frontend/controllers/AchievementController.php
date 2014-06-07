@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\web\HttpException;
+use yii\db\Exception;
 /**
  * 
  * <p><b>标题：</b>frontend\controllers$AchievementController.</p>
@@ -140,16 +141,31 @@ class AchievementController extends Controller
     }
 
     /**
-     * Deletes an existing Achievement model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
+     * ajax删除
+     * 
+     * @return Ambigous <\yii\web\Response, \yii\web\static, \yii\web\Response>
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-7 下午3:22:30
      */
-    public function actionDelete($id)
+    public function actionDelete()
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+    	if(!Yii::$app->request->isAjax){
+    		throw new HttpException('404');
+    	}
+    	$aid = Yii::$app->request->post('aid');
+    	$delAch = $this->findModel($aid);
+    	$delUserId = $delAch->user_id;
+    	$errMsg = '';
+    	if($delUserId!==Yii::$app->user->id){
+    		echo Yii::t('achievement', 'You have no right to delete other\'s achievement.');
+    	}else{
+    		try{
+    			$delAch->delete();
+    			$errMsg = 'success';
+    		}catch (Exception $e){
+    			$errMsg = $e->__toString();
+    		}
+    		echo $errMsg;
+    	}
     }
 
     /**

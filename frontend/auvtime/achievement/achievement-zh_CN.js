@@ -15,19 +15,13 @@ $(document).ready(function(){
 	}).on('hidden.bs.dropdown',function(){
 		$(this).find('.ach-menu-button').removeClass('ach-menu-icon-choose-up').addClass('ach-menu-icon-choose');
 	});
-	//状态栏
-	function hideStatus(sec){
-		window.setTimeout(function(){
-			$('#statusMsg').find('span').hide().remove();
-		},sec);
-	}
 	//删除经历和记入成就按钮
 	$('.achievement-list').on('click','.achievement>.ach-menu>.dropdown>.dropdown-menu>li>a',function(){
 		var $dropdownMenu = $(this).parent().parent().parent();
-		var eId = $dropdownMenu.find('a').attr('ach-data');
+		var aId = $dropdownMenu.find('a').attr('ach-data');
 		var menuType = $(this).attr('menu-type');
 		if(menuType == 'delete-ach'){
-			$('#dTip').html('你确定要删除此条经历吗?').removeClass('alert alert-danger');
+			$('#dTip').html('你确定要删除此条成就吗?').removeClass('alert alert-danger');
 			$('#dDialog').dialog({
 				 resizable: false,
 				 height:170,
@@ -36,7 +30,7 @@ $(document).ready(function(){
 				 buttons: {
 					 "确定": function() {
 						 $.post('/achievement/delete',{
-							 'eid':eId
+							 'aid':aId
 						 }).success(function(message){
 							 if('success' == message){
 								 $('#dDialog').dialog('close');
@@ -47,33 +41,6 @@ $(document).ready(function(){
 								 });
 							 }else{
 								 $('#dTip').html(message).addClass('alert alert-danger');
-							 }
-						 });
-					 },
-					 '取消': function() {
-						 $( this ).dialog( "close" );
-					 }
-				 }
-			});
-		}else if(menuType == 'add-to-ach'){
-			$('#aTip').html('确定要把此条经历记入成就吗?').removeClass('alert alert-danger');
-			$('#aDialog').dialog({
-				 resizable: false,
-				 height:215,
-				 modal:true,
-				 open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
-				 buttons: {
-					 "确定": function() {
-						 $.post('/achievement/add-to-ach',{
-							 'eid':eId
-						 }).success(function(result){
-							 var message = eval('(' + result + ')');
-							 if(message.flag == 'success'){
-								 $('#aDialog').dialog( "close" );
-								 $('#statusMsg').html(message.msg).show();
-								 hideStatus(2000);
-							 }else{
-								 $('#aTip').html(message.msg).addClass('alert alert-danger');
 							 }
 						 });
 					 },

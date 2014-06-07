@@ -29,7 +29,7 @@ class AchievementSearch extends Achievement
     public function search($params)
     {
         $query = Achievement::find();
-
+        $query->orderBy(['create_time'=>SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
