@@ -63,4 +63,5 @@ return array (
 		'Edit profile' => '修改信息',
 		'View profile' => '查看信息',
 		'Please input a valid mobile phone number.' => '请输入一个有效的手机号码.',
+		'Edit face' => '编辑头像',
 );

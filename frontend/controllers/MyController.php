@@ -8,6 +8,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use frontend\models\UserFace;
+use yii\web\UploadedFile;
+use yii\helpers\Json;
 /**
  * 
  * <p><b>标题：</b>frontend\controllers$MyController.</p>
@@ -101,5 +104,61 @@ class MyController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    /**
+     * 修改用户头像
+     * 
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-8 下午2:56:54
+     */
+    public function actionFace()
+    {
+    	$userId = Yii::$app->user->id;
+    	$model = new UserFace();
+    	$model->user_id = $userId;
+    	return $this->render('face', [
+    		'model' => $model,
+    	]);
+    }
+    /**
+     * 上传用户头像图片
+     * 
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-8 下午7:39:36
+     */
+    public function actionUploadFace(){
+    	$model = new UserFace();
+    	$model->user_id = Yii::$app->user->id;
+    	$tmpFile = UploadedFile::getInstanceByName('image');//读取图像上传域,并使用系统上传组件上传
+    	$Directroy = Yii::$app->params['userFacePath'];//读取用户头像上传路径
+    	//创建文件存放路径
+    	$y  = date('Y');
+    	$m  = date('m');
+    	$d  = date('d');
+    	$Directroy = $Directroy."/";
+    	$pathd = $Directroy.$y."/".$m."/".$d."/";
+    	Tool::makedir(dirname(Yii::app()->BasePath).$pathd); //创建文件夹,此处一定要加上dirname(Yii::app()->BasePath)不然可能会出错;
+    	if(is_object($tmpFile) && get_class($tmpFile)==='CUploadedFile'){
+    		$filename = time().rand(0,9);
+    		$ext = $tmpFile->extensionName;//上传文件的扩展名
+    		if($ext=='jpg'||$ext=='gif'||$ext=='png'){
+    			$big                    = $pathd . $filename . '_600.' . $ext;
+    			$model->face_name       = $big ;
+    		}
+    		$uploadfile = $pathd . $filename . '.' . $ext;      //保存的路径
+    		$model->face_file = $uploadfile;
+    		$model->face_url = dirname(Yii::app()->BasePath).$uploadfile;
+    		$model->face_type = '1';
+    		$model->file_type   = $tmpFile->type;                       //文件类型
+    		$model->file_size   = $tmpFile->size;                       //文件大小
+    		$model->upload_ip          = Yii::app()->request->userHostAddress; //上传IP
+    	}
+    	if($model->save()){
+    		$tmpFile->saveAs($model->face_url);//保存到服务器
+    		$result = Json::encode([
+    				'upfile'=>[
+    					'id'=>Yii::app()->db->getLastInsertID(),
+    					'file'=>$uploadfile,
+					]
+			]);
+    	} 
     }
 }
