@@ -312,7 +312,7 @@ THE SOFTWARE.
             slide: function(event, ui) {
                 var zoomInPx_width =  (($options.image.width * Math.abs(ui.value)) / 100);
                 var zoomInPx_height =  (($options.image.height * Math.abs(ui.value)) / 100);
-                if(!$.browser.msie){
+                if(!$.support.leadingWhitespace){
                     $('#img_to_crop').attr('width',zoomInPx_width + "px");
                     $('#img_to_crop').attr('height',zoomInPx_height + "px");
                 }else{

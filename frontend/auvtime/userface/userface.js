@@ -29,7 +29,7 @@ $(document).ready(function() {
 			borderColorHover : 'yellow'
 		},
 		image : {
-			source : 'http://www.js-css.cn/jscode/focus/focus19/images/b2.jpg',
+			source : '/images/face/b2.jpg',
 			width : 450,
 			height : 300,
 			minZoom : 30,

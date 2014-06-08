@@ -17,18 +17,23 @@ use yii\web\AssetBundle;
  */
 class JQueryFileUploadAsset extends AssetBundle {
 	public $sourcePath = '@app/auvtime/jqueryfileupload';
-	public $js = [ 
-			'jquery.fileupload.js',
-			'jquery.fileupload-process.js',
-			'jquery.fileupload-image.js',
-			'jquery.fileupload-jquery-ui.js',
+	public $js = [
+			'js/load-image.min.js',
+			'js/canvas-to-blob.min.js', 
+			'js/jquery.blueimp-gallery.min.js',
+			'js/jquery.iframe-transport.js',
+			'js/jquery.fileupload.js',
+			'js/jquery.fileupload-process.js',
+			'js/jquery.fileupload-image.js',
+			'js/jquery.fileupload-validate.js',
+			'js/jquery.fileupload-ui.js',
+			'js/jquery.fileupload-jquery-ui.js',
 			
-			'jquery.fileupload-ui.js',
-			'jquery.fileupload-validate.js',
-			'jquery.iframe-transport.js' 
 	];
 	public $css = [ 
-			'jquery.fileupload-ui.css' 
+			'css/jquery-ui.css',
+			'css/jquery.fileupload.css',
+			'css/jquery.fileupload-ui.css', 
 	];
 	public $depends = [
 			'yii\jui\ProgressBarAsset'
