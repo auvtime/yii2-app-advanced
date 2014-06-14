@@ -32,3 +32,8 @@
 .btn {
     cursor: pointer
 }
+
+.bar {
+    height: 18px;
+    background: green;
+}

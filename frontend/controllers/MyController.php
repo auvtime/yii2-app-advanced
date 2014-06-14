@@ -11,6 +11,7 @@ use yii\filters\AccessControl;
 use frontend\models\UserFace;
 use yii\web\UploadedFile;
 use yii\helpers\Json;
+use auvtime\util\upload\UploadHandler;
 /**
  * 
  * <p><b>标题：</b>frontend\controllers$MyController.</p>
@@ -134,31 +135,15 @@ class MyController extends Controller
     	$m  = date('m');
     	$d  = date('d');
     	$Directroy = $Directroy."/";
-    	$pathd = $Directroy.$y."/".$m."/".$d."/";
-    	Tool::makedir(dirname(Yii::app()->BasePath).$pathd); //创建文件夹,此处一定要加上dirname(Yii::app()->BasePath)不然可能会出错;
-    	if(is_object($tmpFile) && get_class($tmpFile)==='CUploadedFile'){
-    		$filename = time().rand(0,9);
-    		$ext = $tmpFile->extensionName;//上传文件的扩展名
-    		if($ext=='jpg'||$ext=='gif'||$ext=='png'){
-    			$big                    = $pathd . $filename . '_600.' . $ext;
-    			$model->face_name       = $big ;
-    		}
-    		$uploadfile = $pathd . $filename . '.' . $ext;      //保存的路径
-    		$model->face_file = $uploadfile;
-    		$model->face_url = dirname(Yii::app()->BasePath).$uploadfile;
-    		$model->face_type = '1';
-    		$model->file_type   = $tmpFile->type;                       //文件类型
-    		$model->file_size   = $tmpFile->size;                       //文件大小
-    		$model->upload_ip          = Yii::app()->request->userHostAddress; //上传IP
+    	$pathd = $Directroy.$y.$m.$d;
+    	$pathd = dirname(Yii::$app->BasePath).'/frontend/web'.$pathd.'/';
+    	Yii::info('@@@upload_dir:'.$pathd,'auvtime');
+    	if(!file_exists($pathd)){
+    		mkdir($pathd);
     	}
-    	if($model->save()){
-    		$tmpFile->saveAs($model->face_url);//保存到服务器
-    		$result = Json::encode([
-    				'upfile'=>[
-    					'id'=>Yii::app()->db->getLastInsertID(),
-    					'file'=>$uploadfile,
-					]
-			]);
-    	} 
+    	$options = [
+    		'upload_dir'=>$pathd,
+		];
+    	$upload_handler = new UploadHandler($options);
     }
 }

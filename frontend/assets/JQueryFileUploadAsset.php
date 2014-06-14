@@ -18,6 +18,7 @@ use yii\web\AssetBundle;
 class JQueryFileUploadAsset extends AssetBundle {
 	public $sourcePath = '@app/auvtime/jqueryfileupload';
 	public $js = [
+			'js/jquery-ui.min.js',
 			'js/load-image.min.js',
 			'js/canvas-to-blob.min.js', 
 			'js/jquery.blueimp-gallery.min.js',
@@ -31,6 +32,7 @@ class JQueryFileUploadAsset extends AssetBundle {
 			
 	];
 	public $css = [ 
+			'css/blueimp-gallery.min.css',
 			'css/jquery-ui.css',
 			'css/jquery.fileupload.css',
 			'css/jquery.fileupload-ui.css', 
