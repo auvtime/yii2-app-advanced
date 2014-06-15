@@ -26,11 +26,6 @@ class UserFaceAsset extends AssetBundle {
 	];
 	public $depends = [ 
 			'frontend\assets\AppAsset',
-			'yii\jui\ThemeAsset',
-			'yii\jui\DroppableAsset',
-			'yii\jui\DroppableAsset',
-			'yii\jui\ResizableAsset',
-			'yii\jui\SliderAsset', 
 			'frontend\assets\JQueryFileUploadAsset',
 	];
 }
