@@ -1,39 +1,42 @@
 @CHARSET "UTF-8";
+#main{
+    margin-top: -10px;
+}
 .crop {
-    width: 680px;
-    margin: 20px auto;
+    width: 740px;
+    margin: 10px auto;
     border: 1px solid #d3d3d3;
     padding: 4px;
     background: #fff
 }
 #cropzoom_container {
     float: left;
-    width: 500px
+}
+#userFaceOrig{
+    width: 500px;
 }
 #preview {
     float: left;
-    width: 150px;
-    height: 200px;
+    width: 120px;
+    height: 120px;
     border: 1px solid #999;
-    margin-left: 10px;
+    margin: 10px auto;
     padding: 4px;
     background: #f7f7f7;
 }
 .page_btn {
-    float: right;
+    float: left;
     width: 150px;
-    margin-top: 20px;
+    margin: 10px auto;
     line-height: 30px;
     text-align: center
+}
+.page_btn .btn{
+    margin: 20px;
 }
 .clear {
     clear: both
 }
 .btn {
     cursor: pointer
-}
-
-.bar {
-    height: 18px;
-    background: green;
 }

@@ -47,7 +47,7 @@ class UploadHandler
         $this->options = array(
             'script_url' => $this->get_full_url().'/',
             'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).($options===null?'/images/userfaces/':$options['upload_dir']),
-            'upload_url' => $this->get_full_url().($options===null?'/images/userfaces/':$options['upload_dir']),
+            'upload_url' => $this->get_full_url().'/images/userfaces/',
             'user_dirs' => false,
             'mkdir_mode' => 0755,
             'param_name' => 'files',
@@ -86,7 +86,7 @@ class UploadHandler
             'accept_file_types' => '/.+$/i',
             // The php.ini settings upload_max_filesize and post_max_size
             // take precedence over the following max_file_size setting:
-            'max_file_size' => null,
+            'max_file_size' => 20*1024*1024,
             'min_file_size' => 1,
             // The maximum number of files for the upload directory:
             'max_number_of_files' => null,
@@ -134,7 +134,7 @@ class UploadHandler
                     'max_height' => 600
                 ),
                 */
-                'thumbnail' => array(
+                /*'thumbnail' => array(
                     // Uncomment the following to use a defined directory for the thumbnails
                     // instead of a subdirectory based on the version identifier.
                     // Make sure that this directory doesn't allow execution of files if you
@@ -147,7 +147,7 @@ class UploadHandler
                     //'crop' => true,
                     'max_width' => 80,
                     'max_height' => 80
-                )
+                )*/
             )
         );
         if ($options) {
@@ -250,8 +250,17 @@ class UploadHandler
             }
             $version_path = rawurlencode($version).'/';
         }
-        return $this->options['upload_url'].$this->get_user_path()
+        $downloadUrl = $this->options['upload_url'].$this->getDatePath().$this->get_user_path()
             .$version_path.rawurlencode($file_name);
+        Yii::info('@@@$downloadUrl:'.$downloadUrl,'auvtime');
+        return $downloadUrl;
+    }
+    
+    private function getDatePath(){
+    	$y  = date('Y');
+    	$m  = date('m');
+    	$d  = date('d');
+    	return $y.$m.$d."/";
     }
 
     protected function set_additional_file_properties($file) {
@@ -1044,8 +1053,10 @@ class UploadHandler
                 mkdir($upload_dir, $this->options['mkdir_mode'], true);
             }
             $file_path = $this->get_upload_path($file->name);
+            Yii::info('@@@upload $file_path:'.$file_path,'auvtime');
             $append_file = $content_range && is_file($file_path) &&
                 $file->size > $this->get_file_size($file_path);
+            Yii::info('@@@upload $append_file:'.$append_file,'auvtime');
             if ($uploaded_file && is_uploaded_file($uploaded_file)) {
                 // multipart/formdata uploads (POST method uploads)
                 if ($append_file) {
