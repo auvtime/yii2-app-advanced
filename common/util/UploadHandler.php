@@ -231,27 +231,8 @@ class UploadHandler
     }
 
     protected function get_download_url($file_name, $version = null, $direct = false) {
-        if (!$direct && $this->options['download_via_php']) {
-            $url = $this->options['script_url']
-                .$this->get_query_separator($this->options['script_url'])
-                .$this->get_singular_param_name()
-                .'='.rawurlencode($file_name);
-            if ($version) {
-                $url .= '&version='.rawurlencode($version);
-            }
-            return $url.'&download=1';
-        }
-        if (empty($version)) {
-            $version_path = '';
-        } else {
-            $version_url = @$this->options['image_versions'][$version]['upload_url'];
-            if ($version_url) {
-                return $version_url.$this->get_user_path().rawurlencode($file_name);
-            }
-            $version_path = rawurlencode($version).'/';
-        }
-        $downloadUrl = $this->options['upload_url'].$this->getDatePath().$this->get_user_path()
-            .$version_path.rawurlencode($file_name);
+        $userFacePath = Yii::$app->params['userFacePath'];//读取用户头像上传路径
+        $downloadUrl = $userFacePath.$file_name;
         Yii::info('@@@$downloadUrl:'.$downloadUrl,'auvtime');
         return $downloadUrl;
     }

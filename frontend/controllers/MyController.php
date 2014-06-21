@@ -128,14 +128,8 @@ class MyController extends Controller
     	$model = new UserFace();
     	$model->user_id = Yii::$app->user->id;
     	$tmpFile = UploadedFile::getInstanceByName('image');//读取图像上传域,并使用系统上传组件上传
-    	$Directroy = Yii::$app->params['userFacePath'];//读取用户头像上传路径
-    	//创建文件存放路径
-    	$y  = date('Y');
-    	$m  = date('m');
-    	$d  = date('d');
-    	$Directroy = $Directroy."/";
-    	$pathd = $Directroy.$y.$m.$d;
-    	$pathd = dirname(Yii::$app->BasePath).'/frontend/web'.$pathd.'/';
+    	$pathd = Yii::$app->params['userFacePath'];//读取用户头像上传路径
+    	$pathd = $this->get_server_var('DOCUMENT_ROOT').$pathd.'/';
     	Yii::info('@@@upload_dir:'.$pathd,'auvtime');
     	if(!file_exists($pathd)){
     		mkdir($pathd);
@@ -163,15 +157,18 @@ class MyController extends Controller
     	$selectorY = $_POST["selectorY"];
     	$ext = end(explode(".",$_POST["imageSource"]));
     	
+    	$serverPath = $this->get_server_var('DOCUMENT_ROOT');
     	//Create the image from the image sent
-    	$img = new Imagick($source);
+    	$source = $serverPath.'/'.$source;
+    	Yii::info('@@@$source'.$source,'auvtime');
+    	$img = new \Imagick($source);
     	//Obtain width and height from the original source.
     	$width = $img->getImageWidth();
     	$height = $img->getImageHeight();
     	
     	//resize the image if the width and height doesn't match
     	if($pWidth != $width && $pHeight != $height){
-    		$img->resizeImage($pWidth, $pHeight, imagick::FILTER_CATROM, 1, false);
+    		$img->resizeImage($pWidth, $pHeight, \imagick::FILTER_CATROM, 1, false);
     		$width = $img->getImageWidth();
     		$height = $img->getImageHeight();
     	}
@@ -180,7 +177,7 @@ class MyController extends Controller
     	if($_POST["imageRotate"]){
     		$angle = $_POST["imageRotate"];
     		//rotate the image and set 'transparent' as background of rotation
-    		$img->rotateImage(new ImagickPixel('none'), $angle);
+    		$img->rotateImage(new \ImagickPixel('none'), $angle);
     		$rotated_width = $img->getImageWidth();
     		$rotated_height = $img->getImageHeight();
     	
@@ -215,8 +212,9 @@ class MyController extends Controller
     	$img->cropImage($viewPortW, $viewPortH, $src_x, $src_y);
     	
     	//create the viewport to put the cropped image
-    	$viewport = new Imagick();
-    	$viewport->newImage($viewPortW, $viewPortH,'#'.$colorHEX);
+    	$viewport = new \Imagick();
+    	$colorHEX = '#0b5d59';
+    	$viewport->newImage($viewPortW, $viewPortH,$colorHEX);
     	$viewport->setImageFormat($ext);
     	$viewport->setImageColorspace($img->getImageColorspace());
     	$viewport->compositeImage($img, $img->getImageCompose(), $dst_x, $dst_y);
@@ -225,10 +223,22 @@ class MyController extends Controller
     	$viewport->setImagePage(0, 0, 0, 0);
     	$viewport->cropImage($_POST["selectorW"],$_POST["selectorH"], $selectorX, $selectorY);
     	
-    	$targetFile = 'tmp/test_'.time().".".$ext;
+    	$pathd = Yii::$app->params['userFacePath'];//读取用户头像上传路径
+    	$targetFile = $pathd.time().'-'.Yii::$app->user->id.'.'.$ext;
+    	$pathd = $this->get_server_var('DOCUMENT_ROOT').$pathd.'/';
+    	Yii::info('@@@userFaceFilePath:'.$pathd,'auvtime');
+    	if(!file_exists($pathd)){
+    		mkdir($pathd);
+    	}
+    	$userFaceFileName =$this->get_server_var('DOCUMENT_ROOT').$targetFile;
     	//save the image into the disk
-    	$viewport->writeImage($targetFile);
+    	$viewport->writeImage($userFaceFileName);
     	
     	echo $targetFile;
+    }
+    
+    
+    protected function get_server_var($id) {
+    	return isset($_SERVER[$id]) ? $_SERVER[$id] : '';
     }
 }

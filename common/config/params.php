@@ -3,6 +3,6 @@ return [
     'adminEmail' => 'admin@auvtime.com',
     'supportEmail' => 'admin@auvtime.com',
     'user.passwordResetTokenExpire' => 3600,
-    //userFacePath,no'/'
-    'userFacePath' => '/images/userfaces'
+    //userFacePath,have '/'
+    'userFacePath' => '/images/userfaces/'.date('Y').date('m').date('d').'/'
 ];
