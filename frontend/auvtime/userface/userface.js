@@ -19,7 +19,7 @@ $(function() {
 			borderColorHover : 'yellow'// 鼠标放到选择器的边框颜色
 		},
 		image : {
-			source : '/images/face/b2.jpg',
+			source : '/images/face/init.jpg',
 			width : 450,// 图片宽度
 			height : 300,// 图片高度
 			minZoom : 30,// 最小放大比例

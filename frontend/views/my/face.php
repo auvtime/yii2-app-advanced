@@ -28,7 +28,7 @@ UserFaceAsset::register ( $this );
 		<div class="col-lg-8">
 			<div class="row crop">
 				<div id="cropzoom_container" class="col-lg-9">
-					<img id="userFaceOrig" alt="" src="/images/face/b2.jpg">
+					<img id="userFaceInit" alt="" src="">
 				</div>
 				<div class="col-lg-3">
 					<div id="preview">
@@ -37,7 +37,7 @@ UserFaceAsset::register ( $this );
 					<div class="clear"></div>
 					<div class="page_btn">
 						<input type="button" class="btn btn-primary" id="crop"
-							value="剪切照片" /> 
+							value="保存头像" /> 
 						<input type="button" class="btn btn-primary"
 							id="restore" value="照片复位" />
 					</div>
