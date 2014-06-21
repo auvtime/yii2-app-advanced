@@ -3,19 +3,21 @@
 namespace frontend\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
 /**
  * This is the model class for table "user_face".
  *
  * @property integer $id
- * @property string $face_name
+ * @property integer $user_id
  * @property string $face_url
  * @property string $face_type
- * @property string $face_file
- * @property integer $user_id
  * @property string $file_type
  * @property integer $file_size
  * @property integer $upload_ip
+ * @property string $create_time
+ * @property string $update_time
  */
 class UserFace extends \yii\db\ActiveRecord
 {
@@ -33,10 +35,10 @@ class UserFace extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['face_name', 'face_url', 'user_id'], 'required'],
+            [['user_id', 'face_url'], 'required'],
             [['user_id', 'file_size', 'upload_ip'], 'integer'],
-            [['face_name'], 'string', 'max' => 500],
-            [['face_url', 'face_file'], 'string', 'max' => 1000],
+            [['create_time', 'update_time'], 'safe'],
+            [['face_url'], 'string', 'max' => 1000],
             [['face_type', 'file_type'], 'string', 'max' => 20]
         ];
     }
@@ -48,14 +50,34 @@ class UserFace extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('auvtime-myprofile', 'ID'),
-            'face_name' => Yii::t('auvtime-myprofile', 'Face Name'),
+            'user_id' => Yii::t('auvtime-myprofile', 'User ID'),
             'face_url' => Yii::t('auvtime-myprofile', 'Face Url'),
             'face_type' => Yii::t('auvtime-myprofile', 'Face Type'),
-            'face_file' => Yii::t('auvtime-myprofile', 'Face File'),
-            'user_id' => Yii::t('auvtime-myprofile', 'User ID'),
             'file_type' => Yii::t('auvtime-myprofile', 'File Type'),
             'file_size' => Yii::t('auvtime-myprofile', 'File Size'),
             'upload_ip' => Yii::t('auvtime-myprofile', 'Upload Ip'),
+            'create_time' => Yii::t('auvtime-myprofile', 'Create Time'),
+            'update_time' => Yii::t('auvtime-myprofile', 'Update Time'),
         ];
     }
+    
+    /**
+     * (non-PHPdoc)
+     *
+     * @see \yii\base\Component::behaviors()
+     * @return multitype:multitype:multitype:string \frontend\models\Expression NULL
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-21 下午10:24:42
+     */
+    public function behaviors() {
+		return [ 
+				'timestamp' => [ 
+						'class' => TimestampBehavior::className (),
+						'attributes' => [ 
+								ActiveRecord::EVENT_BEFORE_INSERT => 'create_time',
+								ActiveRecord::EVENT_BEFORE_UPDATE => 'update_time' 
+						],
+						'value' => new Expression ( 'NOW()' ) 
+				] 
+		];
+	}
 }

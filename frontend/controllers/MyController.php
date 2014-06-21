@@ -145,6 +145,9 @@ class MyController extends Controller
      * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-6-15 下午6:00:43
      */
     public function actionCropFace(){
+    	//当前用户id
+    	$currentUserId = Yii::$app->user->id;
+    	
     	header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
     	header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
     	//Obtains parameters from POST request
@@ -224,16 +227,32 @@ class MyController extends Controller
     	$viewport->cropImage($_POST["selectorW"],$_POST["selectorH"], $selectorX, $selectorY);
     	
     	$pathd = Yii::$app->params['userFacePath'];//读取用户头像上传路径
-    	$targetFile = $pathd.time().'-'.Yii::$app->user->id.'.'.$ext;
+    	$targetFile = $pathd.time().'-'.$currentUserId.'.'.$ext;
     	$pathd = $this->get_server_var('DOCUMENT_ROOT').$pathd.'/';
-    	Yii::info('@@@userFaceFilePath:'.$pathd,'auvtime');
+    	Yii::info('@@@userFaceFilePath:'.$pathd.'$viewport image size:'.$viewport->getimagesize(),'auvtime');
     	if(!file_exists($pathd)){
     		mkdir($pathd);
     	}
     	$userFaceFileName =$this->get_server_var('DOCUMENT_ROOT').$targetFile;
     	//save the image into the disk
-    	$viewport->writeImage($userFaceFileName);
-    	
+    	$writeResult = $viewport->writeImage($userFaceFileName);
+    	if($writeResult){
+    		//首先查找当前用户该种类型的头像是否存在，如果存在则更新url，否则直接保存
+    		$userFace = UserFace::findOne(['user_id'=>$currentUserId,'face_type'=>'1']);
+    		//$userFace = UserFace::getUserFaceByUserIdAndType($currentUserId, '1');
+    		if($userFace === null){
+    			$userFace = new UserFace();
+    			$userFace->user_id = $currentUserId;
+    			$userFace->face_url = $targetFile;
+    			$userFace->face_type = '1';
+    			$userFace->file_type = $ext;
+    			$userFace->file_size = $viewport->getimagesize();
+    			$userFace->save();
+    		}else{
+    			$userFace->face_url = $targetFile;
+    			$userFace->save();
+    		}
+    	}
     	echo $targetFile;
     }
     

@@ -12,7 +12,7 @@
 #cropzoom_container {
     float: left;
 }
-#userFaceOrig{
+#userFaceInit{
     width: 500px;
 }
 #preview {
