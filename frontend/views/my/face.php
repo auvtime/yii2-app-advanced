@@ -3,6 +3,7 @@ use frontend\assets\UserFaceAsset;
 $this->title = Yii::t ( 'auvtime', 'Edit face' );
 $this->params ['breadcrumbs'] [] = $this->title;
 UserFaceAsset::register ( $this );
+$userFaceUrl = isset($model->face_url)?$model->face_url:'/images/face/preview.gif';
 ?>
 <div id="main" class="row">
 	<div class="row">
@@ -32,7 +33,7 @@ UserFaceAsset::register ( $this );
 				</div>
 				<div class="col-lg-3">
 					<div id="preview">
-						<img id="generated" src="/images/face/preview.gif" />
+						<img id="generated" src="<?php echo $userFaceUrl?>" />
 					</div>
 					<div class="clear"></div>
 					<div class="page_btn">

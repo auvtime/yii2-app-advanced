@@ -29,6 +29,7 @@ DialogAsset::register($this);
     	</div>
     </div>
     <div class="separator"></div>
+    <input type="hidden" id="faceUrl" value="<?php echo $currentUser->face;?>">
     <div class="row">
 		<div class="col-lg-12">
 		    <div class="achievement-list col-lg-8">

@@ -15,6 +15,8 @@ use yii\web\HttpException;
 use frontend\models\Achievement;
 use yii\helpers\Html;
 use frontend\models\AchievementSearch;
+use frontend\models\UserFace;
+use common\models\User;
 
 /**
  * ExperienceController implements the CRUD actions for Experience model.
@@ -69,8 +71,16 @@ class ExperienceController extends Controller
         $explist = $dataProvider->getModels();
         $json = Json::encode($explist);
         Yii::info($json,'auvtime');
+        $currentUserId = Yii::$app->user->id;
+        $currentUser = User::findIdentity($currentUserId);
+        $userFace = UserFace::findOne([
+				'user_id' => $currentUserId,
+    			'face_type' => '1',
+    	]);
+        $currentUser->face = isset($userFace)?$userFace->face_url:'';
         return $this->render('index', [
             'explist' => $explist,
+        	'currentUser' => $currentUser,
         ]);
     }
 

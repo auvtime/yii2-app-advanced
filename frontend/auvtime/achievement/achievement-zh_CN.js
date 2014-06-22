@@ -51,6 +51,11 @@ $(document).ready(function(){
 			});
 		}
 	});
+	//设置头像
+	var faceUrl = $('#faceUrl').val();
+	if(faceUrl != ''){
+		$('.face').css('background','url(' + faceUrl + ')');
+	}
 });
 //定时器初始化为0
 var timer = 0;

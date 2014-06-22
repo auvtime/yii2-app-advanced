@@ -114,7 +114,10 @@ class MyController extends Controller
     {
     	$userId = Yii::$app->user->id;
     	$model = new UserFace();
-    	$model->user_id = $userId;
+    	$model = UserFace::findOne([
+				'user_id' => $userId,
+    			'face_type' => '1',
+    	]);
     	return $this->render('face', [
     		'model' => $model,
     	]);

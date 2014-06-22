@@ -12,6 +12,8 @@ use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\web\HttpException;
 use yii\db\Exception;
+use common\models\User;
+use frontend\models\UserFace;
 /**
  * 
  * <p><b>标题：</b>frontend\controllers$AchievementController.</p>
@@ -76,8 +78,16 @@ class AchievementController extends Controller
         $achlist = $dataProvider->getModels();
         $json = Json::encode($achlist);
         Yii::info($json,'auvtime');
+        $currentUserId = Yii::$app->user->id;
+        $currentUser = User::findIdentity($currentUserId);
+        $userFace = UserFace::findOne([
+        		'user_id' => $currentUserId,
+        		'face_type' => '1',
+        		]);
+        $currentUser->face = isset($userFace)?$userFace->face_url:'';
         return $this->render('index', [
             'achlist' => $achlist,
+        	'currentUser' => $currentUser,
         ]);
     }
 
