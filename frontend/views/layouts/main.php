@@ -5,12 +5,14 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
+use frontend\assets\HeadroomAsset;
 
 /**
  * @var \yii\web\View $this
  * @var string $content
  */
 AppAsset::register($this);
+HeadroomAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -26,6 +28,7 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
+            	'id' => 'auvtime-nav',
                 'brandLabel' => 'AUVTime',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
