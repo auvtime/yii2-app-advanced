@@ -72,6 +72,11 @@ class ExperienceController extends Controller
         $totalCount = $dataProvider->totalCount;
         $pageCount = ceil($totalCount/$count);
         $explist = $dataProvider->getModels();
+        foreach($explist as &$e){
+        	$e->create_time = $e->getCreatTimeDisplay();
+        	$e->exp_time = $e->getExpTimeDisplay();
+        }
+        unset($e);
         $json = Json::encode($explist);
         Yii::info($json,'auvtime');
         $currentUserId = Yii::$app->user->id;
@@ -269,13 +274,23 @@ class ExperienceController extends Controller
 		return $returnMsg;
 	}
 	
-	
+	/**
+	 * 根据页数自动加载更多，1为第一页
+	 * 
+	 * @param int $page
+	 * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-7-11 下午5:22:21
+	 */
 	public function actionLoadmore($page){
 		$page = $page - 1;
 		$searchModel = new ExperienceSearch;
         $searchModel->user_id=Yii::$app->user->id;
         $dataProvider = $searchModel->search($page);
         $explist = $dataProvider->getModels();
+        foreach($explist as &$e){
+        	$e->create_time = $e->getCreatTimeDisplay();
+        	$e->exp_time = $e->getExpTimeDisplay();
+        }
+        unset($e);
         $json = Json::encode($explist);
         echo $json;
 	}
