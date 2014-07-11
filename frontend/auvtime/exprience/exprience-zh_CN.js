@@ -123,6 +123,11 @@ $(document).ready(function(){
 			$exp.insertBefore($loadMorePlace).slideDown();
     	});
 	});
+	//返回顶部
+	$(window).backToTop({
+		showHeight : 500,//设置滚动高度时显示
+		speed : 100 //返回顶部的速度以毫秒为单位
+	});
 });
 //定时器初始化为0
 var timer = 0;

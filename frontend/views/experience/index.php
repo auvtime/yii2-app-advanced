@@ -6,6 +6,7 @@ use frontend\assets\ExprienceAsset;
 use yii\jui\DialogAsset;
 use yii\jui\ThemeAsset;
 use frontend\assets\InfiniteScrollAsset;
+use frontend\assets\BackToTopAsset;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
@@ -14,11 +15,12 @@ use frontend\assets\InfiniteScrollAsset;
 
 $this->title = Yii::t('experience', 'My Experiences');
 $this->params['breadcrumbs'][] = $this->title;
-ExprienceAsset::register($this);
 $model = new Experience();
 ThemeAsset::register($this);
 DialogAsset::register($this);
 InfiniteScrollAsset::register($this);
+BackToTopAsset::register($this);
+ExprienceAsset::register($this);
 ?>
 <div id="statusMsg"></div>
 <div class="experience-index">
