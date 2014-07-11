@@ -68,6 +68,9 @@ class ExperienceController extends Controller
         $searchModel = new ExperienceSearch;
         $searchModel->user_id=Yii::$app->user->id;
         $dataProvider = $searchModel->search(null);
+        $count = $dataProvider->count;
+        $totalCount = $dataProvider->totalCount;
+        $pageCount = ceil($totalCount/$count);
         $explist = $dataProvider->getModels();
         $json = Json::encode($explist);
         Yii::info($json,'auvtime');
@@ -81,6 +84,7 @@ class ExperienceController extends Controller
         return $this->render('index', [
             'explist' => $explist,
         	'currentUser' => $currentUser,
+        	'pageCount' => $pageCount,
         ]);
     }
 
@@ -263,5 +267,16 @@ class ExperienceController extends Controller
 		$returnMsg = Json::encode($returnMsg);
 		Yii::info($returnMsg,'auvtime');
 		return $returnMsg;
+	}
+	
+	
+	public function actionLoadmore($page){
+		$page = $page - 1;
+		$searchModel = new ExperienceSearch;
+        $searchModel->user_id=Yii::$app->user->id;
+        $dataProvider = $searchModel->search($page);
+        $explist = $dataProvider->getModels();
+        $json = Json::encode($explist);
+        echo $json;
 	}
 }

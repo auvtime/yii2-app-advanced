@@ -30,6 +30,5 @@ if(empty($explist)){
 }
 ?>
 <div class="load-more row" id="loadMore" style="display: block;">
-	<span>加载更多</span>
-	<em style="display:none">没有更多了</em>
+	<a id="nextPage" href="loadmore?page=1"></a> 
 </div>

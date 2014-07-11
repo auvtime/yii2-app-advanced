@@ -123,10 +123,10 @@ li {
 .load-more {
   background-color: #ddd;
 }
-.load-more span {
+.load-more a {
   cursor: pointer;
 }
-.load-more span, .load-more em {
+.load-more a, .load-more em {
   display: block;
 }
 .load-more, .btn:hover, .btngroup a:link, .btngroup a:visited, .btngroup a:active, .btngroup a:hover {
@@ -139,3 +139,23 @@ li {
   text-align: center;
 }
 
+
+
+#infscr-loading {
+  background-color: #ddd;
+}
+#infscr-loading a {
+  cursor: pointer;
+}
+#infscr-loading a, #infscr-loading em {
+  display: block;
+}
+#infscr-loading, .btn:hover, .btngroup a:link, .btngroup a:visited, .btngroup a:active, .btngroup a:hover {
+  color: #555;
+}
+#infscr-loading {
+  border-radius: 10px;
+  line-height: 28px;
+  margin: 0 10px;
+  text-align: center;
+}

@@ -89,9 +89,40 @@ $(document).ready(function(){
 	if(faceUrl != ''){
 		$('.face').css('background','url(' + faceUrl + ')');
 	}
-	
+	var pageCount = $('#pageCount').val();
 	//滚动条滚动到页面底部自动加载更多
-	
+	$('#myExperiences').infinitescroll({
+		navSelector  	: "#loadMore",
+		nextSelector 	: "#loadMore #nextPage:last",
+		itemSelector 	: ".experience",
+		dataType	 	: 'json',
+        maxPage         : pageCount,
+        loading: {
+    		finished: undefined,
+    		finishedMsg: "没有更多的经历了！",
+    		msgText: "正在加载更多经历...",
+    		speed: 'fast',
+    	},
+        appendCallback: false
+    }, function(json, opts){
+    	var $loadMorePlace = $('#loadMore');
+    	$.each(json,function(index,exprience){
+    		var content = exprience.content;
+			var createTime = '创建时间:' + exprience.create_time;
+			var expTime = '经历时间：' + exprience.exp_time;
+			var expId = exprience.id;
+			var $expTemplate = $('#exp-template');
+			$expTemplate.find('.exp-menu-button').attr('exp-data',expId);
+			var $expDetail = $expTemplate.find('.exp-detail');
+			$expDetail.find('.content').html(content);
+			$expDetail.find('.create-time').html(createTime);
+			$expDetail.find('.exp-time').html(expTime);
+			var $exp = $expTemplate.clone();
+			$exp.attr('id', Math.random());
+			$exp.css('display', 'none');
+			$exp.insertBefore($loadMorePlace).slideDown();
+    	});
+	});
 });
 //定时器初始化为0
 var timer = 0;

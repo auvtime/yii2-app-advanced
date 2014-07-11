@@ -34,9 +34,10 @@ InfiniteScrollAsset::register($this);
     </div>
 	<div class="separator"></div>
 	<input type="hidden" id="faceUrl" value="<?php echo $currentUser->face;?>">
+	<input type="hidden" id="pageCount" value="<?php echo $pageCount?>">
 	<div class="row">
 		<div class="col-lg-12">
-		    <div class="experience-list col-lg-8">
+		    <div class="experience-list col-lg-8" id="myExperiences">
 				<div id="exp-template" class="experience row" style="display:none ">
 					<div class="exp-menu"  style="position: absolute; z-index: 999;">
 						<div class="dropdown">
