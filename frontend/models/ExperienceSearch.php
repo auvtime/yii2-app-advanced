@@ -26,20 +26,21 @@ class ExperienceSearch extends Experience
         return Model::scenarios();
     }
 
-    public function search($params)
+    public function search($page)
     {
+    	if(null===$page){
+    		$page = 0;
+    	}
         $query = Experience::find();
         $query->orderBy(['create_time'=>SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        	'pagination' => [
+        		'pageSize' => 2,
+        		'page' => $page,
+        	],
         ]);
         
-		if(null !== $params){
-	        if (!($this->load($params) && $this->validate())) {
-	            return $dataProvider;
-	        }
-		}
-
         $query->andFilterWhere([
             'id' => $this->id,
             'exp_time' => $this->exp_time,

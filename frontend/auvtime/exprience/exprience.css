@@ -28,6 +28,9 @@
     height: 150px;
     overflow: auto;
 }
+.create-time,.exp-time{
+    margin-top: 10px;
+}
 .create-time {
     float: left;
 }
@@ -117,6 +120,22 @@ li {
   margin-top: 320px;
 }
 
-
-
+.load-more {
+  background-color: #ddd;
+}
+.load-more span {
+  cursor: pointer;
+}
+.load-more span, .load-more em {
+  display: block;
+}
+.load-more, .btn:hover, .btngroup a:link, .btngroup a:visited, .btngroup a:active, .btngroup a:hover {
+  color: #555;
+}
+.load-more {
+  border-radius: 10px;
+  line-height: 28px;
+  margin: 0 10px;
+  text-align: center;
+}
 

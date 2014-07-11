@@ -89,6 +89,9 @@ $(document).ready(function(){
 	if(faceUrl != ''){
 		$('.face').css('background','url(' + faceUrl + ')');
 	}
+	
+	//滚动条滚动到页面底部自动加载更多
+	
 });
 //定时器初始化为0
 var timer = 0;

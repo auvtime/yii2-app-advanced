@@ -5,6 +5,7 @@ use frontend\models\Experience;
 use frontend\assets\ExprienceAsset;
 use yii\jui\DialogAsset;
 use yii\jui\ThemeAsset;
+use frontend\assets\InfiniteScrollAsset;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
@@ -17,6 +18,7 @@ ExprienceAsset::register($this);
 $model = new Experience();
 ThemeAsset::register($this);
 DialogAsset::register($this);
+InfiniteScrollAsset::register($this);
 ?>
 <div id="statusMsg"></div>
 <div class="experience-index">
