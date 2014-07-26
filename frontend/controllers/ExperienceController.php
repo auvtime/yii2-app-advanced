@@ -70,7 +70,7 @@ class ExperienceController extends Controller
         $dataProvider = $searchModel->search(null);
         $count = $dataProvider->count;
         $totalCount = $dataProvider->totalCount;
-        $pageCount = ceil($totalCount/$count);
+        $pageCount = $count === 0?0:ceil($totalCount/$count);
         $explist = $dataProvider->getModels();
         foreach($explist as &$e){
         	$e->create_time = $e->getCreatTimeDisplay();

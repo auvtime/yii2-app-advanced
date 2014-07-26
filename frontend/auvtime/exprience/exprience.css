@@ -139,7 +139,9 @@ li {
   text-align: center;
 }
 
-
+.alert{
+    margin-bottom: 0px;
+}
 
 #infscr-loading {
   background-color: #ddd;
