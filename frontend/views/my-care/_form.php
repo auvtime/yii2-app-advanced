@@ -15,6 +15,8 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 100]) ?>
+    
+    <?= $form->field($model, 'relationship')?>
 
     <?= $form->field($model, 'solar_birthday')?>
 

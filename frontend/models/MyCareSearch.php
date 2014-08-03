@@ -26,29 +26,29 @@ class MyCareSearch extends MyCare
         return Model::scenarios();
     }
 
-    public function search($params)
+    public function search($page)
     {
-        $query = MyCare::find();
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+    	if(null===$page){
+    		$page = 0;
+    	}
+    	
+        $query = MyCare::find ();
+		
+		$query->orderBy ( [ 
+				'create_time' => SORT_DESC 
+		] );
+		
+		$dataProvider = new ActiveDataProvider ( [ 
+				'query' => $query,
+				'pagination' => [
+	        		'pageSize' => 10,
+	        		'page' => $page,
+        		],
         ]);
-
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
 
         $query->andFilterWhere([
-            'id' => $this->id,
-            'solar_birthday' => $this->solar_birthday,
-            'lunar_birthday' => $this->lunar_birthday,
-            'create_time' => $this->create_time,
-            'update_time' => $this->update_time,
+            'user_id' => $this->user_id,
         ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'nick_name', $this->nick_name])
-            ->andFilterWhere(['like', 'remark', $this->remark]);
 
         return $dataProvider;
     }

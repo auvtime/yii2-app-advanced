@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 
 /**
  * MyCareController implements the CRUD actions for MyCare model.
@@ -48,23 +49,16 @@ class MyCareController extends Controller {
     public function actionIndex()
     {
         $searchModel = new MyCareSearch;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-
+        $dataProvider = $searchModel->search(null);
+        $count = $dataProvider->count;
+        $totalCount = $dataProvider->totalCount;
+        $pageCount = $count === 0?0:ceil($totalCount/$count);
+        $myCareList = $dataProvider->getModels();
+        $json = Json::encode($myCareList);
+        Yii::info($json,'auvtime');
         return $this->render('my-care', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
-        ]);
-    }
-
-    /**
-     * Displays a single MyCare model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
+            'myCareList' => $myCareList,
+        	'pageCount' => $pageCount,
         ]);
     }
 

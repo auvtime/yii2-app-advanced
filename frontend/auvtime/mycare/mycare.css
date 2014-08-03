@@ -1,0 +1,67 @@
+@CHARSET "UTF-8";
+
+.liuyan {
+    height: 100%;
+    width: 800px;
+    margin: 0 auto;
+    position: relative;
+    list-style-type: none;
+    float: left;
+}
+.liuyan .ly_list {
+    width: 280px;
+    box-shadow: 0px 0px 20px #333;
+    position: relative;
+    display: none;
+    list-style-type: none;
+}
+.ly_list .ly_titleBg {
+    width: 120px;
+    height: 40px;
+    background: #0b5d59;
+    left: 30px;
+    opacity: 0.55;
+    filter: alpha(opacity=55);
+    position: absolute;
+    top: -20px;
+}
+.ly_list .ly_titleTxt {
+    width: 160px;
+    height: 40px;
+    cursor: move;
+    color: #fff;
+    padding: 0 10px;
+    line-height: 40px;
+    left: 30px;
+    position: absolute;
+    top: -20px;
+}
+.yellow {
+    background: #FFFFCC;
+    -webkit-transform: rotate(10deg) translateZ(0);
+    -moz-transform: rotate(10deg) translateZ(0);
+}
+.green {
+    background: #CCFFCC;
+    -webkit-transform: rotate(-10deg) translateZ(0);
+    -moz-transform: rotate(-10deg) translateZ(0);
+}
+.blue {
+    background: #C6C6F8;
+    -webkit-transform: rotate(15deg) translateZ(0);
+    -moz-transform: rotate(15deg) translateZ(0);
+}
+.color4 {
+    background: #D1D1CE;
+    -webkit-transform: rotate(-15deg) translateZ(0);
+    -moz-transform: rotate(-15deg) translateZ(0);
+}
+.ly_list .ly_content {
+    padding: 30px 10px 10px;
+}
+.ly_content p {
+    text-indent: 1.5em;
+}
+.xubox_layer{
+    float: left;
+}
