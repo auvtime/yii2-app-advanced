@@ -62,6 +62,15 @@
 .ly_content p {
     text-indent: 1.5em;
 }
-.xubox_layer{
-    float: left;
+
+.ly_list:hover,.ly_list:focus {
+    -moz-box-shadow: 10px 10px 7px rgba(0,0,0,7);
+    -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,7);
+    box-shadow: 10px 10px 7px rgba(0,0,0,7);
+    -webkit-transform: scale(1.55);
+    -moz-transform: scale(1.55);
+    -o-transform: scale(1.55);
+    transform: scale(1.55);
+    position: relative;
+    z-index: 9999;
 }
