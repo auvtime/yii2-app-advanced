@@ -99,6 +99,14 @@ return [
 										'fileMap' => [ 
 												'achievement' => 'achievement.php' 
 										] 
+								],
+								'my-care' => [ 
+										'class' => 'yii\i18n\PhpMessageSource',
+										'sourceLanguage' => 'en',
+										'basePath' => '@app/messages',
+										'fileMap' => [ 
+												'my-care' => 'my-care.php' 
+										] 
 								] 
 						] 
 				] 
