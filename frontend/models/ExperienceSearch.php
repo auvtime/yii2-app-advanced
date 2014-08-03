@@ -6,6 +6,8 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\Experience;
+use yii\db\Query;
+use yii\helpers\Json;
 
 /**
  * ExperienceSearch represents the model behind the search form about `frontend\models\Experience`.
@@ -89,4 +91,44 @@ class ExperienceSearch extends Experience
 		
 		return $dataProvider;
 	}
+	
+	/**
+	 * 查询页面导航
+	 * 
+	 * @param 当前页数 $page 从0开始
+	 * @return \yii\data\ActiveDataProvider
+	 * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-7-27 下午4:59:18
+	 */
+	public function searchNav($page)
+    {
+    	if(null===$page){
+    		$page = 0;
+    	}
+        $query = (new Query())
+        	->select(['DATE_FORMAT(exp_time,"%Y") as navYear'])
+        	->distinct()
+        	->from('experience')
+        	->orderBy(['create_time'=>SORT_DESC])
+        	->andFilterWhere([
+        			'user_id' => $this->user_id,
+        	]);
+        //$query->orderBy(['create_time'=>SORT_DESC]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        	'pagination' => [
+        		'pageSize' => 10,
+        		'page' => $page,
+        	],
+        ]);
+        
+        $yearList = $dataProvider->getModels();
+        
+        $navList = [];
+        
+        foreach ($yearList as $year){
+        	
+        }
+
+        return $navList;
+    }
 }

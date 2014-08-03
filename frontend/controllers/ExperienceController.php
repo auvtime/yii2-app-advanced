@@ -65,6 +65,7 @@ class ExperienceController extends Controller
      */
     public function actionIndex()
     {
+    	//分页查询经历列表第一页
         $searchModel = new ExperienceSearch;
         $searchModel->user_id=Yii::$app->user->id;
         $dataProvider = $searchModel->search(null);
@@ -79,6 +80,7 @@ class ExperienceController extends Controller
         unset($e);
         $json = Json::encode($explist);
         Yii::info($json,'auvtime');
+        //用户头像url
         $currentUserId = Yii::$app->user->id;
         $currentUser = User::findIdentity($currentUserId);
         $userFace = UserFace::findOne([
@@ -86,6 +88,9 @@ class ExperienceController extends Controller
     			'face_type' => '1',
     	]);
         $currentUser->face = isset($userFace)?$userFace->face_url:'';
+        //查询页面导航
+        $navList = $searchModel->searchNav(null);
+        
         return $this->render('index', [
             'explist' => $explist,
         	'currentUser' => $currentUser,
