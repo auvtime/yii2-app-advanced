@@ -18,6 +18,7 @@ use Datetime;
  * @property integer $id
  * @property integer $user_id
  * @property string $name
+ * @property integer $order_num
  * @property string $nick_name
  * @property string $relationship
  * @property string $solar_birthday
@@ -60,9 +61,10 @@ class MyCare extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name', 'relationship'], 'required'],
+            [['user_id','order_num'], 'integer'],
             [['solar_birthday', 'lunar_birthday', 'create_time', 'update_time'], 'safe'],
-            [['name', 'nick_name'], 'string', 'max' => 100],
+            [['name', 'nick_name', 'relationship'], 'string', 'max' => 100],
             [['remark'], 'string', 'max' => 1000]
         ];
     }

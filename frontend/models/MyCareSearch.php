@@ -35,7 +35,7 @@ class MyCareSearch extends MyCare
         $query = MyCare::find ();
 		
 		$query->orderBy ( [ 
-				'create_time' => SORT_DESC 
+				'order_num' => SORT_ASC 
 		] );
 		
 		$dataProvider = new ActiveDataProvider ( [ 
