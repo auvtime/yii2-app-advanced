@@ -77,3 +77,26 @@
 	L('.xubox_layer').draggable({ containment: ".my-care-index" });
 
 })($);
+
+
+$(document).ready(function(){
+	$.msgbox.defaults({
+		overlayEvent: 'close',
+		resize: false,
+		lang: 'zh_CN',
+		opacity:.5,
+		zIndex:99999999
+	});
+	//添加我关心的人
+	$('#addMyCare').msgbox({
+		type:'iframe',
+		content: '/my-care/create'
+	});
+	function submitForm($form) {
+		var createUrl = $form.attr("action");
+		var createData = $form.serialize();
+		$.post(createUrl, createData).success(function(result) {
+			alert(333);
+		});
+	}
+});

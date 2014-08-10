@@ -61,7 +61,7 @@ class MyCare extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'relationship'], 'required'],
+            [['name', 'relationship','solar_birthday','lunar_birthday'], 'required'],
             [['user_id','order_num'], 'integer'],
             [['solar_birthday', 'lunar_birthday', 'create_time', 'update_time'], 'safe'],
             [['name', 'nick_name', 'relationship'], 'string', 'max' => 100],

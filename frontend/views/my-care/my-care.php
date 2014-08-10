@@ -13,15 +13,24 @@ $this->params ['breadcrumbs'] [] = $this->title;
 MyCareAsset::register($this);
 ?>
 <div class="my-care-index row">
-	<ul class="liuyan row">
-	<?php foreach ($myCareList as $care){?>
-		<li class="ly_list">
-			<div class="ly_titleBg"></div>
-			<div class="ly_titleTxt"><?php echo $care->relationship.$care->name?>：</div>
-			<div class="ly_content">
-				<p><?php echo $care->getMyCaredPersonsAge()?></p>
-			</div>
-		</li>
-	<?php }?>
-	</ul>
+	<div class="row add-my-care">
+		<div class="col-lg-8">
+			<button class="btn btn-primary" id="addMyCare">添加关心的人</button>
+		</div>
+	</div>
+	<div class="row">
+		<div>
+			<ul class="liuyan">
+			<?php foreach ($myCareList as $care){?>
+				<li class="ly_list">
+					<div class="ly_titleBg"></div>
+					<div class="ly_titleTxt"><?php echo $care->relationship.$care->name?>：</div>
+					<div class="ly_content">
+						<p><?php echo $care->getMyCaredPersonsAge()?></p>
+					</div>
+				</li>
+			<?php }?>
+			</ul>
+		</div>
+	</div>
 </div>

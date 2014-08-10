@@ -69,6 +69,7 @@ class MyCareController extends Controller {
      */
     public function actionCreate()
     {
+    	$this->layout = "jmsgbox";
         $model = new MyCare;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

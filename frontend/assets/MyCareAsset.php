@@ -26,6 +26,7 @@ class MyCareAsset extends AssetBundle {
 	];
 	public $depends = [ 
 			'frontend\assets\AppAsset',
-			'yii\jui\DraggableAsset', 
+			'yii\jui\DraggableAsset',
+			'frontend\assets\JQueryMsgboxAsset' 
 	];
 }

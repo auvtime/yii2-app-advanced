@@ -120,3 +120,13 @@ a.desc:after {
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
 	background-color: #55d59a;
 }
+
+.msgbox-wrap{
+	min-height: 95%;
+	height: auto;
+	margin:0;
+	padding:0;
+}
+.msgbox-wrap > .msgbox-container {
+	padding: 5px 15px 5px;
+}
