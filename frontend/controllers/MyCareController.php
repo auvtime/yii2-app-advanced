@@ -22,7 +22,8 @@ class MyCareController extends Controller {
 						'only' => [
 								'index', 
 								'view',
-								'edit' 
+								'edit',
+						        'care-list', 
 						],
 						'rules' => [ 
 								[ 
@@ -73,7 +74,7 @@ class MyCareController extends Controller {
         $model = new MyCare;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return "success";
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -127,5 +128,24 @@ class MyCareController extends Controller {
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    /**
+     * 获取关心的人列表
+     * 
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-8-24 下午3:51:41
+     */
+    public function actionCareList(){
+        $searchModel = new MyCareSearch;
+        $dataProvider = $searchModel->search(null);
+        $count = $dataProvider->count;
+        $totalCount = $dataProvider->totalCount;
+        $pageCount = $count === 0?0:ceil($totalCount/$count);
+        $myCareList = $dataProvider->getModels();
+        $json = Json::encode($myCareList);
+        Yii::info($json,'auvtime');
+        return $this->renderPartial('care-list', [
+            'myCareList' => $myCareList,
+            'pageCount' => $pageCount,
+        ]);
     }
 }

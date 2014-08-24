@@ -9,7 +9,23 @@ use yii\widgets\ActiveForm;
  * @var yii\widgets\ActiveForm $form
  */
 ?>
-
+<script type="text/javascript">
+function submitForm($form) {
+	var createUrl = $form.attr("action");
+	var createData = $form.serialize();
+	$.post(createUrl, createData).success(function(result) {
+		if(result == 'success'){
+			window.parent.closePage();
+		}
+		return false;
+	});
+	return false;
+}
+//关闭窗口
+function close(){
+	window.parent.closePage();
+}
+</script>
 <div class="my-care-form">
 
     <?php $form = ActiveForm::begin([
@@ -44,6 +60,7 @@ use yii\widgets\ActiveForm;
 	<div class="row">
 	    <div class="form-group col-xs-6">
 	        <?= Html::submitButton($model->isNewRecord ? Yii::t('my-care', 'Create') : Yii::t('my-care', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	        <a href="javascript:close();" id="close" class="btn btn-primary"><?php echo Yii::t('my-care', 'Close')?></a>
 	    </div>
 	</div>
     <?php ActiveForm::end(); ?>

@@ -10,4 +10,5 @@ return array (
 		'Nick Name'=>'昵称',
 		'Remark'=>'评论',
 		'Create'=>'添加',
+        'Close'=>'关闭',
 );

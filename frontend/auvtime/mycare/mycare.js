@@ -53,34 +53,12 @@
 	};
 
 	LYQ.run = function() {
-		var li = L('.liuyan>li');
+		var li = L('#my-care-list>.liuyan>li');
 		L.each(li, function(index, value) {
 			LYQ.view(index, value, this);
 		});
 	};
-
-	if (-[ 1, ]) {
-		LYQ.run();
-	} else {
-		L(document).ready(function() {
-			layer.msg('IE浏览器查看效果将会不佳    您可以选择chrome或者firefox等浏览器访问该页面', 2, 13,
-					function() {
-						layer.msg('您可以选择chrome或者firefox等浏览器访问该页面', 2, 8,
-								function() {
-									LYQ.run();
-								});
-
-					});
-		});
-	}
-	
-	L('.xubox_layer').draggable({ containment: ".my-care-index" });
-
-})($);
-
-
-$(document).ready(function(){
-	$.msgbox.defaults({
+	L.msgbox.defaults({
 		overlayEvent: 'close',
 		resize: false,
 		lang: 'zh_CN',
@@ -88,15 +66,22 @@ $(document).ready(function(){
 		zIndex:99999999
 	});
 	//添加我关心的人
-	$('#addMyCare').msgbox({
+	L('#addMyCare').msgbox({
 		type:'iframe',
 		content: '/my-care/create'
 	});
-	function submitForm($form) {
-		var createUrl = $form.attr("action");
-		var createData = $form.serialize();
-		$.post(createUrl, createData).success(function(result) {
-			alert(333);
-		});
-	}
-});
+	//动态加载我关心的人
+	L.ajax({
+		url:'/my-care/care-list',
+		success:function(data){
+			$('#my-care-list').html(data);
+			LYQ.run();
+			L('.xubox_layer').draggable({ containment: ".my-care-index" });
+		}
+	});
+	
+})($);
+
+function closePage(){
+	$('#addMyCare').msgbox().close();
+}
