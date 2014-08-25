@@ -79,7 +79,12 @@
 			L('.xubox_layer').draggable({ containment: ".my-care-index" });
 		}
 	});
-	
+	//添加编辑和删除菜单
+	L('#my-care-list').on('mouseover','.ly_list',function(){
+		L(this).find('.context-menu>.dropdown>.context-menu-icon-choose,.context-menu>.dropdown>.dropdown-menu').css('visibility','visible');
+	}).mouseout(function(){
+		L(this).find('.context-menu>.dropdown>.context-menu-icon-choose,.context-menu>.dropdown>.dropdown-menu').css('visibility','hidden');
+	});
 })($);
 
 function closePage(){
