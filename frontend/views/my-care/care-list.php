@@ -1,16 +1,46 @@
+<style>
+.context-menu{
+    margin: 2% 0 0 85%;
+    position:absolute;
+    width:50px;
+}
+.context-menu .menu{
+    width:50%;
+    background-image: url("/images/icon.png");
+    background-repeat: no-repeat;
+    float:left;
+    margin:5px 5px 0 0;
+    visibility:hidden;
+}
+.context-menu .del-menu{
+    background-position: -75px -25px;
+    height: 16px;
+    width: 16px;
+}
+.context-menu .edit-menu{
+    background-position: -75px -150px;
+    height: 16px;
+    width: 16px;
+}
+.context-menu .del-menu:hover{
+    background-position: -100px -25px;
+    height: 16px;
+    width: 16px;
+}
+.context-menu .edit-menu:hover{
+    background-position: -100px -150px;
+    height: 16px;
+    width: 16px;
+}
+</style>
 <ul class="liuyan">
 <?php foreach ($myCareList as $care){?>
 	<li class="ly_list">
 		<div class="ly_titleBg"></div>
 		<div class="ly_titleTxt"><?php echo $care->relationship.$care->name?>：</div>
-		<div style="position: absolute; z-index: 999;" class="context-menu">
-			<div class="dropdown">
-    	    	<a class="context-menu-icon-choose context-menu-button" context_data="274" data-target="#" data-toggle="dropdown" role="button"></a>
-            	<ul role="menu" class="dropdown-menu" style="visibility: hidden;">
-                	<li role="presentation"><a title="删除" href="javascript:;" menu-type="delete-exp" tabindex="-1" role="menuitem">删除</a></li>
-                    <li role="presentation"><a title="编辑" href="javascript:;" menu-type="add-to-ach" tabindex="-1" role="menuitem">编辑</a></li>
-                </ul>
-    	    </div>
+		<div class="context-menu">
+			<div class="menu edit-menu"></div>
+			<div class="menu del-menu"></div>
 	    </div>
 		<div class="ly_content">
 			<p><?php echo $care->getMyCaredPersonsAge()?></p>
