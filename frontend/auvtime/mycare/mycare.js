@@ -1,9 +1,26 @@
+//关闭添加窗口
+function closePage(){
+	$('#addMyCare').msgbox().close();
+}
+//LYQ represents "留言墙"
+var LYQ = {
+	line : 4,
+	width : 250
+};
+//动态加载我关心的人
+function loadMyCareList(){
+	$.ajax({
+		url:'/my-care/care-list',
+		success:function(data){
+			$('#my-care-list').html(data);
+			LYQ.run();
+			$('.xubox_layer').draggable({ containment: ".my-care-index" });
+		}
+	});
+}
+
 (function(L) {
-	//LYQ represents "留言墙"
-	var LYQ = {
-		line : 4,
-		width : 250
-	};
+	
 	LYQ._class = [ 'yellow', 'green', 'blue', 'color4' ];
 
 	LYQ.view = function(index, value, othis) {
@@ -70,16 +87,9 @@
 		type:'iframe',
 		content: '/my-care/create'
 	});
-	//动态加载我关心的人
-	L.ajax({
-		url:'/my-care/care-list',
-		success:function(data){
-			$('#my-care-list').html(data);
-			LYQ.run();
-			L('.xubox_layer').draggable({ containment: ".my-care-index" });
-		}
-	});
-	//添加编辑和删除菜单
+	
+	loadMyCareList();
+	//上下文菜单
 	L('#my-care-list').on('mouseover','.ly_list',function(){
 		L(this).find('.context-menu>.dropdown>.context-menu-icon-choose,.context-menu>.dropdown>.dropdown-menu').css('visibility','visible');
 	}).mouseout(function(){
@@ -87,6 +97,3 @@
 	});
 })($);
 
-function closePage(){
-	$('#addMyCare').msgbox().close();
-}

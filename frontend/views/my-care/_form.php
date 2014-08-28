@@ -15,6 +15,7 @@ function submitForm($form) {
 	var createData = $form.serialize();
 	$.post(createUrl, createData).success(function(result) {
 		if(result == 'success'){
+			window.parent.loadMyCareList();
 			window.parent.closePage();
 		}
 		return false;
