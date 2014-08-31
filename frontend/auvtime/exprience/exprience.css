@@ -18,8 +18,9 @@
 }
 .face {
     background: url(/images/face/face.jpg) no-repeat;
-    width: 110px;
-    height: 110px;
+    margin:-10px 0 0 -35px;
+    width: 200px;
+    height: 200px;
 }
 .content .create-time .exp-time {
     font-size: 14px;

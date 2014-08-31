@@ -6,16 +6,16 @@ $(function() {
 		enableRotation : true,// 是否允许旋转图片true false
 		enableZoom : true,// 是否允许放大缩小
 		selector : {
-			w : 110,// 选择器宽度
-			h : 110,// 旋转高度
+			w : 200,// 选择器宽度
+			h : 200,// 旋转高度
 			showPositionsOnDrag : true,// 是否显示拖拽的位置洗洗脑
 			showDimetionsOnDrag : false,
 			centered : true,// 居中
 			bgInfoLayer : '#fff',
 			borderColor : 'blue',// 选择区域边框样式
 			animated : false,
-			maxWidth : 110,// 最大宽度
-			maxHeight : 110,// 最大高度
+			maxWidth : 200,// 最大宽度
+			maxHeight : 200,// 最大高度
 			borderColorHover : 'yellow'// 鼠标放到选择器的边框颜色
 		},
 		image : {
@@ -51,16 +51,16 @@ $(function() {
 					enableRotation : true,// 是否允许旋转图片true false
 					enableZoom : true,// 是否允许放大缩小
 					selector : {
-						w : 110,// 选择器宽度
-						h : 110,// 旋转高度
+						w : 200,// 选择器宽度
+						h : 200,// 旋转高度
 						showPositionsOnDrag : true,// 是否显示拖拽的位置洗洗脑
 						showDimetionsOnDrag : false,
 						centered : true,// 居中
 						bgInfoLayer : '#fff',
 						borderColor : 'blue',// 选择区域边框样式
 						animated : false,
-						maxWidth : 110,// 最大宽度
-						maxHeight : 110,// 最大高度
+						maxWidth : 200,// 最大宽度
+						maxHeight : 200,// 最大高度
 						borderColorHover : 'yellow'// 鼠标放到选择器的边框颜色
 					},
 					image : {

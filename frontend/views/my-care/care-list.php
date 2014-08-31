@@ -38,9 +38,9 @@
 	<li class="ly_list">
 		<div class="ly_titleBg"></div>
 		<div class="ly_titleTxt"><?php echo $care->relationship.$care->name?>：</div>
-		<div class="context-menu">
-			<div class="menu edit-menu"></div>
-			<div class="menu del-menu"></div>
+		<div class="context-menu" care-data="<?php echo $care->id?>">
+			<a class="menu edit-menu" care-data="<?php echo $care->id?>"></a>
+			<a class="menu del-menu" care-data="<?php echo $care->id?>"></a>
 	    </div>
 		<div class="ly_content">
 			<p><?php echo $care->getMyCaredPersonsAge()?></p>

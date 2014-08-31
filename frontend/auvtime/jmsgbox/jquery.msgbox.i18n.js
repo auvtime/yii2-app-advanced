@@ -9,7 +9,7 @@
 	
 	// Simplified Chinese
 	$.msgboxI18N.zh_CN = {
-		OK: '好',
+		OK: '确定',
 		Cancel: '取消',
 		Loading: '正在加载',
 		Next: '下一张',

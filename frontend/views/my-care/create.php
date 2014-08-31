@@ -4,7 +4,7 @@
  * @var frontend\models\MyCare $model
  */
 
-$this->title = Yii::t('my-care', 'Create My Care People');
+$this->title = Yii::t('my-care', 'Create My Cared People');
 ?>
 <div class="my-care-create">
     <?= $this->render('_form', [

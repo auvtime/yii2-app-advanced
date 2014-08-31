@@ -14,10 +14,10 @@ if(empty($achlist)){
 				            	    </div>
 			            	    </div>
 		 
-								<div class="user-face col-lg-2">				
+								<div class="user-face col-lg-3">				
 									<div class="face"></div>			
 								</div>
-								<div class="ach-detail col-lg-10">				
+								<div class="ach-detail col-lg-9">				
 		<?php
 		echo '							<div class="content">'.$ach->content.'</div>			';
 		echo '							<div class="create-time">'.Yii::t('achievement', 'Created at').':'.$ach->getCreatTimeDisplay().'</div>			';
