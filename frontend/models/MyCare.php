@@ -11,7 +11,6 @@ use yii\base\Exception;
 use yii\web\HttpException;
 use auvtime\util\AuvArrayUtil;
 use Datetime;
-use yii\db\StaleObjectException;
 
 /**
  * This is the model class for table "my_care".
@@ -84,6 +83,7 @@ class MyCare extends \yii\db\ActiveRecord
             'solar_birthday' => Yii::t('my-care', 'Solar Birthday'),
             'lunar_birthday' => Yii::t('my-care', 'Lunar Birthday'),
             'remark' => Yii::t('my-care', 'Remark'),
+            'order_num'=>Yii::t('my-care', 'Order Number'),
             'create_time' => Yii::t('my-care', 'Create Time'),
             'update_time' => Yii::t('my-care', 'Update Time'),
         ];

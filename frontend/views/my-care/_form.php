@@ -67,6 +67,14 @@ function close(){
 		</div>
 	</div>
 	<div class="row">
+		<div class="col-xs-6">
+    		<?= $form->field($model, 'order_num') ?>
+		</div>
+		<div class="col-xs-6">
+    		
+		</div>
+	</div>
+	<div class="row">
 	    <div class="form-group col-xs-6">
 	        <?= Html::submitButton($model->isNewRecord ? Yii::t('my-care', 'Create') : Yii::t('my-care', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 	        <a href="javascript:close();" id="close" class="btn btn-primary"><?php echo Yii::t('my-care', 'Close')?></a>

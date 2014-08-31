@@ -13,4 +13,5 @@ return array (
 		'Create'=>'添加',
         'Update'=>'修改',
         'Close'=>'关闭',
+        'Order Number'=>'排序',
 );
