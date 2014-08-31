@@ -51,10 +51,10 @@ ExprienceAsset::register($this);
 			               	
 	            	    </div>
             	    </div>
-					<div class="user-face col-lg-2">
+					<div class="user-face col-lg-3">
 						<div class="face"></div>
 					</div>
-					<div class="exp-detail col-lg-10">
+					<div class="exp-detail col-lg-9">
 						<div class="content"></div>
 						<div class="create-time"></div>
 						<div class="exp-time"></div>

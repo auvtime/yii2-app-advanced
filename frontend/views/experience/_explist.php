@@ -15,10 +15,10 @@ if(empty($explist)){
 				            	    </div>
 			            	    </div>
 		 
-								<div class="user-face col-lg-2">				
+								<div class="user-face col-lg-3">				
 									<div class="face"></div>			
 								</div>
-								<div class="exp-detail col-lg-10">				
+								<div class="exp-detail col-lg-9">				
 		<?php
 		echo '							<div class="content">'.$exp->content.'</div>			';
 		echo '							<div class="create-time">'.Yii::t('experience', 'Created at ').':'.$exp->getCreatTimeDisplay().'</div>			';

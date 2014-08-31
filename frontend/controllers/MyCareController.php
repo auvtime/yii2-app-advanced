@@ -72,7 +72,7 @@ class MyCareController extends Controller {
     {
     	$this->layout = "jmsgbox";
         $model = new MyCare;
-
+        $model->user_id = Yii::$app->user->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return "success";
         } else {
@@ -88,30 +88,46 @@ class MyCareController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate()
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        $this->layout = "jmsgbox";
+        $request = Yii::$app->request;
+        if($request->getIsGet()){
+            $careId = $request->getQueryParam('careId');
+            $model = $this->findModel($careId);
             return $this->render('update', [
                 'model' => $model,
             ]);
+        }else if($request->getIsPost()){
+            $model = new MyCare();
+            $model->load($request->post());
+            $json = Json::encode($model);
+            Yii::info($json,'auvtime');
+            if ($model->save()) {
+                return "success";
+            }
         }
     }
 
     /**
-     * Deletes an existing MyCare model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
+     * 删除关心的人，成功返回success，失败返回fail
+     * @param string $careId
+     * @return string
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-8-30 上午10:56:31
      */
-    public function actionDelete($id)
+    public function actionDelete()
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $message = 'fail';
+        try {
+            $careId = Yii::$app->request->post('careId');
+            Yii::info("@@@careId:".$careId,'auvtime');
+            if($this->findModel($careId)->delete()){
+                $message = "success";
+            }
+        } catch (\Exception $e) {
+            Yii::error('删除关心的人的时候发生错误：'.$e->getMessage(),'auvtime');
+        }
+        return $message;
     }
 
     /**

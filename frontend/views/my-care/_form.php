@@ -16,7 +16,7 @@ function submitForm($form) {
 	$.post(createUrl, createData).success(function(result) {
 		if(result == 'success'){
 			window.parent.loadMyCareList();
-			window.parent.closePage();
+			close();
 		}
 		return false;
 	});
@@ -24,18 +24,27 @@ function submitForm($form) {
 }
 //关闭窗口
 function close(){
-	window.parent.closePage();
+	var isNew = <?php echo $model->isNewRecord?"true":"false"?>;
+	if(isNew){
+		window.parent.closeCreatePage();
+	}else{
+		var careId = <?php echo $model->id?>;
+		window.parent.closeUpdatePage(careId);
+	}
+	
 }
 </script>
 <div class="my-care-form">
 
     <?php $form = ActiveForm::begin([
 		'id'=>'create-my-care-form',
-    	'action'=>'/my-care/create',
+    	'action'=>($model->isNewRecord?'/my-care/create':'/my-care/update'),
     	'beforeSubmit' => 'submitForm'
     ]); ?>
     <div class="row">
 		<div class="col-xs-6">
+		    <input type="hidden" value="<?= $model->id?>" name="MyCare[id]" id="mycare-id">
+		    <input type="hidden" value="<?= $model->id?>" name="MyCare[user_id]" id="mycare-id">
 			<?= $form->field($model, 'name')->textInput(['maxlength' => 100]) ?>
     	</div>
     	<div class="col-xs-6">

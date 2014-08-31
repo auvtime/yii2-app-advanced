@@ -1,6 +1,9 @@
 //关闭添加窗口
-function closePage(){
+function closeCreatePage(){
 	$('#addMyCare').msgbox().close();
+}
+function closeUpdatePage(){
+	$.msgbox().close();
 }
 //LYQ represents "留言墙"
 var LYQ = {
@@ -95,9 +98,33 @@ function loadMyCareList(){
 	}).mouseout(function(){
 		L(this).find('.context-menu>.menu').css('visibility','hidden');
 	});
-	//编辑和删除菜单
-	L('#my-care-list').on('mouseover','.ly_list',function(){
-		
+	//删除菜单
+	L('#my-care-list').on('click','.del-menu',function(){
+		var careId = L(this).parent().attr('care-data');
+		L.msgbox({
+			type: 'confirm',
+			content: '你确定要删除吗?',
+			title: '删除提示!',
+			onClose: function(){
+				//如果确定，则删除，重新加载所有人
+				if(this.val()){
+					var delUrl = '/my-care/delete';
+					$.post(delUrl, {
+						'careId':careId
+					},function(message){
+						loadMyCareList();
+					});
+				}
+			}
+		});
+	});
+	//删除菜单
+	L('#my-care-list').on('click','.edit-menu',function(e){
+		var careId = L(this).parent().attr('care-data');
+		L.msgbox({
+			type:'iframe',
+			content: '/my-care/update?careId=' + careId
+		});
 	});
 })($);
 
