@@ -16,20 +16,18 @@
     width: 500px;
 }
 #preview {
-    float: left;
-    width: 120px;
-    height: 120px;
-    border: 1px solid #999;
-    margin: 10px auto;
-    padding: 4px;
-    background: #f7f7f7;
+	background: none repeat scroll 0 0 #f7f7f7;
+	float: left;
+	height: 200px;
+	margin: 10px auto;
+	width: 200px;
 }
 .page_btn {
-    float: left;
-    width: 150px;
-    margin: 10px auto;
-    line-height: 30px;
-    text-align: center
+	float: left;
+	line-height: 30px;
+	margin: 10px auto;
+	text-align: center;
+	width: 200px;
 }
 .page_btn .btn{
     margin: 20px;
