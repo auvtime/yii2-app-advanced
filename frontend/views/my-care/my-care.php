@@ -16,10 +16,6 @@ MyCareAsset::register($this);
 	<div class="row add-my-care">
 		<div class="col-lg-8">
 			<button class="btn btn-primary" id="addMyCare">添加关心的人</button>
-			<div>
-			     <a id="delDialog">del</a>
-			     <a id="editDialog">edit</a>
-			</div>
 		</div>
 	</div>
 	<div class="row">

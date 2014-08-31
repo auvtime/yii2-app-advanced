@@ -2,8 +2,8 @@
 function closeCreatePage(){
 	$('#addMyCare').msgbox().close();
 }
-function closeUpdatePage(){
-	$.msgbox().close();
+function closeUpdatePage(msgboxId){
+	$.msgbox(msgboxId).close();
 }
 //LYQ represents "留言墙"
 var LYQ = {
@@ -101,7 +101,9 @@ function loadMyCareList(){
 	//删除菜单
 	L('#my-care-list').on('click','.del-menu',function(){
 		var careId = L(this).parent().attr('care-data');
+		var msgboxId = 'del' + careId;
 		L.msgbox({
+			id:msgboxId,
 			type: 'confirm',
 			content: '你确定要删除吗?',
 			title: '删除提示!',
@@ -121,7 +123,9 @@ function loadMyCareList(){
 	//删除菜单
 	L('#my-care-list').on('click','.edit-menu',function(e){
 		var careId = L(this).parent().attr('care-data');
+		var msgboxId = 'edit' + careId;
 		L.msgbox({
+			id:msgboxId,
 			type:'iframe',
 			content: '/my-care/update?careId=' + careId
 		});

@@ -11,6 +11,7 @@ use yii\base\Exception;
 use yii\web\HttpException;
 use auvtime\util\AuvArrayUtil;
 use Datetime;
+use yii\db\StaleObjectException;
 
 /**
  * This is the model class for table "my_care".

@@ -50,6 +50,7 @@ class MyCareController extends Controller {
     public function actionIndex()
     {
         $searchModel = new MyCareSearch;
+        $searchModel->user_id = Yii::$app->user->id;
         $dataProvider = $searchModel->search(null);
         $count = $dataProvider->count;
         $totalCount = $dataProvider->totalCount;
@@ -99,11 +100,11 @@ class MyCareController extends Controller {
                 'model' => $model,
             ]);
         }else if($request->getIsPost()){
-            $model = new MyCare();
+            $model = MyCare::findOne($request->post('mycare-id'));
             $model->load($request->post());
             $json = Json::encode($model);
             Yii::info($json,'auvtime');
-            if ($model->save()) {
+            if ($model->update()){
                 return "success";
             }
         }
@@ -152,6 +153,7 @@ class MyCareController extends Controller {
      */
     public function actionCareList(){
         $searchModel = new MyCareSearch;
+        $searchModel->user_id = Yii::$app->user->id;
         $dataProvider = $searchModel->search(null);
         $count = $dataProvider->count;
         $totalCount = $dataProvider->totalCount;

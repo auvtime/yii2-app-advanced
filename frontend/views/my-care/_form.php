@@ -28,10 +28,10 @@ function close(){
 	if(isNew){
 		window.parent.closeCreatePage();
 	}else{
-		var careId = <?php echo $model->id?>;
-		window.parent.closeUpdatePage(careId);
+		var careId = <?php echo $model->isNewRecord?"-1":$model->id?>;
+		var msgboxId = 'edit' + careId;
+		window.parent.closeUpdatePage(msgboxId);
 	}
-	
 }
 </script>
 <div class="my-care-form">
@@ -43,8 +43,7 @@ function close(){
     ]); ?>
     <div class="row">
 		<div class="col-xs-6">
-		    <input type="hidden" value="<?= $model->id?>" name="MyCare[id]" id="mycare-id">
-		    <input type="hidden" value="<?= $model->id?>" name="MyCare[user_id]" id="mycare-id">
+		    <input type="hidden" value="<?= $model->id?>" name="mycare-id" id="mycare-id">
 			<?= $form->field($model, 'name')->textInput(['maxlength' => 100]) ?>
     	</div>
     	<div class="col-xs-6">

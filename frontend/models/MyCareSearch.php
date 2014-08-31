@@ -38,16 +38,16 @@ class MyCareSearch extends MyCare
 				'order_num' => SORT_ASC 
 		] );
 		
+		$query->andFilterWhere([
+		    'user_id' => $this->user_id,
+		]);
+		
 		$dataProvider = new ActiveDataProvider ( [ 
 				'query' => $query,
 				'pagination' => [
 	        		'pageSize' => 10,
 	        		'page' => $page,
         		],
-        ]);
-
-        $query->andFilterWhere([
-            'user_id' => $this->user_id,
         ]);
 
         return $dataProvider;
