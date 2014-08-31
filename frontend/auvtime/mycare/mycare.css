@@ -15,6 +15,25 @@
     display: none;
     list-style-type: none;
 }
+.ly_list .ly_orderNumBg {
+    width: 30px;
+    height: 40px;
+    background: #cd6195;
+    opacity: 0.95;
+    filter: alpha(opacity=0.95);
+    position: absolute;
+    top: -20px;
+}
+.ly_list .ly_orderNumTxt {
+    width: 40px;
+    height: 40px;
+    cursor: move;
+    color: #fff;
+    padding: 0 10px;
+    line-height: 40px;
+    position: absolute;
+    top: -20px;
+}
 .ly_list .ly_titleBg {
     width: 120px;
     height: 40px;
@@ -37,22 +56,27 @@
     top: -20px;
 }
 .yellow {
-    background: #FFFFCC;
+    background: #ebcfa7;
     -webkit-transform: rotate(10deg) translateZ(0);
     -moz-transform: rotate(10deg) translateZ(0);
 }
 .green {
-    background: #CCFFCC;
+    background: #55d59a;
     -webkit-transform: rotate(-10deg) translateZ(0);
     -moz-transform: rotate(-10deg) translateZ(0);
 }
 .blue {
-    background: #C6C6F8;
+    background: #325cc2;
     -webkit-transform: rotate(15deg) translateZ(0);
     -moz-transform: rotate(15deg) translateZ(0);
 }
-.color4 {
-    background: #D1D1CE;
+.red {
+    background: #f69fcc;
+    -webkit-transform: rotate(-15deg) translateZ(0);
+    -moz-transform: rotate(-15deg) translateZ(0);
+}
+.purple {
+    background: #7e3591;
     -webkit-transform: rotate(-15deg) translateZ(0);
     -moz-transform: rotate(-15deg) translateZ(0);
 }
@@ -62,7 +86,9 @@
 .ly_content p {
     text-indent: 1.5em;
 }
-
+.birthday{
+	text-indent: 1.5em;
+}
 .ly_list:hover,.ly_list:focus {
     -moz-box-shadow: 10px 10px 7px rgba(0,0,0,7);
     -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,7);

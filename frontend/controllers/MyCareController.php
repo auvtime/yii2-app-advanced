@@ -106,6 +106,8 @@ class MyCareController extends Controller {
         if($request->getIsGet()){
             $careId = $request->getQueryParam('careId');
             $model = $this->findModel($careId);
+            $model->solar_birthday = $model->getSolarBirthdayDisplay();
+            $model->lunar_birthday = $model->getLunarBirthdayDisplay();
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -169,6 +171,11 @@ class MyCareController extends Controller {
         $totalCount = $dataProvider->totalCount;
         $pageCount = $count === 0?0:ceil($totalCount/$count);
         $myCareList = $dataProvider->getModels();
+        foreach($myCareList as &$myCare){
+            $myCare->solar_birthday = $myCare->getSolarBirthdayDisplay();
+            $myCare->lunar_birthday = $myCare->getLunarBirthdayDisplay();
+        }
+        unset($myCare);
         $json = Json::encode($myCareList);
         Yii::info($json,'auvtime');
         return $this->renderPartial('care-list', [

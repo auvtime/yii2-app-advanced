@@ -7,8 +7,9 @@ function closeUpdatePage(msgboxId){
 }
 //LYQ represents "留言墙"
 var LYQ = {
-	line : 4,
-	width : 250
+	line : 3,
+	width : 350,
+	top:500
 };
 //动态加载我关心的人
 function loadMyCareList(){
@@ -24,7 +25,7 @@ function loadMyCareList(){
 
 (function(L) {
 	
-	LYQ._class = [ 'yellow', 'green', 'blue', 'color4' ];
+	LYQ._class = [ 'yellow', 'green', 'blue', 'red','purple' ];
 
 	LYQ.view = function(index, value, othis) {
 		var nos = Math.floor(Math.random() * 4), left, fade;
@@ -51,7 +52,7 @@ function loadMyCareList(){
 							'.xubox_layer').eq(index - LYQ.line);
 					!-[ 1, ] ? extop = nlayer.offset().top + 30
 							: extop = 20 * _e + 100 * _e;
-					var top = nlayer.outerHeight() + extop;
+					var top = nlayer.outerHeight() + extop + 50;
 				} else {
 					var left = 50 + LYQ.width * index;
 				}
@@ -59,13 +60,16 @@ function loadMyCareList(){
 				var mate = {
 					left : left,
 					top : top,
-					marginLeft : 0
+					marginLeft : 30
 				};
 				if (!-[ 1, ]) {
 					layerE.hide().animate(mate, time);
 					index === lLen - 1 && layerE.show();
 				} else {
 					layerE.animate(mate, time);
+				}
+				if(top>LYQ.top){
+					LYQ.top = top;
 				}
 				layer.setTop(layerE);
 			}
@@ -77,6 +81,7 @@ function loadMyCareList(){
 		L.each(li, function(index, value) {
 			LYQ.view(index, value, this);
 		});
+		L('.liuyan').css('height',(LYQ.top + 200) + "px");
 	};
 	L.msgbox.defaults({
 		overlayEvent: 'close',

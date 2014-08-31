@@ -194,4 +194,20 @@ class MyCare extends \yii\db\ActiveRecord
     	Yii::info('@@@When get my cared person\'s age in days,the $passTime  is:'.$ageInDays,'auvtime');
     	return $ageInDays;
     }
+    /**
+     * 获取阳历生日显示,只显示年月日
+     * @return string
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-8-31 下午5:08:21
+     */
+    public function getSolarBirthdayDisplay(){
+        return substr($this->solar_birthday,0,10);
+    }
+    /**
+     * 获取农历生日显示,只显示年月日
+     * @return string
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-8-31 下午5:07:58
+     */
+    public function getLunarBirthdayDisplay(){
+        return substr($this->lunar_birthday,0,10);
+    }
 }
