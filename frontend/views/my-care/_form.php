@@ -11,12 +11,15 @@ use yii\widgets\ActiveForm;
 ?>
 <script type="text/javascript">
 function submitForm($form) {
+	$('#statusMsg').hide();
 	var createUrl = $form.attr("action");
 	var createData = $form.serialize();
 	$.post(createUrl, createData).success(function(result) {
 		if(result == 'success'){
 			window.parent.loadMyCareList();
 			close();
+		}else{
+			$('#statusMsg').html(result).addClass('alert alert-danger').show();
 		}
 		return false;
 	});
@@ -34,6 +37,7 @@ function close(){
 	}
 }
 </script>
+<div id="statusMsg"></div>
 <div class="my-care-form">
 
     <?php $form = ActiveForm::begin([

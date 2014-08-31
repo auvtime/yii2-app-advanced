@@ -14,4 +14,5 @@ return array (
         'Update'=>'修改',
         'Close'=>'关闭',
         'Order Number'=>'排序',
+        'The same name already exists,please check your input.' => '相同的名字已经存在，请检查你的输入.',
 );

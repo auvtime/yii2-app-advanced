@@ -88,7 +88,8 @@ function loadMyCareList(){
 	//添加我关心的人
 	L('#addMyCare').msgbox({
 		type:'iframe',
-		content: '/my-care/create'
+		content: '/my-care/create',
+		height:500
 	});
 	
 	loadMyCareList();
@@ -127,7 +128,8 @@ function loadMyCareList(){
 		L.msgbox({
 			id:msgboxId,
 			type:'iframe',
-			content: '/my-care/update?careId=' + careId
+			content: '/my-care/update?careId=' + careId,
+			height:500
 		});
 	});
 })($);

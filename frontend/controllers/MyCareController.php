@@ -74,8 +74,18 @@ class MyCareController extends Controller {
     	$this->layout = "jmsgbox";
         $model = new MyCare;
         $model->user_id = Yii::$app->user->id;
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return "success";
+        if($model->load(Yii::$app->request->post())){
+            $searchModel = new MyCareSearch;
+            $searchModel->name = $model->name;
+            $searchModel->user_id = Yii::$app->user->id;
+            $dataProvider = $searchModel->search(null);
+            $totalCount = $dataProvider->totalCount;
+            if($totalCount!=0){
+                return Yii::t('my-care', 'The same name already exists,please check your input.');
+            }
+            if ($model->save()) {
+                return "success";
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,

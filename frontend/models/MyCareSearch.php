@@ -40,6 +40,7 @@ class MyCareSearch extends MyCare
 		
 		$query->andFilterWhere([
 		    'user_id' => $this->user_id,
+		    'name' => $this->name,
 		]);
 		
 		$dataProvider = new ActiveDataProvider ( [ 
