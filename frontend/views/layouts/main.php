@@ -88,7 +88,10 @@ HeadroomAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-        	<p class="pull-left auvtime-footer">Copyright &copy; AUVTime <?= date('Y') ?>. All Rights Reserved.</p>
+            <div class="row">
+            	<p class="pull-left auvtime-footer">Copyright &copy; AUVTime <?= date('Y') ?>. All Rights Reserved.</p>
+            	<div class="pull-right footer-beian">苏ICP备14040689号</div>
+        	</div>
         </div>
     </footer>
 
