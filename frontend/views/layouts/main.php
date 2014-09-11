@@ -90,7 +90,7 @@ HeadroomAsset::register($this);
         <div class="container">
             <div class="row">
             	<p class="pull-left auvtime-footer">Copyright &copy; AUVTime <?= date('Y') ?>. All Rights Reserved.</p>
-            	<div class="pull-right footer-beian">苏ICP备14040689号</div>
+            	<div class="pull-right footer-beian"><a href="http://www.beianbeian.com/beianxinxi/24ad3436-4819-424a-a2e7-e96ea36ec959.html" target="blank">苏ICP备14040689号-1</a></div>
         	</div>
         </div>
     </footer>

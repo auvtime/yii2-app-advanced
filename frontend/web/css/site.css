@@ -132,6 +132,7 @@ a.desc:after {
 }
 
 
-.footer-beian{
+.footer-beian > a{
 	color: #00db9f;
+	text-decoration:none;
 }
