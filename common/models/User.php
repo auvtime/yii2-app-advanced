@@ -21,6 +21,7 @@ use yii\db\Expression;
  * @property string $username
  * @property string $nickname
  * @property string $birthday
+ * @property string $lunar_birthday
  * @property string $public_flag
  * @property string $leave_age
  * @property string $time_unit
@@ -742,6 +743,7 @@ class User extends ActiveRecord implements IdentityInterface
 		$usernameLabel = \Yii::t ( 'auvtime-myprofile', 'Username' );
 		$nicknameLabel = \Yii::t ( 'auvtime-myprofile', 'Nickname' );
 		$birthdayLabel = \Yii::t ( 'auvtime-myprofile', 'Birthday' );
+		$lunarBirthdayLabel = \Yii::t ( 'auvtime-myprofile', 'Lunar Birthday' );
 		$publicFlagLabel = \Yii::t ( 'auvtime-myprofile', 'Public Flag' );
 		$leaveAgeLabel = \Yii::t ( 'auvtime-myprofile', 'Leave Age' );
 		$timeUnitLabel = \Yii::t ( 'auvtime-myprofile', 'Time Unit' );
@@ -754,6 +756,7 @@ class User extends ActiveRecord implements IdentityInterface
 				'username' => $usernameLabel,
 				'nickname' => $nicknameLabel,
 				'birthday' => $birthdayLabel,
+		        'lunar_birthday' => $lunarBirthdayLabel,
 				'public_flag' => $publicFlagLabel,
 				'leave_age' => $leaveAgeLabel, 
 				'time_unit' => $timeUnitLabel,

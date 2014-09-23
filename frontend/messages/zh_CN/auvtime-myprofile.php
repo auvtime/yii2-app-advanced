@@ -8,6 +8,7 @@ return array (
 		'Username'=> '登录名',
 		'Nickname'=> '昵称',
 		'Birthday'=> '生日',
+        'Lunar Birthday' => '农历生日',
 		'Public Flag'=> '是否公开',
 		'Leave Age'=> '离世年龄',
 		' yeas' => '岁',

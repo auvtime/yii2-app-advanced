@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('auvtime', 'View profile')];
 						'label'=>Yii::t('auvtime-myprofile', 'Birthday'),
 					 	'value'=>$model->getUserBirthday(),
 					],
+		            
 					[
 						'label'=>Yii::t('auvtime-myprofile', 'Public Flag'),
 						'value'=>$model->getPublicFlagOptions()[$model->public_flag],
@@ -38,11 +39,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('auvtime', 'View profile')];
                     ],
 		            'mobile',
 					'email:email',
-		            'face',
-		    		[
-			    		'label'=>Yii::t('auvtime-myprofile', 'Create Time'),
-			    		'value'=>Yii::$app->formatter->format($model->create_time, ['dateTime','Y-m-d H:i:s']),
-		    		],
 		    		[
 			    		'label'=>Yii::t('auvtime-myprofile', 'Update Time'),
 			    		'value'=>Yii::$app->formatter->format($model->update_time, ['dateTime','Y-m-d H:i:s']),

@@ -11,6 +11,8 @@ use yii\filters\AccessControl;
 use frontend\models\UserFace;
 use yii\web\UploadedFile;
 use auvtime\util\upload\UploadHandler;
+use yii\helpers\Json;
+use auvtime\util\Lunar;
 /**
  * 
  * <p><b>标题：</b>frontend\controllers$MyController.</p>
@@ -262,5 +264,21 @@ class MyController extends Controller
     
     protected function get_server_var($id) {
     	return isset($_SERVER[$id]) ? $_SERVER[$id] : '';
+    }
+    /**
+     * 根据阳历生日获取农历生日
+     * 
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-9-21 下午1:41:37
+     */
+    public function actionGetLunarBirthday(){
+        $solarBirthday = Yii::$app->request->post('solar-birthday');
+        $lunarBirthday = '';
+        Yii::info('When get user\'s lunar birthday,the solar birthday is '.$solarBirthday,'auvtime');
+        $lunar = new Lunar();
+        $lunarBirthday = $lunar->getLunarBirthdayFromSolar($solarBirthday);
+        $returnJson = new Json();
+        $returnJson = $returnJson->encode(["flag"=>"success",'lunarBirthday'=>$lunarBirthday]);
+        Yii::info('When get user\'s lunar birthday,returnJson'.$returnJson,'auvtime');
+        return $returnJson;
     }
 }

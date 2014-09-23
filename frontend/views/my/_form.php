@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use frontend\assets\EditUserAsset;
 
 /**
  *
@@ -8,6 +9,7 @@ use yii\widgets\ActiveForm;
  * @var common\models\User $model
  * @var yii\widgets\ActiveForm $form
  */
+EditUserAsset::register($this);
 ?>
 
 <div class="user-form">
@@ -38,10 +40,15 @@ use yii\widgets\ActiveForm;
 			</div>
 			<div class="row">
 				<div class="col-lg-4">
-		    		<?= $form->field($model, 'face')->textInput(['maxlength' => 1000])?>
-		    	</div>
-				<div class="col-lg-4">
 		    		<?= $form->field($model, 'public_flag')->dropDownList($model->getPublicFlagOptions())?>
+				</div>
+				<div class="col-lg-4">
+		    		<?= $form->field($model, 'birthday')?>
+		    		<input type="button" id="getLunarBirthday" name="getLunarBirthday" value="获取农历生日" class="btn btn-info">
+				</div>
+				<div class="col-lg-4">
+		    		<?= $form->field($model, 'lunar_birthday')?>
+		    		<input type="button" id="getSolarBirthday" name="getSolarBirthday" value="获取阳历生日" class="btn btn-info">
 				</div>
 			</div>
 			<div class="row">
