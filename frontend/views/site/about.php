@@ -1,5 +1,4 @@
 <?php
-use yii\helpers\Html;
 
 /**
  * @var yii\web\View $this
@@ -9,7 +8,6 @@ $this->title = $aboutme;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <h2><?php echo \Yii::t('auvtime', 'Everything is about time here!')?></h2>
 

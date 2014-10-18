@@ -65,4 +65,7 @@ return array (
 		'View profile' => '查看信息',
 		'Please input a valid mobile phone number.' => '请输入一个有效的手机号码.',
 		'Edit face' => '编辑头像',
+        //我的生活及以下菜单
+        'My Life' => '我的生活',
+        
 );
