@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\assets\EditUserAsset;
+use frontend\assets\My97DatePickerAsset;
 
 /**
  *
@@ -9,6 +10,7 @@ use frontend\assets\EditUserAsset;
  * @var common\models\User $model
  * @var yii\widgets\ActiveForm $form
  */
+My97DatePickerAsset::register($this);
 EditUserAsset::register($this);
 ?>
 
@@ -44,11 +46,8 @@ EditUserAsset::register($this);
 				</div>
 				<div class="col-lg-4">
 		    		<?= $form->field($model, 'birthday')?>
-		    		<input type="button" id="getLunarBirthday" name="getLunarBirthday" value="获取农历生日" class="btn btn-info">
 				</div>
 				<div class="col-lg-4">
-		    		<?= $form->field($model, 'lunar_birthday')?>
-		    		<input type="button" id="getSolarBirthday" name="getSolarBirthday" value="获取阳历生日" class="btn btn-info">
 				</div>
 			</div>
 			<div class="row">

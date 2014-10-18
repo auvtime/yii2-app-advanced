@@ -11,4 +11,7 @@ $(document).ready(function(){
 			}
 		},'json');
 	});
+	$('#user-birthday').click(function(){
+		WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});
+	});
 });

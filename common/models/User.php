@@ -84,7 +84,7 @@ class User extends ActiveRecord implements IdentityInterface
              
              [['username', 'auth_key', 'password_hash', 'email'], 'required'],
              [['leave_age', 'role', 'status', 'created_at', 'updated_at'], 'integer'],
-             [['create_time', 'update_time'], 'safe'],
+             [['create_time', 'update_time','birthday'], 'safe'],
              [['username', 'nickname', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
              [['public_flag'], 'string', 'max' => 10],
              [['time_unit'], 'string', 'max' => 20],

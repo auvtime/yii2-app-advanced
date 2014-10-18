@@ -84,6 +84,9 @@ class MyController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //$model->load(Yii::$app->request->post());
+            $modelJson = Json::encode($model);
+            Yii::info("user-model:".$modelJson,'auvtime');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('edit', [
