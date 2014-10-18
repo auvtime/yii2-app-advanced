@@ -107,7 +107,15 @@ return [
 										'fileMap' => [ 
 												'my-care' => 'my-care.php' 
 										] 
-								] 
+								] ,
+								'countdown' => [ 
+										'class' => 'yii\i18n\PhpMessageSource',
+										'sourceLanguage' => 'en',
+										'basePath' => '@app/messages',
+										'fileMap' => [ 
+												'countdown' => 'countdown.php' 
+										] 
+								]
 						] 
 				] 
 		] 

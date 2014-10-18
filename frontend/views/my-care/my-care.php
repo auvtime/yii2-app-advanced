@@ -9,7 +9,6 @@ use frontend\assets\MyCareAsset;
  */
 
 $this->title = Yii::t ( 'my-care', 'My Cares' );
-$this->params ['breadcrumbs'] [] = $this->title;
 MyCareAsset::register($this);
 ?>
 <div class="my-care-index row">

@@ -47,15 +47,9 @@ HeadroomAsset::register($this);
                         ['label' => \Yii::t('auvtime','My Experiences'), 'url' => ['/experience/index']],
                         ['label' => \Yii::t('auvtime','My Achievements'), 'url' => ['/achievement/index']],
                         ['label' => \Yii::t('auvtime','Leave Time'), 'url' => ['/site/leave-time']],
+                        ['label' => \Yii::t('auvtime','CountDown'), 'url' => ['/countdown/index']],
                     ],
                 ];
-                /**
-            	$menuItems[] = ['label' => \Yii::t('auvtime','Life Time'), 'url' => ['/site/life-time']];
-            	$menuItems[] = ['label' => \Yii::t('auvtime','My Cares'), 'url' => ['/my-care/index']];
-            	$menuItems[] = ['label' => \Yii::t('auvtime','My Experiences'), 'url' => ['/experience/index']];
-            	$menuItems[] = ['label' => \Yii::t('auvtime','My Achievements'), 'url' => ['/achievement/index']];
-            	$menuItems[] = ['label' => \Yii::t('auvtime','Leave Time'), 'url' => ['/site/leave-time']];
-            	**/
             }
             $menuItems[] = ['label' => \Yii::t('auvtime','About Us'), 'url' => ['/site/about']];
             $menuItems[] = ['label' => \Yii::t('auvtime','Contact Us'), 'url' => ['/site/contact']];

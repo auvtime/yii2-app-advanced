@@ -67,5 +67,6 @@ return array (
 		'Edit face' => '编辑头像',
         //我的生活及以下菜单
         'My Life' => '我的生活',
+        'CountDown' => '倒计时',
         
 );
