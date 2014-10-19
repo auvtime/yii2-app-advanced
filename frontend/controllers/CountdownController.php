@@ -72,11 +72,22 @@ class CountdownController extends Controller
      * @return mixed
      */
     public function actionCreate()
-    {
+    {   
+        $this->layout = "jmsgbox";
         $model = new Countdown;
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model->user_id = Yii::$app->user->id;
+        if($model->load(Yii::$app->request->post())){
+            $searchModel = new CountdownSearch;
+            $searchModel->event_title = $model->event_title;
+            $searchModel->user_id = Yii::$app->user->id;
+            $dataProvider = $searchModel->search(null);
+            $totalCount = $dataProvider->totalCount;
+            if($totalCount!=0){
+                return Yii::t('countdown', 'The same event already exists,please check your input.');
+            }
+            if ($model->save()) {
+                return "success";
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
