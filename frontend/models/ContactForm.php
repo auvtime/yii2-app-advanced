@@ -58,11 +58,11 @@ class ContactForm extends Model
 	 * @return boolean whether the email was sent
 	 */
 	public function sendEmail($email) {
-		$mailSubject = $this->name . '[' . $this->email . ']' . $this->subject;
+		$mailSubject = $this->name . '#' . $this->email . '#' . $this->subject;
 		return Yii::$app->mail->compose ( 'contactUs', [ 
 				'mailbody' => Html::encode ( $this->body ),
-				'userName' => $this->name,
-				'userMail' => $this->email 
+				'userName' => Html::encode ($this->name),
+				'userMail' => Html::encode ($this->email), 
 		] )->setTo ( $email )->setFrom ( $email )->setSubject ( $mailSubject )->send ();
 	}
 }

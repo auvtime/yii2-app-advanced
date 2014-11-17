@@ -9,7 +9,7 @@ use yii\helpers\Html;
 
 ?>
 
-<?php echo \Yii::t('contact', 'A mail from {0},email address is {1}',[$userName,$userMail])?>,
+<?php echo \Yii::t('contact','A mail from {0},email address is {1}',[$userName,$userMail])?>,
 </br>
 <div class="jumbotron">
 	<p><?php echo Html::mailto(Yii::t('contact','Reply to {0} ',$userName),$userMail) ?></p>
