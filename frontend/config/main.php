@@ -25,7 +25,8 @@ return [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['info', 'warning'],
+                    'logFile'=> 'debug.log',
                 ],
             ],
         ],

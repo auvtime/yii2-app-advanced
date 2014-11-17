@@ -28,7 +28,7 @@ return array (
 		'password'=>'密码',
 		'birthday'=>'生日',
 		//关于我
-		'aboutme' => '关于我',
+		'aboutme' => '关于我们',
 		'Everything is about time here!' => '一切与时间有关！',
 		//登录
 		'Login' => '登录',

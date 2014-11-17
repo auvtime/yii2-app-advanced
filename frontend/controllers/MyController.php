@@ -166,7 +166,8 @@ class MyController extends Controller
     	$pHeight =  $_POST["imageH"];
     	$selectorX = $_POST["selectorX"];
     	$selectorY = $_POST["selectorY"];
-    	$ext = end(explode(".",$_POST["imageSource"]));
+    	$sourceImage = explode(".",$_POST["imageSource"]);
+    	$ext = end($sourceImage);
     	
     	$serverPath = $this->get_server_var('DOCUMENT_ROOT');
     	//Create the image from the image sent

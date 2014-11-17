@@ -772,7 +772,7 @@ class User extends ActiveRecord implements IdentityInterface
 	 * 
 	 * @author WangXianfeng 2014-5-25 下午8:53:03
 	 */
-	public function getPublicFlagOptions(){
+	public static function getPublicFlagOptions(){
 		return [
 			'0' => '不公开',
 			'1' => '公开',
@@ -783,7 +783,7 @@ class User extends ActiveRecord implements IdentityInterface
 	 * 
 	 * @author WangXianfeng 2014-5-26 下午9:23:05
 	 */
-	public function getTimeUnitOptions(){
+	public static function getTimeUnitOptions(){
 		return [
 			'SECOND' => '秒',
 			'MINUTE' => '分钟',
