@@ -27,7 +27,8 @@ class ExprienceAsset extends AssetBundle {
 	];
 	public $depends = [ 
 			'frontend\assets\AppAsset',
-			'frontend\assets\My97DatePickerAsset' 
+			'frontend\assets\My97DatePickerAsset',
+	        'frontend\assets\JQueryFileUploadAsset',
 	];
 	public function registerAssetFiles($view) {
 		$language = $this->language ? $this->language : Yii::$app->language;

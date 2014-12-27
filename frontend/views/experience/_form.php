@@ -11,7 +11,22 @@ use yii\bootstrap\Modal;
  * @var yii\widgets\ActiveForm $form
  */
 ?>
-
+<style>
+.uploadImage,.create-exp-button{
+    width:40%;
+}
+.uploadImage{
+    float:left;
+    margin:-10px 0 5px 30px;
+}
+#create-exprience{
+    float:right;
+    margin:-10px 30px 5px 0;
+}
+.uploadImgDisplay{
+    margin:0 0 5px 0;
+}
+</style>
 <div class="experience-form row">
 
     <?php $form = ActiveForm::begin([
@@ -32,9 +47,21 @@ use yii\bootstrap\Modal;
 	    	<div class="col-lg-12"><?= $form->field($model, 'content')->textArea(['rows' => 5])->label(Yii::t('experience', 'What happended to you?')) ?></div>
 		</div>
 		<div class="row">
-		    <div class="form-group pull-right create-exp-button">
-		        <?= Html::submitButton($model->isNewRecord ? Yii::t('experience', 'Create') : Yii::t('experience', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary','id'=>'create-exprience']) ?>
-		    </div>
+            <div class="row">
+                <div class="uploadImage">
+                    <span class="btn btn-success fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span><?php echo Yii::t('experience', 'Add Images')?></span>
+                        <input id="uploadExpImg" type="file" name="files[]" data-url="upload-exp-img" multiple/>
+                    </span>
+                </div>
+                <div class="form-group pull-right create-exp-button">
+                    <?= Html::submitButton($model->isNewRecord ? Yii::t('experience', 'Create') : Yii::t('experience', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary','id'=>'create-exprience']) ?>
+                </div>
+            </div>
+            <div class="row uploadImgDisplay" id="uploadImgDisplay">
+                
+            </div>
 		</div>
 	</div>
     <?php ActiveForm::end(); ?>

@@ -17,6 +17,8 @@ use yii\helpers\Html;
 use frontend\models\AchievementSearch;
 use frontend\models\UserFace;
 use common\models\User;
+use yii\web\UploadedFile;
+use auvtime\util\upload\ExpImgUploadHandler;
 
 /**
  * ExperienceController implements the CRUD actions for Experience model.
@@ -298,5 +300,26 @@ class ExperienceController extends Controller
         unset($e);
         $json = Json::encode($explist);
         echo $json;
+	}
+	/**
+	 * 上传经历图片,每条经历都可以添加图片
+	 * 
+	 * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-12-21 下午12:13:45
+	 */
+	public function actionUploadExpImg(){
+	    $pathd = Yii::$app->params['expImgPath'];//读取用户头像上传路径
+	    $pathd = $this->get_server_var('DOCUMENT_ROOT').$pathd.'/';
+	    Yii::info('@@@upload_dir:'.$pathd,'auvtime');
+	    if(!file_exists($pathd)){
+	        mkdir($pathd);
+	    }
+	    $options = [
+	        'upload_dir'=>$pathd,
+	    ];
+	    $upload_handler = new ExpImgUploadHandler($options);
+	}
+	
+	protected function get_server_var($id) {
+	    return isset($_SERVER[$id]) ? $_SERVER[$id] : '';
 	}
 }
