@@ -5,5 +5,5 @@ return [
     'user.passwordResetTokenExpire' => 3600,
     //userFacePath,have '/'
     'userFacePath' => '/images/userfaces/'.date('Y').date('m').date('d').'/',
-    'expImgPath'=>'/images/expimages/'.date('Y').date('m').date('d').'/',
+    'expImgPath'=>'/images/expimages/',
 ];

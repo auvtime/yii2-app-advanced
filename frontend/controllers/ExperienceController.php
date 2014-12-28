@@ -17,8 +17,9 @@ use yii\helpers\Html;
 use frontend\models\AchievementSearch;
 use frontend\models\UserFace;
 use common\models\User;
-use yii\web\UploadedFile;
 use auvtime\util\upload\ExpImgUploadHandler;
+use Directory;
+use frontend\models\ExperiencePicture;
 
 /**
  * ExperienceController implements the CRUD actions for Experience model.
@@ -123,6 +124,13 @@ class ExperienceController extends Controller
 		$model->user_id = Yii::$app->user->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
         	$model->refresh();
+        	//经历保存成功之后更新经历图片信息中的exp_id字段
+        	$expPicIds = Yii::$app->request->post("expPicIds");
+        	Yii::info("exp pic ids:".$expPicIds,"auvtime");
+        	$ep = new ExperiencePicture();
+        	$ep->updateExpId($model->user_id,$model->id,$expPicIds);
+        	
+        	
         	$model->create_time = $model->getCreatTimeDisplay();
         	$model->exp_time = $model->getExpTimeDisplay();
         	Yii::$app->response->format = 'json';
@@ -308,13 +316,17 @@ class ExperienceController extends Controller
 	 */
 	public function actionUploadExpImg(){
 	    $pathd = Yii::$app->params['expImgPath'];//读取用户头像上传路径
-	    $pathd = $this->get_server_var('DOCUMENT_ROOT').$pathd.'/';
+	    if(substr($pathd, strlen($pathd)-1,1)=='/'){
+	        $pathd = $this->get_server_var('DOCUMENT_ROOT').$pathd;
+	    }else{
+	        $pathd = $this->get_server_var('DOCUMENT_ROOT').$pathd.'/';
+	    }
 	    Yii::info('@@@upload_dir:'.$pathd,'auvtime');
 	    if(!file_exists($pathd)){
 	        mkdir($pathd);
 	    }
 	    $options = [
-	        'upload_dir'=>$pathd,
+	        'upload_dir'=>$pathd
 	    ];
 	    $upload_handler = new ExpImgUploadHandler($options);
 	}

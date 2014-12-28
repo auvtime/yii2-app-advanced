@@ -128,6 +128,43 @@ $(document).ready(function(){
 		showHeight : 500,//设置滚动高度时显示
 		speed : 100 //返回顶部的速度以毫秒为单位
 	});
+	//经历中添加图片
+	$("#uploadExpImg").fileupload({
+		dataType : 'json',
+		add : function(e, data) {
+			data.submit();
+		},
+		done : function(e, data) {
+			var expPicUl = $("#uploadImgDisplay");
+			$.each(data.result.files, function(index, file) {
+				var expPicLi = $("<li/>").attr({
+					"class":"sendPicBlock",
+					'style':"display: list-item"
+				});
+				var picSpan = $("<span/>").attr({
+					"class":"pic",
+					'data-href':file.url,
+					'data-exp-pic':file.exp_pic_id
+				});
+				var pic = $("<img/>").attr({
+					"src":file.thumbnailUrl,
+					"class":"exp_pic"
+				});
+				pic.appendTo(picSpan);
+				picSpan.appendTo(expPicLi);
+				expPicLi.appendTo(expPicUl);
+			});
+		}
+	});
+	//上传的时候点击查看图像
+	$('#uploadImgDisplay').click(function(event){
+	    event = event || window.event;
+	    var target = event.target || event.srcElement,
+        link = target.src ? target.parentNode : target,
+        options = {index: link, event: event},
+        links = $(this).find('.pic');
+	    blueimp.Gallery(links, options);
+	});
 });
 //定时器初始化为0
 var timer = 0;
@@ -135,6 +172,16 @@ var saveTimer;
 function submitForm($form) {
 	var createUrl = $form.attr("action");
 	var createData = $form.serialize();
+	var expPics = $('#uploadImgDisplay>li>span');
+	var expPicIds = '';
+	$.each(expPics,function(expPic){
+		var expPicId = $(this).attr('data-exp-pic');
+		expPicIds += expPicId + ',';
+	});
+	if(expPicIds != ''){
+		expPicIds = expPicIds.substring(0, expPicIds.length - 1);
+	}
+	createData = createData + '&expPicIds=' + expPicIds;
 	//设定一个计时器，如果用户保存过于频繁，则给出提示
 	if(timer == 10){
 		if(saveTimer){

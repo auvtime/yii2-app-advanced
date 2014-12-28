@@ -12,6 +12,9 @@ use yii\bootstrap\Modal;
  */
 ?>
 <style>
+.exp-func-row{
+    margin-top:-20px;
+}
 .uploadImage,.create-exp-button{
     width:40%;
 }
@@ -24,7 +27,21 @@ use yii\bootstrap\Modal;
     margin:-10px 30px 5px 0;
 }
 .uploadImgDisplay{
-    margin:0 0 5px 0;
+    margin:-10px 0 15px 0;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-top: 5px;
+    clear:both;
+}
+.sendPicBlock{
+    float:left;
+    height: 80px;
+    position: relative;
+    width: 80px;
+}
+.pic{
+    padding-right: 10px;
+    padding-bottom: 5px;
 }
 </style>
 <div class="experience-form row">
@@ -46,7 +63,12 @@ use yii\bootstrap\Modal;
 	    <div class="row">
 	    	<div class="col-lg-12"><?= $form->field($model, 'content')->textArea(['rows' => 5])->label(Yii::t('experience', 'What happended to you?')) ?></div>
 		</div>
-		<div class="row">
+		<div class="row exp-func-row">
+		    <div class="row uploadImgDisplay">
+                <ul class="clear prevList move small_lst" id="uploadImgDisplay">
+                     
+                </ul>
+            </div>
             <div class="row">
                 <div class="uploadImage">
                     <span class="btn btn-success fileinput-button">
@@ -59,9 +81,7 @@ use yii\bootstrap\Modal;
                     <?= Html::submitButton($model->isNewRecord ? Yii::t('experience', 'Create') : Yii::t('experience', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary','id'=>'create-exprience']) ?>
                 </div>
             </div>
-            <div class="row uploadImgDisplay" id="uploadImgDisplay">
-                
-            </div>
+            
 		</div>
 	</div>
     <?php ActiveForm::end(); ?>
@@ -86,4 +106,14 @@ use yii\bootstrap\Modal;
 	    
 	    Modal::end();
     ?>
+</div>
+<!-- The blueimp Gallery widget -->
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
 </div>

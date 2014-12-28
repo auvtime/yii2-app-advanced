@@ -13,6 +13,8 @@ namespace auvtime\util\upload;
 
 use yii\helpers\Json;
 use yii;
+use auvtime\util\CommonUtil;
+use frontend\models\ExperiencePicture;
 class ExpImgUploadHandler
 {
 
@@ -49,6 +51,7 @@ class ExpImgUploadHandler
             'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).($options===null?'/images/expimages/':$options['upload_dir']),
             'upload_url' => $this->get_full_url().'/images/expimages/',
             'user_dirs' => false,
+            'user_exp_dir'=>$this->get_user_path().date('Y').date('m').date('d').'/',
             'mkdir_mode' => 0755,
             'param_name' => 'files',
             // Set the following option to 'POST', if your server does not support
@@ -200,15 +203,12 @@ class ExpImgUploadHandler
     }
 
     protected function get_user_id() {
-        @session_start();
-        return session_id();
+        $userId = Yii::$app->user->id;
+        return $userId;
     }
 
     protected function get_user_path() {
-        if ($this->options['user_dirs']) {
-            return $this->get_user_id().'/';
-        }
-        return '';
+        return $this->get_user_id().'/';
     }
 
     protected function get_upload_path($file_name = null, $version = null) {
@@ -222,17 +222,20 @@ class ExpImgUploadHandler
             }
             $version_path = $version.'/';
         }
-        return $this->options['upload_dir'].$this->get_user_path()
-            .$version_path.$file_name;
+        return $this->options['upload_dir'].$this->options['user_exp_dir'].$version_path.$file_name;
     }
 
     protected function get_query_separator($url) {
         return strpos($url, '?') === false ? '?' : '&';
     }
 
-    protected function get_download_url($file_name, $version = null, $direct = false) {
-        $userFacePath = Yii::$app->params['userFacePath'];//读取用户头像上传路径
-        $downloadUrl = $userFacePath.$file_name;
+    protected function get_download_url($file_name,$version = null) {
+        Yii::info('@@@get_download_url file name:'.$file_name,'auvtime');
+        if(empty($version)){
+            $downloadUrl = Yii::$app->params['expImgPath'].$this->options['user_exp_dir'].$file_name;
+        }else{
+            $downloadUrl = Yii::$app->params['expImgPath'].$this->options['user_exp_dir'].$version.'/'.$file_name;
+        }
         Yii::info('@@@$downloadUrl:'.$downloadUrl,'auvtime');
         return $downloadUrl;
     }
@@ -431,17 +434,9 @@ class ExpImgUploadHandler
 
     protected function get_unique_filename($file_path, $name, $size, $type, $error,
             $index, $content_range) {
-        while(is_dir($this->get_upload_path($name))) {
-            $name = $this->upcount_name($name);
-        }
-        // Keep an existing filename if this is part of a chunked upload:
-        $uploaded_bytes = $this->fix_integer_overflow(intval($content_range[1]));
-        while(is_file($this->get_upload_path($name))) {
-            if ($uploaded_bytes === $this->get_file_size(
-                    $this->get_upload_path($name))) {
-                break;
-            }
-            $name = $this->upcount_name($name);
+        if(!empty($name)){
+            $file_ext = CommonUtil::getFileExtByName($name);
+            $name = CommonUtil::uuid().'.'.$file_ext;
         }
         return $name;
     }
@@ -1072,6 +1067,18 @@ class ExpImgUploadHandler
             }
             $this->set_additional_file_properties($file);
         }
+        
+        //图片上传完成之后在数据库中保存记录
+        $ep = new ExperiencePicture();
+        $ep->user_id = Yii::$app->user->id;
+        $ep->url = $file->url;
+        $ep->thumbnail_url = $file->thumbnailUrl;
+        $ep->save();
+        
+        Yii::info("@@@exp pic id:".$ep->id,"auvtime");
+        //把图片id作为文件json的一部分返回到客户端
+        $file->exp_pic_id = $ep->id;
+        
         return $file;
     }
 
@@ -1092,6 +1099,7 @@ class ExpImgUploadHandler
     }
 
     protected function body($str) {
+        Yii::info("@@@file json:".$str,"auvtime");
         echo $str;
     }
     
