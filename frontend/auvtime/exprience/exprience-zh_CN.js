@@ -84,11 +84,7 @@ $(document).ready(function(){
 			});
 		}
 	});
-	//设置头像
-	var faceUrl = $('#faceUrl').val();
-	if(faceUrl != ''){
-		$('.face').css('background','url(' + faceUrl + ')');
-	}
+	
 	var pageCount = $('#pageCount').val();
 	//滚动条滚动到页面底部自动加载更多
 	$('#myExperiences').infinitescroll({

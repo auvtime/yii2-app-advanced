@@ -98,4 +98,29 @@ class ExperiencePicture extends \yii\db\ActiveRecord
         $this->updateAll(["exp_id"=>$expId],
            " user_id = ".$userId." and id in(".$expPicIds.")");
     }
+    /**
+     * 根据用户id和经历id查找与经历有关的图片
+     * @param int $userId
+     * @param int $expId
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-12-29 上午10:41:01
+     */
+    public function findExpPicList($userId,$expId){
+        return $this->findAll([
+            'user_id'=>$userId,
+            'exp_id'=>$expId
+        ]);
+    }
+    
+    /**
+     * 根据用户id和经历id查找与经历有关的图片--第一张经历图片，显示在头像里
+     * @param int $userId
+     * @param int $expId
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2014-12-29 上午10:41:01
+     */
+    public function findFirstExpPic($userId,$expId){
+        return $this->find()->where([
+            'user_id'=>$userId,
+            'exp_id'=>$expId
+        ])->limit(1)->one();
+    }
 }

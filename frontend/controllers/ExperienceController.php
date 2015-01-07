@@ -82,7 +82,7 @@ class ExperienceController extends Controller
         }
         unset($e);
         $json = Json::encode($explist);
-        Yii::info($json,'auvtime');
+        Yii::info("@@@exp list json:".$json,'auvtime');
         //用户头像url
         $currentUserId = Yii::$app->user->id;
         $currentUser = User::findIdentity($currentUserId);

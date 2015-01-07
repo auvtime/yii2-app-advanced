@@ -35,7 +35,6 @@ ExprienceAsset::register($this);
     	</div>
     </div>
 	<div class="separator"></div>
-	<input type="hidden" id="faceUrl" value="<?php echo $currentUser->face;?>">
 	<input type="hidden" id="pageCount" value="<?php echo $pageCount?>">
 	<div class="row">
 		<div class="col-lg-12">
@@ -62,6 +61,7 @@ ExprienceAsset::register($this);
 				</div>
 				<?= $this->render('_explist',[
 					'explist' => $explist,
+				    'currentUser' => $currentUser,
 				])?>
 		    </div>
 		</div>

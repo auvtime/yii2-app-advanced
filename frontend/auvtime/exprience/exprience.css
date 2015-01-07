@@ -17,10 +17,13 @@
     border-bottom: #909090 1px solid;
 }
 .face {
-    background: url(/images/face/face.jpg) no-repeat;
     margin:-10px 0 0 -35px;
     width: 200px;
     height: 200px;
+}
+.face-pic{
+	position:absolute;
+	width:100%;
 }
 .content .create-time .exp-time {
     font-size: 14px;
@@ -162,3 +165,5 @@ li {
   margin: 0 10px;
   text-align: center;
 }
+
+

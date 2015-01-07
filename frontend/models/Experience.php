@@ -6,6 +6,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\Json;
 /**
  * This is the model class for table "experience".
  *
@@ -16,7 +17,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $user_id
  * @property string $create_time
  * @property string $update_time
- *
+ * @property Array $epList
  * @property User $id0
  */
 class Experience extends \yii\db\ActiveRecord
@@ -118,4 +119,34 @@ class Experience extends \yii\db\ActiveRecord
     		return substr($this->exp_time,0,4);
     	}
     }
+    /**
+     * 根据用户id和经历id查找用户经历图片列表
+     * @return array 经历图片信息数组
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2015-1-7 下午2:54:53
+     */
+    public function getExpPicList(){
+        //根据user_id和exp_id查找经历图片
+        $epModel = new ExperiencePicture();
+        $epList = $epModel->findExpPicList($this->user_id,$this->id);
+        $epListJson = Json::encode($epList);
+        Yii::info("@@@epListJson:".$epListJson,"auvtime.");
+        Yii::info("@@@ep list count:".count($epList));
+        return $epList;
+    }
+    
+    /**
+     * 根据用户id和经历id查找用户经历图片列表--第一张经历图片，用作头像
+     * @return ExperiencePicture 经历图片
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2015-1-7 下午3:34:53
+     */
+    public function getFirstExpPic(){
+        //根据user_id和exp_id查找经历图片
+        $epModel = new ExperiencePicture();
+        $firstExpPic = $epModel->findFirstExpPic($this->user_id,$this->id);
+        $epListJson = Json::encode($firstExpPic);
+        Yii::info("@@@epListJson:".$epListJson,"auvtime.");
+        return $firstExpPic;
+    }
+    
+    
 }
