@@ -127,9 +127,10 @@ class ExperienceController extends Controller
         	//经历保存成功之后更新经历图片信息中的exp_id字段
         	$expPicIds = Yii::$app->request->post("expPicIds");
         	Yii::info("exp pic ids:".$expPicIds,"ExperienceController");
-        	$ep = new ExperiencePicture();
-        	$ep->updateExpId($model->user_id,$model->id,$expPicIds);
-        	
+        	if(!empty($expPicIds)){
+            	$ep = new ExperiencePicture();
+            	$ep->updateExpId($model->user_id,$model->id,$expPicIds);
+        	}
         	
         	$model->create_time = $model->getCreatTimeDisplay();
         	$model->exp_time = $model->getExpTimeDisplay();
@@ -143,6 +144,11 @@ class ExperienceController extends Controller
         	if(empty($firstExpPicJson)){
         	    $currentUserId = Yii::$app->user->id;
         	    $currentUser = User::findIdentity($currentUserId);
+        	    $userFace = UserFace::findOne([
+        	        'user_id' => $currentUserId,
+        	        'face_type' => '1',
+        	    ]);
+        	    $currentUser->face = isset($userFace)?$userFace->face_url:'';
         	    if(!empty($currentUser->face)){
         	        $firstExpPic = $currentUser->face;
         	    }else{
@@ -326,6 +332,11 @@ class ExperienceController extends Controller
         $moreExpJson = [];
         $currentUserId = Yii::$app->user->id;
         $currentUser = User::findIdentity($currentUserId);
+        $userFace = UserFace::findOne([
+            'user_id' => $currentUserId,
+            'face_type' => '1',
+        ]);
+        $currentUser->face = isset($userFace)?$userFace->face_url:'';
         foreach($explist as &$e){
         	$e->create_time = $e->getCreatTimeDisplay();
         	$e->exp_time = $e->getExpTimeDisplay();
