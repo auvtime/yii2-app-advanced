@@ -54,9 +54,16 @@ ExprienceAsset::register($this);
 						<div class="face"></div>
 					</div>
 					<div class="exp-detail col-lg-9">
-						<div class="content"></div>
-						<div class="create-time"></div>
-						<div class="exp-time"></div>
+						<div class="row">
+						  <div class="content"></div>
+						</div>
+						<div class="row">                          
+						  <ul class="clear expPics"></ul>                       
+						</div>
+						<div class="row">
+    						<div class="create-time"></div>
+    						<div class="exp-time"></div>
+						</div>
 					</div>
 				</div>
 				<?= $this->render('_explist',[

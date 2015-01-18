@@ -126,7 +126,7 @@ class ExperienceController extends Controller
         	$model->refresh();
         	//经历保存成功之后更新经历图片信息中的exp_id字段
         	$expPicIds = Yii::$app->request->post("expPicIds");
-        	Yii::info("exp pic ids:".$expPicIds,"auvtime");
+        	Yii::info("exp pic ids:".$expPicIds,"ExperienceController");
         	$ep = new ExperiencePicture();
         	$ep->updateExpId($model->user_id,$model->id,$expPicIds);
         	
@@ -135,9 +135,31 @@ class ExperienceController extends Controller
         	$model->exp_time = $model->getExpTimeDisplay();
         	Yii::$app->response->format = 'json';
         	$modelJson = Json::encode($model);
-        	Yii::info($modelJson,'auvtime');
+        	Yii::info('modelJson:'.$modelJson,'ExperienceController');
+        	
+        	//获取头像图片
+        	$firstExpPic = '';
+        	$firstExpPicJson = $model->firstExpPic;
+        	if(empty($firstExpPicJson)){
+        	    $currentUserId = Yii::$app->user->id;
+        	    $currentUser = User::findIdentity($currentUserId);
+        	    if(!empty($currentUser->face)){
+        	        $firstExpPic = $currentUser->face;
+        	    }else{
+        	        $firstExpPic = "/images/face/face.jpg";
+        	    }
+        	}else{
+        	    $firstExpPic = $firstExpPicJson['url'];
+        	}
+        	Yii::info('firstExpPic:'.$firstExpPic,'ExperienceController');
+        	//获取经历图片
+        	$expPicList = $model->expPicList;
+        	$expPicListJson = Json::encode($expPicList);
+        	Yii::info('expPicListJson:'.$expPicListJson,'ExperienceController');
         	return [
         		'message' => $modelJson,
+        	    'faceImgUrl' => $firstExpPic,
+        	    'expPicList' => $expPicListJson,
         	];
         } 
     }
@@ -301,12 +323,35 @@ class ExperienceController extends Controller
         $searchModel->user_id=Yii::$app->user->id;
         $dataProvider = $searchModel->search($page);
         $explist = $dataProvider->getModels();
+        $moreExpJson = [];
         foreach($explist as &$e){
         	$e->create_time = $e->getCreatTimeDisplay();
         	$e->exp_time = $e->getExpTimeDisplay();
+        	$expJson = Json::encode($e);
+        	Yii::info('expJson:'.$expJson,'actionLoadmore');
+        	$expObj = Json::decode($expJson);
+        	$expArr = (array)$expObj;
+        	//获取头像图片
+        	$firstExpPic = '';
+        	$firstExpPicJson = $e->firstExpPic;
+            if(empty($firstExpPic)){
+        	    $currentUserId = Yii::$app->user->id;
+        	    $currentUser = User::findIdentity($currentUserId);
+        	    if(!empty($currentUser->face)){
+        	        $firstExpPic = $currentUser->face;
+        	    }else{
+        	        $firstExpPic = "/images/face/face.jpg";
+        	    }
+        	}else{
+        	    $firstExpPic = $firstExpPicJson['url'];
+        	}
+        	$expArr['faceImgUrl'] = $firstExpPic;
+        	$expArr['expPicList'] = $e->expPicList;
+        	array_push($moreExpJson, $expArr);
         }
         unset($e);
-        $json = Json::encode($explist);
+        $json = Json::encode($moreExpJson);
+        Yii::info('json:'.$json,'actionLoadmore');
         echo $json;
 	}
 	/**

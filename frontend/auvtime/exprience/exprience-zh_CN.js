@@ -109,8 +109,43 @@ $(document).ready(function(){
 			var expId = exprience.id;
 			var $expTemplate = $('#exp-template');
 			$expTemplate.find('.exp-menu-button').attr('exp-data',expId);
+			//设置头像图片
+			var $face = $expTemplate.find('.face');
+			var faceImgUrl = exprience.faceImgUrl;
+			var $faceImgSpan = $('<span/>').attr({
+				'class':'expPicPre',
+				'data-href':faceImgUrl
+			});
+			var $faceImg = $('<img/>').attr({
+				'src':faceImgUrl,
+				'class':'face-pic'
+			});
+			$faceImgSpan.append($faceImg);
+			$face.append($faceImgSpan);
+			//设置内容
 			var $expDetail = $expTemplate.find('.exp-detail');
 			$expDetail.find('.content').html(content);
+			//设置经历图片
+			var expPicList = exprience.expPicList;
+			var $expPics = $expTemplate.find('.expPics');
+			$(expPicList).each(function(index,expPic){
+				var $li = $('<li/>').attr({
+					'id':expPic.id,
+					'class':'expPic'
+				});
+				var $span = $('<span/>').attr({
+					'class':'expPicPre',
+					'data-href':expPic.url
+				});
+				var $img = $('<img/>').attr({
+					'src':expPic.url,
+					'style':'width:80px;height:80px;'
+				});
+				$li.append($span);
+				$li.append($img);
+				$expPics.append($li);
+			});
+			//设置创建时间和经历时间
 			$expDetail.find('.create-time').html(createTime);
 			$expDetail.find('.exp-time').html(expTime);
 			var $exp = $expTemplate.clone();
@@ -162,7 +197,7 @@ $(document).ready(function(){
 	    blueimp.Gallery(links, options);
 	});
 	//点击经历图片的时候查看经历图片
-	$(".expPics").click(function(event){
+	$(".experience-list").on('click','.experience>.exp-detail>.row>.expPics',function(event){
 		 event = event || window.event;
 		 var target = event.target || event.srcElement,
 	     link = target.src ? target.parentNode : target,
@@ -221,6 +256,7 @@ function submitForm($form) {
 				//首先清空输入内容
 				$('#experience-exp_time').val('');
 				$('#experience-content').val('');
+				$('#uploadImgDisplay').html('');
 				//移除提示框
 				$('#noDataFound').remove();
 				//动态添加到列表中
@@ -231,8 +267,43 @@ function submitForm($form) {
 				var expId = exprience.id;
 				var $expTemplate = $('#exp-template');
 				$expTemplate.find('.exp-menu-button').attr('exp-data',expId);
+				//设置头像图片
+				var $face = $expTemplate.find('.face');
+				var faceImgUrl = result.faceImgUrl;
+				var $faceImgSpan = $('<span/>').attr({
+					'class':'expPicPre',
+					'data-href':faceImgUrl
+				});
+				var $faceImg = $('<img/>').attr({
+					'src':faceImgUrl,
+					'class':'face-pic'
+				});
+				$faceImgSpan.append($faceImg);
+				$face.append($faceImgSpan);
+				//设置内容
 				var $expDetail = $expTemplate.find('.exp-detail');
 				$expDetail.find('.content').html(content);
+				//设置经历图片
+				var expPicList = eval('(' + result.expPicList + ')');
+				var $expPics = $expTemplate.find('.expPics');
+				$(expPicList).each(function(index,expPic){
+					var $li = $('<li/>').attr({
+						'id':expPic.id,
+						'class':'expPic'
+					});
+					var $span = $('<span/>').attr({
+						'class':'expPicPre',
+						'data-href':expPic.url
+					});
+					var $img = $('<img/>').attr({
+						'src':expPic.url,
+						'style':'width:80px;height:80px;'
+					});
+					$li.append($span);
+					$li.append($img);
+					$expPics.append($li);
+				});
+				//设置创建时间和经历时间
 				$expDetail.find('.create-time').html(createTime);
 				$expDetail.find('.exp-time').html(expTime);
 				var $exp = $expTemplate.clone();
