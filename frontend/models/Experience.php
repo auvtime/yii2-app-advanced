@@ -147,6 +147,28 @@ class Experience extends \yii\db\ActiveRecord
         Yii::info("@@@epListJson:".$epListJson,"auvtime.");
         return $firstExpPic;
     }
+    /**
+     * 根据用户id和经历id查找经历图片
+     * @param number $user_id
+     * @param number $exp_id
+     * @author WangXianfeng<wangxianfeng@auvtime.com> 2015-1-18 下午4:15:59
+     */
+    public function findExpPicListByUserIdAndExpId($user_id,$exp_id){
+        //根据user_id和exp_id查找经历图片
+        $epModel = new ExperiencePicture();
+        $epList = $epModel->findExpPicList($user_id,$exp_id);
+        $epListJson = Json::encode($epList);
+        Yii::info("@@@epListJson:".$epListJson,"Experience");
+        Yii::info("@@@ep list count:".count($epList),"Experience");
+        return $epList;
+    }
     
-    
+    public function findFirstExpPicByUserIdAndExpId($user_id,$user_id){
+        //根据user_id和exp_id查找经历图片
+        $epModel = new ExperiencePicture();
+        $firstExpPic = $epModel->findFirstExpPic($user_id,$user_id);
+        $epListJson = Json::encode($firstExpPic);
+        Yii::info("@@@epListJson:".$epListJson,"auvtime.");
+        return $firstExpPic;
+    }
 }

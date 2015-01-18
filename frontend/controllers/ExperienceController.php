@@ -324,6 +324,8 @@ class ExperienceController extends Controller
         $dataProvider = $searchModel->search($page);
         $explist = $dataProvider->getModels();
         $moreExpJson = [];
+        $currentUserId = Yii::$app->user->id;
+        $currentUser = User::findIdentity($currentUserId);
         foreach($explist as &$e){
         	$e->create_time = $e->getCreatTimeDisplay();
         	$e->exp_time = $e->getExpTimeDisplay();
@@ -333,10 +335,8 @@ class ExperienceController extends Controller
         	$expArr = (array)$expObj;
         	//获取头像图片
         	$firstExpPic = '';
-        	$firstExpPicJson = $e->firstExpPic;
+        	$firstExpPicJson = $e->findExpPicListByUserIdAndExpId($currentUserId,$e->id);
             if(empty($firstExpPic)){
-        	    $currentUserId = Yii::$app->user->id;
-        	    $currentUser = User::findIdentity($currentUserId);
         	    if(!empty($currentUser->face)){
         	        $firstExpPic = $currentUser->face;
         	    }else{
@@ -346,7 +346,7 @@ class ExperienceController extends Controller
         	    $firstExpPic = $firstExpPicJson['url'];
         	}
         	$expArr['faceImgUrl'] = $firstExpPic;
-        	$expArr['expPicList'] = $e->expPicList;
+        	$expArr['expPicList'] = $e->findFirstExpPicByUserIdAndExpId($currentUserId,$e->id);
         	array_push($moreExpJson, $expArr);
         }
         unset($e);
