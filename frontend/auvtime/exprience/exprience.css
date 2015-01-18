@@ -30,6 +30,7 @@
 }
 .content {
     height: 150px;
+    margin-bottom:10px;
     overflow: auto;
 }
 .create-time,.exp-time{
@@ -166,4 +167,11 @@ li {
   text-align: center;
 }
 
-
+.expPics{
+	margin-left:-40px;
+}
+.expPic{
+	float: left;
+    padding-left: 5px;
+    padding-top: 5px;
+}

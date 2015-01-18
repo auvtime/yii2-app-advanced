@@ -161,6 +161,15 @@ $(document).ready(function(){
         links = $(this).find('.pic');
 	    blueimp.Gallery(links, options);
 	});
+	//点击经历图片的时候查看经历图片
+	$(".expPics").click(function(event){
+		 event = event || window.event;
+		 var target = event.target || event.srcElement,
+	     link = target.src ? target.parentNode : target,
+	     options = {index: link, event: event},
+	     links = $(this).find('.expPicPre');
+		 blueimp.Gallery(links, options);
+	});
 });
 //定时器初始化为0
 var timer = 0;

@@ -37,14 +37,23 @@ if(empty($explist)){
 								   ?>
 									</div>			
 								</div>
-								<div class="exp-detail col-lg-9">				
+								<div class="exp-detail col-lg-9">
+								    <div class="row">				
 		<?php
-		echo '							<div class="content">'.$exp->content.'</div>			';
+		echo '							<div class="content">'.$exp->content.'</div></div>			';
+		echo '                      <div class="row">';
+		echo '                          <ul class="clear expPics">';
 		foreach ($exp->expPicList as $expPic){
-		  echo 'pic url:'.$expPic->url;   
+		    echo '<li id="'.$expPic->id.'" class="expPic">';
+            echo '  <span class="expPicPre" data-href="'.$expPic->url.'"><img src="'.$expPic->url.'" style="width:80px;height:80px;"/></span>';
+		    echo '</li>';
 		}
-		echo '							<div class="create-time">'.Yii::t('experience', 'Created at ').':'.$exp->getCreatTimeDisplay().'</div>			';
-		echo '							<div class="exp-time">'.Yii::t('experience', 'Experienced at ').':'.$exp->getExpTimeDisplay().'</div>			';
+		echo '                           </ul>';
+		echo '                       </div>';
+		echo '                       <div class="row">';
+		echo '						      	<div class="create-time">'.Yii::t('experience', 'Created at ').':'.$exp->getCreatTimeDisplay().'</div>			';
+		echo '							    <div class="exp-time">'.Yii::t('experience', 'Experienced at ').':'.$exp->getExpTimeDisplay().'</div>			';
+		echo '                      </div>';
 		echo '						</div>				';
 		echo '					</div>					';
 		
