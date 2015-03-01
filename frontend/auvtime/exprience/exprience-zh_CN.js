@@ -168,22 +168,26 @@ $(document).ready(function(){
 		done : function(e, data) {
 			var expPicUl = $("#uploadImgDisplay");
 			$.each(data.result.files, function(index, file) {
-				var expPicLi = $("<li/>").attr({
-					"class":"sendPicBlock",
-					'style':"display: list-item"
-				});
-				var picSpan = $("<span/>").attr({
-					"class":"pic",
-					'data-href':file.url,
-					'data-exp-pic':file.exp_pic_id
-				});
-				var pic = $("<img/>").attr({
-					"src":file.thumbnailUrl,
-					"class":"exp_pic"
-				});
-				pic.appendTo(picSpan);
-				picSpan.appendTo(expPicLi);
-				expPicLi.appendTo(expPicUl);
+				if(file.error == ''){
+					var expPicLi = $("<li/>").attr({
+						"class":"sendPicBlock",
+						'style':"display: list-item"
+					});
+					var picSpan = $("<span/>").attr({
+						"class":"pic",
+						'data-href':file.url,
+						'data-exp-pic':file.exp_pic_id
+					});
+					var pic = $("<img/>").attr({
+						"src":file.thumbnailUrl,
+						"class":"exp_pic"
+					});
+					pic.appendTo(picSpan);
+					picSpan.appendTo(expPicLi);
+					expPicLi.appendTo(expPicUl);
+				}else{
+					alert(file.error);
+				}
 			});
 		}
 	});
@@ -296,7 +300,7 @@ function submitForm($form) {
 						'data-href':expPic.url
 					});
 					var $img = $('<img/>').attr({
-						'src':expPic.url,
+						'src':expPic.thumbnail_url,
 						'style':'width:80px;height:80px;'
 					});
 					$li.append($span);

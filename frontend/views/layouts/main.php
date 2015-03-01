@@ -22,10 +22,6 @@ HeadroomAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= Html::encode($this->title) ?></title>
     
-    <script type="text/javascript">
-    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fdfb059dd6dbf96abae9e238dce5aa190' type='text/javascript'%3E%3C/script%3E"));
-    </script>
     <?php $this->head() ?>
 </head>
 <body>

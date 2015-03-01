@@ -189,7 +189,8 @@ class MyCare extends \yii\db\ActiveRecord
     		return $nb > 1 ? $str . 's' : $str;
     	}; // adds plurals
     	$interval = $end->diff ( $birthday );
-    	$ageInDays = $interval->days;
+    	//不到一天按一天来算2015-02-01修改
+    	$ageInDays = $interval->days + 1;
     	$ageInDays = $ageInDays.\Yii::t('auvtime-lifetime', $doPlural ( $ageInDays," day" ));
     	Yii::info('@@@When get my cared person\'s age in days,the $passTime  is:'.$ageInDays,'auvtime');
     	return $ageInDays;

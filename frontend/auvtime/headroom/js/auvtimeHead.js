@@ -4,8 +4,8 @@ $(document).ready(function() {
 		"offset" : 100,
 		"classes" : {
 			"initial" : "animated",
-			"pinned" : "swingInX",
-			"unpinned" : "swingOutX",
+			"pinned" : "slideDown",
+			"unpinned" : "slideUp",
 			"top" : "headroom--top",
 			"notTop" : "headroom--not-top"
 		}

@@ -21,7 +21,7 @@ if(empty($explist)){
 								       $firstExpPic = $exp->firstExpPic;
 								       if(!empty($firstExpPic)){
 								   ?>
-								           <img alt="哎呦喂，精彩生活！" src="<?php echo $firstExpPic->url;?>" class="face-pic">
+								           <img alt="哎呦喂，精彩生活！" src="<?php echo $firstExpPic->thumbnail_url;?>" class="face-pic">
 								   <?php    
 								       }else{
 								           if(!empty($currentUser->face)){
@@ -45,7 +45,7 @@ if(empty($explist)){
 		echo '                          <ul class="clear expPics">';
 		foreach ($exp->expPicList as $expPic){
 		    echo '<li id="'.$expPic->id.'" class="expPic">';
-            echo '  <span class="expPicPre" data-href="'.$expPic->url.'"><img src="'.$expPic->url.'" style="width:80px;height:80px;"/></span>';
+            echo '  <span class="expPicPre" data-href="'.$expPic->url.'"><img src="'.$expPic->thumbnail_url.'" style="width:80px;height:80px;"/></span>';
 		    echo '</li>';
 		}
 		echo '                           </ul>';

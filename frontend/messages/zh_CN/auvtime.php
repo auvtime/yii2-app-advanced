@@ -68,5 +68,6 @@ return array (
         //我的生活及以下菜单
         'My Life' => '我的生活',
         'CountDown' => '倒计时',
+        'Incorrect username or password.' => '用户名或密码错误',
         
 );

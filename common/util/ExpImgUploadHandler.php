@@ -89,7 +89,8 @@ class ExpImgUploadHandler
             'accept_file_types' => '/.+$/i',
             // The php.ini settings upload_max_filesize and post_max_size
             // take precedence over the following max_file_size setting:
-            'max_file_size' => 20*1024*1024,
+            'max_file_size' => 30*1024*1024,
+            'post_max_size' => 30*1024*1024,
             'min_file_size' => 1,
             // The maximum number of files for the upload directory:
             'max_number_of_files' => null,
@@ -1013,7 +1014,7 @@ class ExpImgUploadHandler
 
     protected function handle_file_upload($uploaded_file, $name, $size, $type, $error,
             $index = null, $content_range = null) {
-    	
+        Yii::info('@@@upload error1:'.$error,'auvtime');
         $file = new \stdClass();
         $file->name = $this->get_file_name($uploaded_file, $name, $size, $type, $error,
             $index, $content_range);
@@ -1022,6 +1023,7 @@ class ExpImgUploadHandler
         Yii::info('@@@upload $file->name:'.$file->name,'auvtime');
         Yii::info('@@@upload $file->size:'.$file->size,'auvtime');
         Yii::info('@@@upload $file->type:'.$file->type,'auvtime');
+        Yii::info('@@@upload error2:'.$error,'auvtime');
         if ($this->validate($uploaded_file, $file, $error, $index)) {
             $this->handle_form_data($file, $index);
             $upload_dir = $this->get_upload_path();
@@ -1066,19 +1068,20 @@ class ExpImgUploadHandler
                 }
             }
             $this->set_additional_file_properties($file);
+            Yii::info("@@@file->url:".$file->url,"auvtime");
+            Yii::info("@@@file->thumbnailUrl:".$file->thumbnailUrl,"auvtime");
+            //图片上传完成之后在数据库中保存记录
+            $ep = new ExperiencePicture();
+            $ep->user_id = Yii::$app->user->id;
+            $ep->url = $file->url;
+            $ep->thumbnail_url = $file->thumbnailUrl;
+            $ep->save();
+            
+            Yii::info("@@@exp pic id:".$ep->id,"auvtime");
+            //把图片id作为文件json的一部分返回到客户端
+            $file->exp_pic_id = $ep->id;
+            $file->error = "";
         }
-        
-        //图片上传完成之后在数据库中保存记录
-        $ep = new ExperiencePicture();
-        $ep->user_id = Yii::$app->user->id;
-        $ep->url = $file->url;
-        $ep->thumbnail_url = $file->thumbnailUrl;
-        $ep->save();
-        
-        Yii::info("@@@exp pic id:".$ep->id,"auvtime");
-        //把图片id作为文件json的一部分返回到客户端
-        $file->exp_pic_id = $ep->id;
-        
         return $file;
     }
 
@@ -1267,7 +1270,8 @@ class ExpImgUploadHandler
         }
         $upload = isset($_FILES[$this->options['param_name']]) ?
             $_FILES[$this->options['param_name']] : null;
-        
+        $uploadJson = Json::encode($upload);
+        Yii::info("uploadJson".$uploadJson,"ExpImgUploadHandlerPost");
         // Parse the Content-Disposition header, if available:
         $file_name = $this->get_server_var('HTTP_CONTENT_DISPOSITION') ?
             rawurldecode(preg_replace(

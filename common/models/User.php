@@ -433,7 +433,8 @@ class User extends ActiveRecord implements IdentityInterface
 		}; // adds plurals
 		Yii::info('@@@When get user\'s life time in days,the system time is:'.$end->format('Y-m-d H:i:s'),'auvtime');
 		$interval = $end->diff ( $birthday );
-		$lifeTimeInDays = $interval->days;
+		//不到一天按一天来算2015-02-01修改
+		$lifeTimeInDays = $interval->days + 1;
 		$lifeTimeInDays = $lifeTimeInDays.\Yii::t('auvtime-lifetime', $doPlural ( $lifeTimeInDays," day" ));
 		Yii::info('@@@When get user\'s life time in days,the $passTime  is:'.$lifeTimeInDays,'auvtime');
 		return $lifeTimeInDays;
