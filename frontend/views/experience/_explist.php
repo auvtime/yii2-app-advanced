@@ -21,7 +21,7 @@ if(empty($explist)){
 								       $firstExpPic = $exp->firstExpPic;
 								       if(!empty($firstExpPic)){
 								   ?>
-								           <img alt="哎呦喂，精彩生活！" src="<?php echo $firstExpPic->thumbnail_url;?>" class="face-pic">
+								           <img alt="哎呦喂，精彩生活！" src="<?php echo $firstExpPic->url;?>" class="face-pic">
 								   <?php    
 								       }else{
 								           if(!empty($currentUser->face)){
